@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ReplyMapper">
+    <select id="selectList" parameterType="int" resultType="ReplyDTO">
+        SELECT * FROM reply
+        INNER JOIN hotel_item
+        ON hotel_item.id = reply.hotelId
+        INNER JOIN user
+        ON user.id = reply.customerId
+        ORDER BY reply.id DESC
+    </select>
+
+    <insert id="insert" parameterType="ReplyDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reply(score, title, content, entry_date, customerId, hotelId)
+        VALUES (#{score}, #{title}, #{content}, NOW(), #{customerId}, #{hotelId})
+    </insert>
+
+    <update id="update" parameterType="ReplyDTO">
+        UPDATE reply
+        SET score = #{score},
+        title = #{title},
+        content = #{content},
+        modify_date = NOW()
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM reply
+        WHERE reply.id = #{id}
+    </delete>
+
+</mapper>
