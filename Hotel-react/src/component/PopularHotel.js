@@ -11,7 +11,6 @@ let PopularHotel = ({max}) => {
                   navigate = '/login';
               }*/
     }
-
     let moveToDetail = () => {
         navigate('/details/');
     }
