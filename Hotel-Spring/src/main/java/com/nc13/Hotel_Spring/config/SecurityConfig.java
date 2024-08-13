@@ -34,7 +34,7 @@ public class SecurityConfig {
                 //.cors(cors -> cors.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/user/**", "/login","/hotel/**","/admin/**").permitAll()
+                                .requestMatchers("/user/**", "/login","/hotel/**","/admin/**","/user/register/*").permitAll()
                                 .anyRequest().authenticated())
 //                                .requestMatchers("/user/**","/hotel/**", "/login","/user/basket/**").permitAll()
 //                                .requestMatchers("/admin/**").hasRole("role_admin")
