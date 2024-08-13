@@ -10,15 +10,18 @@ import BasketByUser from "./basket/BasketByUser";
 import AdminshowUserOne from "./admin/AdminshowUserOne";
 import AdminShowUserList from "./admin/AdminShowUserList";
 import Auth from "./user/Auth";
+import Logout from "./user/Logout";
 
 function App() {
     return (
         <BrowserRouter>
            <ScrollToTop>
                <Routes>
-                   <Route path={"*"} element={<Main/>}/>
+                   {/* Main페이지 "*"로 지정하면 로그인 시 userInfo전달이 안됨*/}
+                   <Route path={"/"} element={<Main/>}/>
                    <Route path={"/details"} element={<Details/>}/>
                    <Route path={"/login"} element={<Auth/>}/>
+                   <Route path="/logout" element={<Logout />} /> {/* 로그아웃 */}
                    <Route path={"/register"} element={<Register/>}/>
 
                    <Route path="/admin/users" element={<AdminShowUserList />} />

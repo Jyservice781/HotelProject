@@ -38,7 +38,7 @@ let Auth = () => {
                 role: response.data.role,
                 nickname: response.data.nickname
             }
-            navigate('/hotel/showList/1', {state:{userInfo:userInfo}})
+            navigate('/', {state:{userInfo:userInfo}})
         }
 
     }
@@ -72,6 +72,10 @@ let Auth = () => {
                     <tr>
                         <td colSpan={2}>
                             <Button type={'submit'}>로그인</Button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2}>
                             <Link to={`/register`}>회원가입</Link>
                         </td>
                     </tr>
