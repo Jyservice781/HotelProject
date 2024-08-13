@@ -51,6 +51,7 @@ let Details = () => {
                                 <p>해당 평점 관련 후기 클릭</p>
                             </li>
                             <li className={'p-2'}>
+                                {/* 해당 부분은 리스트가 아니라 버튼으로 교체 예정*/}
                                 <Button>버튼1</Button>
                                 <Button>장바구니</Button>
                                 <Button>예약하기</Button>
@@ -58,6 +59,7 @@ let Details = () => {
                         </ul>
                     </div>
                     <aside>
+                        {/*    review     */}
                         <div style={{marginTop:'20px', marginBottom:'20px'}}>
                             <h3>최고의 경험이었습니다!!</h3>
                             <p>score 5.0</p>
@@ -66,17 +68,18 @@ let Details = () => {
                     </aside>
                     <article>
                         {/* 상세보기 버튼 만들기*/}
-                            <ul style={listStyle}>
-                                <li className={'d-flex justify-content-center align-items-center'}>
-                                    <Button>상세보기</Button>
-                                    <Button className={'mx-4'}>개요</Button>
-                                </li>
-                            </ul>
+                        <ul style={listStyle}>
+                            <li className={'d-flex justify-content-center align-items-center'}>
+                                <Button>상세보기</Button>
+                                <Button className={'mx-4'}>개요</Button>
+                            </li>
+                        </ul>
                     </article>
                     <figure>
+                        {/*  상세보기 보여줄 것  -> 사용자가 이미지를 올리는게 추가 될때 그 값을 받아서 늘어나야 함. */}
                         <Container className={'d-flex flex-column mb-3 justify-content-center'}>
                             <Col xd={8} ms={6}>
-                            <Image src="holder.js/171x180" thumbnail style={size}/>
+                                <Image src="holder.js/171x180" thumbnail style={size}/>
                             </Col>
                             <Col xd={8} ms={6}>
                                 <Image src="holder.js/171x180" thumbnail style={size}/>
