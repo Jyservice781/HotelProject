@@ -19,7 +19,7 @@ let Register = () => {
         left:'50%',
         transform: 'translate(-50%, -50%)',
         width:'50%',
-        height: '30%',
+        height: '40%',
         backgroundColor: '#439798',
         padding:'20px 30px 20px 30px',
         borderRadius: '40px',
