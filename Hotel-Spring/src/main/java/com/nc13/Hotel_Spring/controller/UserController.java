@@ -4,11 +4,13 @@ import com.nc13.Hotel_Spring.service.HotelService;
 import com.nc13.Hotel_Spring.service.UserDetailsServiceImpl;
 import com.nc13.Hotel_Spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,5 +70,14 @@ public class UserController {
 
         return ResponseEntity.ok().build();
     }
-
+    @RequestMapping("/user/register")
+    public ResponseEntity<Void> signUpSuccess(String username,String password,String nickname){
+        if(userService.selectByUsername(username)!=null){
+            System.out.println("이미 가입된 회원입니다.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }else{
+            userDetailsService.signup(username,password,nickname);
+        }
+        return ResponseEntity.ok().build();
+    }
 }

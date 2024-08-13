@@ -27,4 +27,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("Encoded Password in DB: " + userDTO.getPassword());
         return userDTO;
     }
+
+    public void signup(String username,String password,String nickname){
+        System.out.println("UserDetailServiceImpl- "+username+", "+password+", "+nickname);
+        UserDTO newUser = new UserDTO();
+        newUser.setUsername(username);
+        newUser.setPassword(bCryptPasswordEncoder.encode(password));
+        newUser.setNickname(nickname);
+        newUser.setRole("role_customer");//판매자로 회원가입 따로 구현
+        System.out.println("userDetailsServiceImpl: "+newUser.toString());
+        USER_SERVICE.register(newUser);
+    }
+
 }
