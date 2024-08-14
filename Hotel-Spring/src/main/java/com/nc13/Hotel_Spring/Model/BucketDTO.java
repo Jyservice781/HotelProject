@@ -21,5 +21,4 @@ public class BucketDTO {
     private Double price;
     private boolean booked;
 
-    //private HotelDTO hotelinbucket;//이러면 안되나? //불필요하게 복잡 & 보안에 안좋음
 }

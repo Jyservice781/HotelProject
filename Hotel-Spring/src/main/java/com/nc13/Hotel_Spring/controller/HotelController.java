@@ -3,6 +3,8 @@ package com.nc13.Hotel_Spring.controller;
 import com.nc13.Hotel_Spring.Model.HotelDTO;
 import com.nc13.Hotel_Spring.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
@@ -61,5 +63,15 @@ public class HotelController {
         model.addAttribute("list",list);
 
         return resultMap;
+    }
+    @DeleteMapping("delete/{hotelId}")
+    public ResponseEntity<Void> deleteBasketItem(@PathVariable int hotelId) {
+        // 장바구니에서 userId와 productId에 해당하는 항목을 삭제하는 로직
+        boolean isDeleted = HOTEL_SERVICE.deleteHotelById(hotelId);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build(); // 204 No Content 응답
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404 Not Found 응답
+        }
     }
 }

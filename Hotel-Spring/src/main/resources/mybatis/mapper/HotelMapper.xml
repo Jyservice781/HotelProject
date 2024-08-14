@@ -55,10 +55,9 @@
         shortContent = #{shortContent}
         WHERE id = #{id}
     </update>
-
-    <delete id="delete" parameterType="int">
+    <delete id="deleteOne" parameterType="int">
         DELETE FROM hotel
-        WHERE id = #{id}
+        WHERE hotel.id = #{hotelId}
     </delete>
     <select id="hotelInBucket" parameterType="int" resultType="hotelDTO">
         SELECT * FROM hotel

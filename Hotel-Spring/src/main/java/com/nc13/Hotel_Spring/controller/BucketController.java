@@ -59,7 +59,6 @@ public class BucketController {
 
     @DeleteMapping("basket/{bucketId}")
     public ResponseEntity<Void> deleteBasketItem(@PathVariable int bucketId) {
-
         // 장바구니에서 userId와 productId에 해당하는 항목을 삭제하는 로직
         boolean isDeleted = bucketService.deleteBucketById(bucketId);
         if (isDeleted) {
