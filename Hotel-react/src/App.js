@@ -20,16 +20,17 @@ function App() {
         <BrowserRouter>
             <ScrollToTop>
                 <Routes>
-                    {/* Main 페이지는 홈 페이지로 "/"로 설정 */}
+                    {/* Main 페이지는 홈 페이지로 "/"로 설정 */}{/* Main페이지 "*"로 지정하면 로그인 시 userInfo전달이 안됨*/}
                     <Route path="/" element={<Main />} />
 
                     {/* 사용자 관련 페이지 */}
                     <Route path="/login" element={<Auth />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/user/mypage/:userid" element={<UserInfo />} />
                     <Route path="/user/basket/:userid" element={<BasketByUser />} />
-                    <Route path="/user/mypage/:userid" element={<MyBasket />} />
-
+                    <Route path="/user/myhotel/:sellerid" element={<MyHotelBySeller />}/>
+                    <Route path="/user/basketChecked/:userid" element={<BasketCheckedByUser />} />
                     {/* 호텔 관련 페이지 */}
                     <Route path="/hotel/showOne/:id" element={<Details />} /> {/* 수정된 컴포넌트 */}
                     <Route path="/hotel/showList/:pageNo" element={<ShowList />} />
@@ -39,32 +40,20 @@ function App() {
                     {/* 관리자 관련 페이지 */}
                     <Route path="/admin/users" element={<AdminShowUserList />} />
                     <Route path="/admin/user/:id" element={<AdminshowUserOne />} />
+                    <Route path="/admin/userpage/:userid" element={<AdminUserInfo />} />
+                    
+                   
+                    <Route path={"/details"} element={<Details/>}/>
 
+                   
+                   
                     {/* 기타 페이지 */}
                     {/* <Route path="/test" element={<Test />} /> */}
                     {/* <Route path="/reply/selectList/" element={<ReplyList />} /> */}
                     {/* <Route path="/reply/write" element={<Write />} /> */}
                     {/* <Route path="/reply/update/:id" element={<Update />} /> */}
                 </Routes>
-            </ScrollToTop>
-           <ScrollToTop>
-               <Routes>
-                   {/* Main페이지 "*"로 지정하면 로그인 시 userInfo전달이 안됨*/}
-                   <Route path={"/"} element={<Main/>}/>
-                   <Route path={"/details"} element={<Details/>}/>
-                   <Route path={"/login"} element={<Auth/>}/>
-                   <Route path="/logout" element={<Logout />} />
-                   <Route path={"/register"} element={<Register/>}/>
-
-                   <Route path="/admin/users" element={<AdminShowUserList />} />
-                   <Route path="/user/myhotel/:sellerid" element={<MyHotelBySeller />}/>
-                   <Route path="/user/basket/:userid" element={<BasketByUser />} />
-                   <Route path="/user/basketChecked/:userid" element={<BasketCheckedByUser />} />
-                   <Route path="/user/mypage/:userid" element={<UserInfo />} />
-                   <Route path="/admin/userpage/:userid" element={<AdminUserInfo />} />
-
-               </Routes>
-           </ScrollToTop>
+            </ScrollToTop>   
         </BrowserRouter>
     );
 }
