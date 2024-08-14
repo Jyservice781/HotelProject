@@ -12,6 +12,7 @@ import AdminShowUserList from "./admin/AdminShowUserList";
 import Auth from "./user/Auth";
 import Logout from "./user/Logout";
 
+
 function App() {
     return (
         <BrowserRouter>
@@ -29,7 +30,7 @@ function App() {
                    <Route path="/user/basket/:userid" element={<BasketByUser />} />
                    <Route path="/user/mypage/:userid" element={<MyBasket/>} />
 
-                   {/*  <Route path={"/test"} element={<Test/>}/>
+                   {/*
                   <Route path={"/reply/selectList/"} element={<ReplyList/>}/>
                    <Route path={"/reply/write"} element={<Write/>}/>
                    <Route path={"/reply/update/:id"} element={<Update/>}/>*/}

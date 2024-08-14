@@ -6,7 +6,7 @@ let HotelCard = ({max}) => {
     return (
         <>
             {Array.from({length: max}, (_, index) => (
-                <div style={{width: '280px', display: 'inline-block', margin: '2%'}} className="">
+                <div style={{width: '280px', display: 'inline-block', margin: '2%'}}>
                     <Card style={{width: '18rem'}}>
                         <Card.Img variant="top" src="holder.js/100px180" style={{width: 'inherit', height: '180px'}}/>
                         <Card.Body>
