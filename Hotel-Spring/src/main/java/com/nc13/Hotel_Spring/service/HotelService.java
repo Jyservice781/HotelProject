@@ -59,4 +59,9 @@ public class HotelService {
     public List<HotelDTO> selectAllHotelInBasketByUserID(int userId){
         return SESSION.selectList(NAMESPACE+".hotelInBucket",userId);
     }
+
+    //관리자
+    public List<HotelDTO> selectMyHotels(int sellerId){
+        return SESSION.selectList(NAMESPACE+".selectMyHotel",sellerId);
+    }
 }

@@ -13,20 +13,12 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("users") //ADMIN - role에 따른 User 목록
+    @GetMapping("users") //ADMIN - User 목록
     public List<UserDTO> showAlluser(){
         List<UserDTO> alluserlist = userService.selectAll();
         return alluserlist;
     }
 
-    @GetMapping("user/{roleString}") //ADMIN - role에 따른 User 목록
-    public List<UserDTO> pickuserByRole(@PathVariable String roleString){
-        List<UserDTO> userlist = userService.selectAllByRole(roleString);
-        for(UserDTO u : userlist){
-            System.out.println("[userlist(B Role)] - " + u.toString());
-        }
-        return userlist;
-    }
     @DeleteMapping("user/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
         int isDeleted = userService.deleteUserById(userId);

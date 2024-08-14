@@ -20,8 +20,8 @@ public class UserService {
     public List<UserDTO> selectAll(){
         return SESSION.selectList(NAMESPACE+".selectAll");
     }
-    public List<UserDTO> selectAllByRole(String role){
-        return SESSION.selectList(NAMESPACE+".selectByRole",role);
+    public UserDTO selectOneByID(int userId){
+        return SESSION.selectOne(NAMESPACE+".selectByUserId",userId);
     }
 
     public int deleteUserById(int userId){
