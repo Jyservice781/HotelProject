@@ -40,7 +40,6 @@ let Auth = () => {
             }
             navigate('/', {state:{userInfo:userInfo}})
         }
-
     }
 
     return (

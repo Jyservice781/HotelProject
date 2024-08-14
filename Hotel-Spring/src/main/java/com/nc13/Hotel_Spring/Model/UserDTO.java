@@ -19,9 +19,8 @@ public class UserDTO implements UserDetails {
     private String password;
     private String nickname;
     private String role;
-
     private List<GrantedAuthority> authorities;
-    //    @Override
+//    @Override
 //    public List<GrantedAuthority> getAuthorities() {
 //        authorities = new ArrayList<>();
 //        authorities.add(new SimpleGrantedAuthority(role));
