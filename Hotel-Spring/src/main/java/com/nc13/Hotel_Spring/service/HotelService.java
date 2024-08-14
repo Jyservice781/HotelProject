@@ -79,4 +79,13 @@ public class HotelService {
     public List<HotelDTO> selectAllHotelInBasketByUserID(int userId){
         return SESSION.selectList(NAMESPACE+".hotelInBucket",userId);
     }
+
+    //관리자
+    public List<HotelDTO> selectMyHotels(int sellerId){
+        return SESSION.selectList(NAMESPACE+".selectMyHotel",sellerId);
+    }
+    public boolean deleteHotelById(int hotelId) {
+        int result = SESSION.delete(NAMESPACE + ".deleteOne",hotelId);
+        return result > 0; //삭제 성공 시 1 반환
+    }
 }

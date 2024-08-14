@@ -5,9 +5,9 @@ import Details from "./main/Details"; // 수정된 컴포넌트
 import Login from "./user/Login";
 import Register from "./user/Register";
 import ScrollToTop from "./ScrollToTop";
-import MyBasket from "./user/MyBasket";
 import BasketByUser from "./basket/BasketByUser";
-import AdminshowUserOne from "./admin/AdminshowUserOne";
+import BasketCheckedByUser from "./basket/BasketCheckedByUser";
+import UserInfo from "./admin/UserInfo";
 import AdminShowUserList from "./admin/AdminShowUserList";
 import Auth from "./user/Auth";
 import Logout from "./user/Logout";
@@ -47,6 +47,24 @@ function App() {
                     {/* <Route path="/reply/update/:id" element={<Update />} /> */}
                 </Routes>
             </ScrollToTop>
+           <ScrollToTop>
+               <Routes>
+                   {/* Main페이지 "*"로 지정하면 로그인 시 userInfo전달이 안됨*/}
+                   <Route path={"/"} element={<Main/>}/>
+                   <Route path={"/details"} element={<Details/>}/>
+                   <Route path={"/login"} element={<Auth/>}/>
+                   <Route path="/logout" element={<Logout />} />
+                   <Route path={"/register"} element={<Register/>}/>
+
+                   <Route path="/admin/users" element={<AdminShowUserList />} />
+                   <Route path="/user/myhotel/:sellerid" element={<MyHotelBySeller />}/>
+                   <Route path="/user/basket/:userid" element={<BasketByUser />} />
+                   <Route path="/user/basketChecked/:userid" element={<BasketCheckedByUser />} />
+                   <Route path="/user/mypage/:userid" element={<UserInfo />} />
+                   <Route path="/admin/userpage/:userid" element={<AdminUserInfo />} />
+
+               </Routes>
+           </ScrollToTop>
         </BrowserRouter>
     );
 }

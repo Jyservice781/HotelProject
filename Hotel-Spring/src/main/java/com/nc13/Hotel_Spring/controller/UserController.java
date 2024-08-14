@@ -30,6 +30,8 @@ public class UserController {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
     }
+
+
     @PostMapping("/user/auth")
     public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String password) {
         System.out.println("Raw Password: " + password);

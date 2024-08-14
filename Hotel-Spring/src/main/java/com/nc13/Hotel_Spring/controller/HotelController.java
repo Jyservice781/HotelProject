@@ -10,6 +10,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -193,5 +196,15 @@ public class HotelController {
     public ResponseEntity<Void> delete(@PathVariable int id) {
         HOTEL_SERVICE.delete(id);
         return ResponseEntity.ok().build();
-    }
+
+    // @DeleteMapping("delete/{hotelId}")
+    // public ResponseEntity<Void> deleteBasketItem(@PathVariable int hotelId) {
+    //     // 장바구니에서 userId와 productId에 해당하는 항목을 삭제하는 로직
+    //     boolean isDeleted = HOTEL_SERVICE.deleteHotelById(hotelId);
+    //     if (isDeleted) {
+    //         return ResponseEntity.noContent().build(); // 204 No Content 응답
+    //     } else {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404 Not Found 응답
+    //     }
+    // }
 }

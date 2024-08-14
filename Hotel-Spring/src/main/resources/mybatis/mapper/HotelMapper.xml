@@ -3,15 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.HotelMapper">
-    <select id="hotelInBucket" parameterType="int" resultType="hotelDTO">
-        SELECT * FROM hotel
-        WHERE hotel.id in (SELECT hotelId FROM bucket
-        WHERE bucket.customerId = #{userId})
-    </select>
-    <select id="selectOne_Wrong" parameterType="int" resultType="hotelDTO">
-        --         SELECT * FROM hotel
-        --         WHERE hotel.id = #{id}
-    </select>
     <select id="selectOne" parameterType="int" resultType="HotelDTO">
         SELECT * FROM hotel
         INNER JOIN user
@@ -76,10 +67,18 @@
         shortContent = #{shortContent}
         WHERE id = #{id}
     </update>
-
-    <delete id="delete" parameterType="int">
+    <delete id="deleteOne" parameterType="int">
         DELETE FROM hotel
-        WHERE id = #{id}
+        WHERE hotel.id = #{hotelId}
     </delete>
+    <select id="hotelInBucket" parameterType="int" resultType="hotelDTO">
+        SELECT * FROM hotel
+        WHERE hotel.id in (SELECT hotelId FROM bucket
+        WHERE bucket.customerId = #{userId})
+    </select>
+    <select id="selectMyHotel" parameterType="int" resultType="hotelDTO">
+        SELECT * FROM hotel
+        WHERE hotel.sellerId = #{sellerId}
+    </select>
 
 </mapper>
