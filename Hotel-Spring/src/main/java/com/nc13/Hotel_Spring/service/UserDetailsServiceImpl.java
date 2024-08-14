@@ -28,13 +28,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userDTO;
     }
 
-    public void signup(String username,String password,String nickname){
-        System.out.println("UserDetailServiceImpl- "+username+", "+password+", "+nickname);
+    public void signup(String username,String password,String nickname,String role){
+        System.out.println("UserDetailServiceImpl- "+username+", "+password+", "+nickname+", "+role);
         UserDTO newUser = new UserDTO();
         newUser.setUsername(username);
         newUser.setPassword(bCryptPasswordEncoder.encode(password));
         newUser.setNickname(nickname);
-        newUser.setRole("role_customer");//판매자로 회원가입 따로 구현
+        newUser.setRole(role);
         System.out.println("userDetailsServiceImpl: "+newUser.toString());
         USER_SERVICE.register(newUser);
     }

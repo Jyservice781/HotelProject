@@ -71,12 +71,12 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
     @RequestMapping("/user/register")
-    public ResponseEntity<Void> signUpSuccess(String username,String password,String nickname){
+    public ResponseEntity<Void> signUpSuccess(String username,String password,String nickname,String role){
         if(userService.selectByUsername(username)!=null){
             System.out.println("이미 가입된 회원입니다.");
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).build(); //ERROR CODE 409 return
         }else{
-            userDetailsService.signup(username,password,nickname);
+            userDetailsService.signup(username,password,nickname,role);
         }
         return ResponseEntity.ok().build();
     }

@@ -39,7 +39,6 @@ public class UserService {
         return SESSION.selectOne(NAMESPACE + ".selectByUsername", username);
     }
     public void register(UserDTO userDTO){
-        System.out.println("UserService단 (xml직전)");
         SESSION.insert(NAMESPACE + ".register",userDTO);
     }
 }
