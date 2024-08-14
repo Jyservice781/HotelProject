@@ -13,4 +13,5 @@ public class BucketDTO {
     private int hotelId;
     private String hotelName;
     private Double price;
+    private Boolean booked;
 }

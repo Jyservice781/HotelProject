@@ -59,4 +59,9 @@ public class HotelService {
     public List<HotelDTO> selectAllHotelInBasketByUserID(int userId){
         return SESSION.selectList(NAMESPACE+".hotelInBucket",userId);
     }
+
+    //추가
+    public void updateBooked(int id) {
+        SESSION.update(NAMESPACE+".updateBooked",id);
+    }
 }

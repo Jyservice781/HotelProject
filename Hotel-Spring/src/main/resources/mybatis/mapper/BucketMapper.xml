@@ -3,12 +3,33 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.BucketMapper">
-    <select id="selectAll" resultType="bucketDTO">
-        SELECT * FROM bucket
+    <select id="selectAll" resultType="BucketDTO">
+        SELECT b.id, b.customerId, b.hotelId, b.price, h.booked, h.name AS hotelName
+        FROM bucket b
+        JOIN hotel h ON b.hotelId = h.id
     </select>
     <select id="selectOne" parameterType="int" resultType="bucketDTO">
         SELECT * FROM bucket
         where bucket.customerId = #{id}
     </select>
+
+    <insert id="insert" parameterType="BucketDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bucket(customerId, hotelId, hotelName, price)
+        VALUES(#{customerId}, #{hotelId}, #{hotelName}, #{price})
+    </insert>
+
+    <update id="update" parameterType="BucketDTO">
+        UPDATE bucket
+        SET customerId = #{customerId},
+        hotelId = #{hotelId},
+        hotelName = #{hotelName},
+        price = #{price}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM bucket
+        WHERE id = #{id}
+    </delete>
 
 </mapper>

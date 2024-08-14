@@ -11,6 +11,7 @@ import AdminshowUserOne from "./admin/AdminshowUserOne";
 import AdminShowUserList from "./admin/AdminShowUserList";
 import Auth from "./user/Auth";
 import Logout from "./user/Logout";
+import BucketList from "./basket/BucketList";
 
 function App() {
     return (
@@ -28,7 +29,7 @@ function App() {
                    <Route path="/admin/user/:id" element={<AdminshowUserOne />} />
                    <Route path="/user/basket/:userid" element={<BasketByUser />} />
                    <Route path="/user/mypage/:userid" element={<MyBasket/>} />
-
+                   <Route path="/user/basket/bucketList" element={<BucketList/>}/>
                    {/*  <Route path={"/test"} element={<Test/>}/>
                   <Route path={"/reply/selectList/"} element={<ReplyList/>}/>
                    <Route path={"/reply/write"} element={<Write/>}/>
