@@ -1,20 +1,23 @@
 import {Button, Stack} from "react-bootstrap";
-import {Link} from 'react-scroll';
 
-let Nav = ({ref}) => {
-    let onMessage = () => {
-        console.log(ref);
-    }
+let Nav = () => {
 
     return (
         <nav>
             <Stack direction="horizontal" className="d-sm-flex justify-content-center align-items-center">
-                <Link to="ref" spy={true} smooth={true} onClick={onMessage}>
-                    <Button size={"sm"}> 호텔상품 보기 </Button>
-                </Link>
-                <Link to="ref" spy={true} smooth={true} onClick={onMessage}>
-                    <Button size={"sm"} className={'m-lg-3'}> 인기상품 보기 </Button>
-                </Link>
+                    <Button size={"sm"} onClick={()=>{
+                        window.scrollTo({
+                            top: 150,
+                            behavior: 'smooth',
+                        })
+                    }}> 호텔상품 보기
+                        </Button>
+                    <Button size={"sm"} className={'m-lg-3'} onClick={()=>{
+                        window.scrollTo({
+                        top: 2700,
+                        behavior: 'smooth',
+                    })
+                    }}> 인기상품 보기 </Button>
             </Stack>
         </nav>
     )

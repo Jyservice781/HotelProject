@@ -13,7 +13,6 @@ let Header = ({ userInfo }) => {
         padding: '0px',
         margin: '0px',
         marginBottom: '50px'
-
     }
 
 
@@ -31,23 +30,23 @@ let Header = ({ userInfo }) => {
                     <li> welcome, {userInfo ? userInfo.nickname : 'Guest'}. </li>
                     {/* 조건부 렌더링: 사용자 역할에 따라 링크 표시 */}
                     {userInfo ? (
-                        <>
+                        <li>
                             {userInfo.role === 'role_admin' && (
-                                <li className={'m-lg-3'}><Link to={'/admin/users'}>회원 관리</Link></li>
+                                <span className={'m-lg-3'}><Link to={'/admin/users'}>회원 관리</Link></span>
                             )}
                             {userInfo.role === 'role_seller' && (
-                                <li className={'m-lg-3'}><Link to={'/user/basket/${userInfo.id}'}>호텔 관리</Link></li>
+                                <span className={'m-lg-3'}><Link to={'/user/basket/${userInfo.id}'}>호텔 관리</Link></span>
                             )}
                             {userInfo.role === 'role_customer' && (
-                                <li className={'m-lg-3'}><Link to={'/user/basket/${userInfo.id}'}>장바구니</Link></li>
+                                <span className={'m-lg-3'}><Link to={'/user/basket/${userInfo.id}'}>장바구니</Link></span>
                             )}
-                            <li className={'m-lg-3'}><Link to={'/logout'}>로그아웃</Link></li>
-                        </>
+                            <span className={'m-lg-3'}><Link to={'/logout'}>로그아웃</Link></span>
+                        </li>
                     ) : (
-                        <>
-                        <li className={'m-lg-3'}><Link to={'/login'}>로그인</Link></li>
-                            <li className={'m-lg-3'}><Link to={'/register'}>회원가입</Link></li>
-                        </>
+                        <li>
+                            <span className={'m-lg-3'}><Link to={'/login'}>로그인</Link></span>
+                            <span className={'m-lg-3'}><Link to={'/register'}>회원가입</Link></span>
+                        </li>
                     )}
                 </ul>
             </Stack>
