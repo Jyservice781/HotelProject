@@ -10,6 +10,7 @@ let Register = () => {
         password: '',
         nickname: ''
     });
+    let [isSeller, setIsSeller] = useState(false);
 
     let onChange = (e) => {
         let {name, value} = e.target;
@@ -18,7 +19,9 @@ let Register = () => {
             [name]: value
         });
     };
-
+    let onCheckboxChange = (e) => {
+        setIsSeller(e.target.checked);
+    };
     let onSubmit = async (e) => {
         e.preventDefault();
 
@@ -26,6 +29,12 @@ let Register = () => {
         formData.append("username", inputs.username);
         formData.append("password", inputs.password);
         formData.append("nickname", inputs.nickname);
+        if (isSeller) {
+            formData.append("role", "role_seller");
+        }else{
+            formData.append("role", "role_customer");
+        }
+
 
         try {
             let response = await axios({
@@ -34,14 +43,18 @@ let Register = () => {
                 data: formData
             });
 
-            if (response.status === 200 && response.data.result === 'success') {
-                navigate('/');
-            } else {
-                alert('회원가입에 실패했습니다.');
+            if (response.status === 200 ) {//&& response.data.result === 'success'
+                alert('회원가입 성공! 다시 로그인해주세요.')
+                navigate('/')
             }
         } catch (error) {
-            console.error("There was an error with the registration:", error);
-            alert('회원가입 중 오류가 발생했습니다.');
+            if(error.response && error.response.status === 409){
+                alert('이미 가입하신 회원님입니다.');
+            }else{
+                console.error("There was an error with the registration:", error);
+                alert('회원가입 중 오류가 발생했습니다.');
+            }
+
         }
     };
 
@@ -95,7 +108,15 @@ let Register = () => {
                             placeholder="Nickname"
                             name="nickname"
                             value={inputs.nickname}
-                            onChange={onChange}  // 닉네임 입력 필드 추가
+                            onChange={onChange}
+                        />
+                    </Col>
+                    <Col className={'mt-4'}>
+                        <Form.Check
+                            type="checkbox"
+                            label="판매자 계정으로 등록"
+                            checked={isSeller}
+                            onChange={onCheckboxChange}
                         />
                     </Col>
                     <Button onClick={onSubmit} className={'m-lg-3'}>회원가입</Button>
