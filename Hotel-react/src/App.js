@@ -5,8 +5,8 @@ import Details from "./main/Details";
 import Login from "./user/Login";
 import Register from "./user/Register";
 import ScrollToTop from "./ScrollToTop";
-
 import BasketByUser from "./basket/BasketByUser";
+import BasketCheckedByUser from "./basket/BasketCheckedByUser";
 import UserInfo from "./admin/UserInfo";
 import AdminShowUserList from "./admin/AdminShowUserList";
 import Auth from "./user/Auth";
@@ -29,16 +29,10 @@ function App() {
                    <Route path="/admin/users" element={<AdminShowUserList />} />
                    <Route path="/user/myhotel/:sellerid" element={<MyHotelBySeller />}/>
                    <Route path="/user/basket/:userid" element={<BasketByUser />} />
-                   <Route path="/user/basket/:userid" element={<BasketCheckedByUser />} />
+                   <Route path="/user/basketChecked/:userid" element={<BasketCheckedByUser />} />
                    <Route path="/user/mypage/:userid" element={<UserInfo />} />
                    <Route path="/admin/userpage/:userid" element={<AdminUserInfo />} />
 
-
-
-                   {/*  <Route path={"/test"} element={<Test/>}/>
-                  <Route path={"/reply/selectList/"} element={<ReplyList/>}/>
-                   <Route path={"/reply/write"} element={<Write/>}/>
-                   <Route path={"/reply/update/:id"} element={<Update/>}/>*/}
                </Routes>
            </ScrollToTop>
         </BrowserRouter>

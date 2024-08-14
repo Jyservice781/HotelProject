@@ -167,7 +167,7 @@ const AdminShowUserList = () => {
                                     고객 정보 보기
                                 </Link>
                                 <Link
-                                    to={`/admin/userpage/${user.id}`}
+                                    to={`/user/basketChecked/${user.id}`}
                                     style={{ marginRight: '10px', textDecoration: 'none', color: '#3498db' }}
                                 >
                                     구매 내역 보기

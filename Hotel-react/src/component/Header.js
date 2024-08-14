@@ -42,9 +42,10 @@ let Header = ({ userInfo }) => {
                             <ul>
                                 <li className={'m-lg-3'}><Link to={`/user/mypage/${userInfo.id}`}>마이페이지</Link></li>
                                 <li className={'m-lg-3'}><Link to={`/user/basket/${userInfo.id}`}>장바구니</Link></li>
+                                <li className={'m-lg-3'}><Link to={`/user/basketChecked/${userInfo.id}`}>예약내역</Link></li>
                             </ul>
-                    )}
-                    <li className={'m-lg-3'}><Link to={'/logout'}>로그아웃</Link></li>
+                        )}
+                            <li className={'m-lg-3'}><Link to={'/logout'}>로그아웃</Link></li>
                         </>
                     ) : (
                         <>

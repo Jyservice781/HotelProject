@@ -8,13 +8,26 @@ const BasketByUser = (props) => {
     const [baskets, setBaskets] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const handleCancel = async (basketId) => {
+        try {
+            const response = await fetch(`http://localhost:8080/user/basket/${basketId}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                throw new Error('예약 취소에 실패했습니다.');
+            }
+            // 성공적으로 취소한 후, 해당 예약을 목록에서 제거
+            setBaskets(baskets.filter(reservation => reservation.id !== basketId));
+        } catch (error) {
+            alert(error.message);
+        }
+    };
     useEffect(() => {
         const fetchBasket = async () => {
             try {
                 const response = await fetch(`http://localhost:8080/user/basket/${userid}`);
                 if (!response.ok) {
-                    throw new Error('네트워크 응답이 올바르지 않습니다.');
+                    throw new Error('장바구니 삭제에 실패했습니다.');
                 }
                 const data = await response.json();
                 setBaskets(data);
@@ -39,11 +52,29 @@ const BasketByUser = (props) => {
             ) : (
                 <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
                     {baskets.map((basket) => (
-                        <li key={basket.id} style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
-                            <h2 style={{ margin: '0 0 10px 0', fontSize: '18px' }}>호텔 : {basket.name}</h2>
-                            <p style={{ margin: '5px 0' }}>판매자 ID: {basket.sellerId}</p>
-                            <p style={{ margin: '5px 0' }}>가격: {basket.price} 원</p>
-
+                        <li key={basket.id} style={{
+                            marginBottom: '20px',
+                            padding: '15px',
+                            border: '1px solid #ddd',
+                            borderRadius: '8px',
+                            backgroundColor: '#f9f9f9'
+                        }}>
+                            <h2 style={{margin: '0 0 10px 0', fontSize: '18px'}}>호텔 : {basket.name}</h2>
+                            <p style={{margin: '5px 0'}}>판매자 ID: {basket.sellerId}</p>
+                            <p style={{margin: '5px 0'}}>가격: {basket.price} 원</p>
+                            <button
+                                onClick={() => handleCancel(basket.id)}
+                                style={{
+                                    padding: '10px 15px',
+                                    color: 'white',
+                                    backgroundColor: '#d9534f',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                장바구니 삭제
+                            </button>
                         </li>
                     ))}
                 </ul>
