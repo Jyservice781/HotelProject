@@ -16,8 +16,9 @@ const HotelCard = ({ hotel, userInfo }) => {
                 <Card.Body>
                     <Card.Title>{hotel.name}</Card.Title>
                     <Card.Text>
-                        <strong>오너:</strong> {hotel.nickname}<br />
-                        <strong>설명:</strong> {hotel.shortContent}
+
+                        <p>설명:</p> {hotel.shortContent}<br/>
+                        <p>평점:</p> {/*{reply.score}*/}
                     </Card.Text>
                     <Link to={`/hotel/showOne/${hotel.id}`} state={{ userInfo: userInfo }}>
                         <Button variant="primary">

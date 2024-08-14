@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Container, FormControl, Table, Image } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -143,6 +143,13 @@ const Write = () => {
             return [];
         }
     };
+
+    // 페이지 상단으로 스크롤하기
+    useEffect(() => {
+        if (error) {
+            window.scrollTo(0, 0);
+        }
+    }, [error]);
 
     return (
         <Container className={"mt-3"}>
