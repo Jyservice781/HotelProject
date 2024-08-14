@@ -1,12 +1,12 @@
-import {useState, useEffect} from "react";
-import {Button, Container, FormControl, Table, Image} from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Button, Container, FormControl, Table, Image } from "react-bootstrap";
 import axios from "axios";
-import {useNavigate, useParams, useLocation} from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const MAX_FILE_SIZE_MB = 10;
 
 const Update = () => {
-    let {id} = useParams();
+    let { id } = useParams();
     let location = useLocation();
     let userInfo = location.state.userInfo;
 
@@ -30,20 +30,19 @@ const Update = () => {
     let navigate = useNavigate();
 
     let roomTypes = [
-        {value: 1, label: '스탠다드'},
-        {value: 2, label: '슈페리어'},
-        {value: 3, label: '디럭스'},
-        {value: 4, label: '이그제큐티브'}
+        { value: 1, label: '스탠다드' },
+        { value: 2, label: '슈페리어' },
+        { value: 3, label: '디럭스' },
+        { value: 4, label: '이그제큐티브' }
     ];
 
     let roomMembers = [
-        {value: 1, label: '싱글룸'},
-        {value: 2, label: '더블룸'},
-        {value: 3, label: '트윈룸'},
-        {value: 4, label: '트리플룸'},
-        {value: 5, label: '스위트룸'}
+        { value: 1, label: '싱글룸' },
+        { value: 2, label: '더블룸' },
+        { value: 3, label: '트윈룸' },
+        { value: 4, label: '트리플룸' },
+        { value: 5, label: '스위트룸' }
     ];
-
 
     useEffect(() => {
         const getUpdate = async () => {
@@ -90,10 +89,8 @@ const Update = () => {
         getUpdate();
     }, [id]);
 
-
-
     let onChange = (e) => {
-        let {name, value} = e.target;
+        let { name, value } = e.target;
         console.log(`Field: ${name}, Value: ${value}`);
         setInputs({
             ...inputs,
@@ -122,7 +119,7 @@ const Update = () => {
     let uploadFiles = async (files) => {
         try {
             const formData = new FormData();
-            formData.append('id', inputs.id);
+            formData.append('id', id);
             formData.append('roomNumber', inputs.roomNumber);
 
             for (let i = 0; i < files.length; i++) {
@@ -185,7 +182,7 @@ const Update = () => {
                 thumbnail: fileUrls.length > 0 ? fileUrls[Math.floor(Math.random() * fileUrls.length)] : thumbnail
             };
 
-            let resp = await axios.post(`http://localhost:8080/hotel/update`, {...hotelDTO, id}, {
+            let resp = await axios.post(`http://localhost:8080/hotel/update`, { ...hotelDTO, id }, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -193,12 +190,19 @@ const Update = () => {
             });
 
             if (resp.status === 200) {
-                navigate(`/hotel/showOne/${resp.data.destId}`, {state: {userInfo: userInfo}});
+                navigate(`/hotel/showOne/${resp.data.destId}`, { state: { userInfo: userInfo } });
             }
         } catch (error) {
             console.error('데이터 제출 중 오류 발생:', error);
         }
     };
+
+    // 페이지 상단으로 스크롤하기
+    useEffect(() => {
+        if (error) {
+            window.scrollTo(0, 0);
+        }
+    }, [error]);
 
     return (
         <Container className={"mt-3"}>
@@ -353,7 +357,7 @@ const Update = () => {
                                             key={index}
                                             src={url}
                                             thumbnail
-                                            style={{marginRight: '10px', marginBottom: '10px'}}
+                                            style={{ marginRight: '10px', marginBottom: '10px' }}
                                         />
                                     ))}
                                 </div>
