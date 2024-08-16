@@ -28,20 +28,24 @@ let Header = ({ userInfo }) => {
                 </Link>
                 <ul className={'flex ms-auto'} style={btnStyle}>
                     <li> welcome, {userInfo ? userInfo.nickname : 'Guest'}. </li>
-                    {/* 조건부 렌더링: 사용자 역할에 따라 링크 표시 */}
+                    {/*사용자 역할에 따라 링크 표시 */}
                     {userInfo ? (
-                        <li>
-                            {userInfo.role === 'role_admin' && (
-                                <span className={'m-lg-3'}><Link to={'/admin/users'}>회원 관리</Link></span>
-                            )}
-                            {userInfo.role === 'role_seller' && (
-                                <span className={'m-lg-3'}><Link to={'/user/basket/${userInfo.id}'}>호텔 관리</Link></span>
-                            )}
-                            {userInfo.role === 'role_customer' && (
-                                <span className={'m-lg-3'}><Link to={'/user/basket/${userInfo.id}'}>장바구니</Link></span>
-                            )}
-                            <span className={'m-lg-3'}><Link to={'/logout'}>로그아웃</Link></span>
-                        </li>
+                        <>
+                        {userInfo.role === 'role_admin' && (
+                            <li className={'m-lg-3'}><Link to={'/admin/users'}>회원 관리</Link></li>
+                        )}
+                        {userInfo.role === 'role_seller' && (
+                            <li className={'m-lg-3'}><Link to={`/user/myhotel/${userInfo.id}`}>내 호텔 관리</Link></li>
+                        )}
+                        {userInfo.role === 'role_customer' && (
+                            <ul>
+                                <li className={'m-lg-3'}><Link to={`/user/mypage/${userInfo.id}`}>마이페이지</Link></li>
+                                <li className={'m-lg-3'}><Link to={`/user/basket/${userInfo.id}`}>장바구니</Link></li>
+                                <li className={'m-lg-3'}><Link to={`/user/basketChecked/${userInfo.id}`}>예약내역</Link></li>
+                            </ul>
+                        )}
+                            <li className={'m-lg-3'}><Link to={'/logout'}>로그아웃</Link></li>
+                        </>
                     ) : (
                         <li>
                             <span className={'m-lg-3'}><Link to={'/login'}>로그인</Link></span>

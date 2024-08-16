@@ -1,4 +1,4 @@
-import {Button, Container, FormControl, Table} from "react-bootstrap";
+import {Button, Container, FormControl} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {FaStar} from "react-icons/fa";
 import axios from "axios";
@@ -22,7 +22,7 @@ let ReplyUpdate = () => {
 
     let moveToNext = () => {
         let hotelId = parseInt(inputs.hotelId)
-        navigate('/reply/replyList2/' + hotelId, {state: {userInfo: userInfo}})
+        navigate('/reply/replyList/' + hotelId, {state: {userInfo: userInfo}})
     }
 
     let onSubmit = async (e) => {
