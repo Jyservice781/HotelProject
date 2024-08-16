@@ -18,6 +18,9 @@ import BucketList from "./basket/BucketList";
 import MyHotelBySeller from "./seller/MyHotelBySeller";
 import AdminshowUserOne from "./admin/AdminshowUserOne";
 import AdminUserInfo from "./admin/AdminUserInfo";
+import ReplyWrite from "./reply/ReplyWrite";
+import ReplyUpdate from "./reply/ReplyUpdate";
+import ReplyList from "./reply/ReplyList";
 
 function App() {
     return (

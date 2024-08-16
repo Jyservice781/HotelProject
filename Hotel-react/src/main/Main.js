@@ -1,4 +1,4 @@
-import { Container, Pagination } from "react-bootstrap";
+import { Container, Pagination, Button } from "react-bootstrap";
 import { useEffect, useState, createContext, useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
@@ -10,6 +10,7 @@ import Banner from "../component/Banner";
 import PopularHotel from "../component/PopularHotel";
 import Nav from "../component/Nav";
 import SearchForm from "../component/SearchForm";
+import './Main.css'; // Import the CSS file
 
 let refContext = createContext(null);
 
@@ -17,7 +18,7 @@ let Main = () => {
     const location = useLocation();
     let userInfo = location.state?.userInfo;
     let params = useParams();
-    let pageNo = parseInt(params.pageNo, 10) || 1; // Ensure pageNo is a number
+    let pageNo = parseInt(params.pageNo, 10) || 1;
     const popularRef = useRef(null);
     const hotelRef = useRef(null);
 
@@ -28,28 +29,21 @@ let Main = () => {
     const [maxPrice, setMaxPrice] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [isSearching, setIsSearching] = useState(false); // State to manage search
+    const [isSearching, setIsSearching] = useState(false);
+    const [searchQuery, setSearchQuery] = useState({});
     const navigate = useNavigate();
 
-    // Load data when pageNo or search params change
     useEffect(() => {
-        const selectList = async () => {
+        const fetchHotelList = async () => {
             try {
                 let apiUrl = `http://localhost:8080/hotel/showList/${pageNo}`;
                 let params = {};
 
                 if (isSearching) {
-                    params = {
-                        searchType: searchType || undefined,
-                        keyword: keyword || undefined,
-                        minPrice: minPrice || undefined,
-                        maxPrice: maxPrice || undefined,
-                        startDate: startDate || undefined,
-                        endDate: endDate || undefined
-                    };
+                    params = searchQuery;
                 }
 
-                const queryParams = Object.fromEntries(Object.entries(params).filter(([_, v]) => v !== undefined));
+                const queryParams = Object.fromEntries(Object.entries(params).filter(([_, v]) => v !== undefined && v !== ''));
 
                 let resp = await axios.get(apiUrl, {
                     params: queryParams,
@@ -72,25 +66,20 @@ let Main = () => {
                         }
                     }));
                     setData({ ...resp.data, hotelList });
-                    if (hotelList.length === 0) {
-                        navigate('/hotel/main');
-                    }
                 }
             } catch (e) {
                 console.error('호텔 리스트 가져오기 오류:', e);
             }
         };
 
-        selectList();
-    }, [pageNo, searchType, keyword, minPrice, maxPrice, startDate, endDate, isSearching]);
+        fetchHotelList();
+    }, [pageNo, searchQuery, isSearching]);
 
-    let isSeller = userInfo?.role === 'role_seller';
-
-    let moveToPage = (pageNo) => {
+    const moveToPage = (pageNo) => {
         navigate(`/hotel/main/${pageNo}?searchType=${searchType}&keyword=${keyword}&minPrice=${minPrice}&maxPrice=${maxPrice}&startDate=${startDate}&endDate=${endDate}`, { state: { userInfo: userInfo } });
     };
 
-    let moveToWrite = () => {
+    const moveToWrite = () => {
         navigate('/hotel/write', { state: { userInfo: userInfo } });
     };
 
@@ -103,8 +92,48 @@ let Main = () => {
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        setIsSearching(true); // Set searching to true when search is initiated
-        moveToPage(1); // Move to the first page on search
+        const initialSearchType = 'name';
+        const initialKeyword = '';
+        const initialMinPrice = '';
+        const initialMaxPrice = '';
+        const initialStartDate = '';
+        const initialEndDate = '';
+
+        // 현재 검색 조건이 초기값과 같은지 확인
+        if (
+            searchType === initialSearchType &&
+            keyword === initialKeyword &&
+            minPrice === initialMinPrice &&
+            maxPrice === initialMaxPrice &&
+            startDate === initialStartDate &&
+            endDate === initialEndDate
+        ) {
+            // 초기값과 같다면 초기화 버튼 기능 수행
+            handleResetSearch();
+        } else {
+            setSearchQuery({
+                searchType,
+                keyword,
+                minPrice,
+                maxPrice,
+                startDate,
+                endDate
+            });
+            setIsSearching(true);
+            moveToPage(1);
+        }
+    };
+
+    const handleResetSearch = () => {
+        setSearchType('name');
+        setKeyword('');
+        setMinPrice('');
+        setMaxPrice('');
+        setStartDate('');
+        setEndDate('');
+        setSearchQuery({});
+        setIsSearching(false);
+        moveToPage(1);
     };
 
     return (
@@ -119,7 +148,6 @@ let Main = () => {
                     maxPrice={maxPrice}
                     startDate={startDate}
                     endDate={endDate}
-                    isSeller={isSeller}
                     handleSearchTypeChange={handleSearchTypeChange}
                     handleKeywordChange={handleKeywordChange}
                     handleMinPriceChange={handleMinPriceChange}
@@ -129,6 +157,9 @@ let Main = () => {
                     handleSearchSubmit={handleSearchSubmit}
                     moveToWrite={moveToWrite}
                 />
+                <Button variant="secondary" onClick={handleResetSearch} className="hidden-button mb-3">
+                    초기화
+                </Button>
                 <Container className={"mt-3"}>
                     {data.hotelList.length > 0 ? (
                         <div className="row">

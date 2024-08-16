@@ -22,7 +22,7 @@ let ReplyUpdate = () => {
 
     let moveToNext = () => {
         let hotelId = parseInt(inputs.hotelId)
-        navigate('/reply/replyList2/' + hotelId, {state: {userInfo: userInfo}})
+        navigate('/reply/replyList/' + hotelId, {state: {userInfo: userInfo}})
     }
 
     let onSubmit = async (e) => {

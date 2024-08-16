@@ -26,7 +26,7 @@ let ReplyWrite = () => {
     let moveToNext = () => {
         let hotelId = inputs.hotelId
         console.log("hotelID: ", hotelId)
-        navigate('/reply/replyList2/' + hotelId, {state: {userInfo: userInfo}})
+        navigate('/reply/replyList/' + hotelId, {state: {userInfo: userInfo}})
     }
 
     let starScore = (index) => {

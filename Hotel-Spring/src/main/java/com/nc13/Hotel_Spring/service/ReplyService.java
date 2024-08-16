@@ -36,7 +36,11 @@ public class ReplyService {
     }
 
     public double getTotalScore(int hotelId) {
-        return SESSION.selectOne(NAMESPACE + ".getTotalScore", hotelId);
+        Double totalScore = SESSION.selectOne(NAMESPACE + ".getTotalScore", hotelId);
+        if (totalScore == null) {
+            totalScore = 0.0; // 기본값 설정
+        }
+        return totalScore;
     }
 
     public ReplyDTO selectOne(int id) {

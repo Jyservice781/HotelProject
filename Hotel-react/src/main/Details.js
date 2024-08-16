@@ -4,7 +4,7 @@ import { Button, Col, Container, Image } from "react-bootstrap";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import {FaStar} from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // 날짜 포맷 함수
@@ -54,6 +54,7 @@ const getRoomTypeText = (roomType) => {
 const Details = () => {
     const [data, setData] = useState({});
     const [images, setImages] = useState([]);
+    const [replyData, setReplyData] = useState({ totalScore: 0, totalCount: 0 });
     const params = useParams();
     const id = parseInt(params.id);
     const location = useLocation();
@@ -81,11 +82,11 @@ const Details = () => {
         paddingTop: '15px',
         paddingBottom: '15px'
     };
-//---------------------추가----------------------//
-    let [replyData, setReplyData] = useState({totalScore: 0, totalCount: 0})
-    let averageStar = () => {
-        let average = data.totalScore / data.totalCount
-        let ARRAY = [0, 1, 2, 3, 4]
+
+    // 별점 평균 계산 함수
+    const averageStar = () => {
+        const average = replyData.totalCount > 0 ? replyData.totalScore / replyData.totalCount : 0; // Zero division protection
+        const ARRAY = [0, 1, 2, 3, 4];
         return (
             <span>
                 {ARRAY.map((element) => (
@@ -97,9 +98,10 @@ const Details = () => {
                 ))}{' '}
                 {average.toFixed(1)}
             </span>
-        )
-    }
+        );
+    };
 
+    // 데이터 가져오기
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -129,23 +131,28 @@ const Details = () => {
         fetchData();
     }, [id]);
 
-//---------------------추가----------------------//
+    // 댓글 데이터 가져오기
     useEffect(() => {
-        let selectList = async () => {
-            let resp = await axios.get(`http://localhost:8080/reply/selectList/${hotelId}`);
-            if (resp.status === 200) {
-                setReplyData({
-                    totalScore: resp.replyData.totalScore,
-                    totalCount: resp.replyData.totalCount
-                });
+        const selectList = async () => {
+            try {
+                const resp = await axios.get(`http://localhost:8080/reply/selectList/${id}`);
+                if (resp.status === 200) {
+                    setReplyData({
+                        totalScore: resp.data.totalScore,
+                        totalCount: resp.data.totalCount
+                    });
+                }
+            } catch (error) {
+                console.error('댓글 데이터 가져오기 오류:', error);
             }
         };
         selectList();
-    }, [hotelId]);
+    }, [id]);
 
- let moveToPage = () => {
-        navigate('/reply/replyList/' + hotelId)
-    }
+    // 페이지 이동 함수
+    const moveToPage = () => {
+        navigate('/reply/replyList/' + id);
+    };
 
     const goBack = () => {
         navigate('/', { state: { userInfo } });
