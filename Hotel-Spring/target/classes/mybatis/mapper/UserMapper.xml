@@ -10,9 +10,9 @@
     <select id="selectAll" resultType="userDTO">
         SELECT * FROM user
     </select>
-    <select id="selectByRole" parameterType="String" resultType="userDTO">
+    <select id="selectByUserId" parameterType="int" resultType="userDTO">
         SELECT * FROM user
-        where user.role = #{role}
+        where user.id = #{userId}
     </select>
     <delete id="deleteByUserID" parameterType="int">
         DELETE FROM user

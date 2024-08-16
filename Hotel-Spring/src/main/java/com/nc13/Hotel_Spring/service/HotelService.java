@@ -14,7 +14,7 @@ import java.util.List;
 public class HotelService {
     private final SqlSession SESSION;
     private final String NAMESPACE = "mapper.HotelMapper";
-    private final int PAGE_SIZE = 20;
+    private final int PAGE_SIZE = 15;
 
     @Autowired
     public HotelService(SqlSession session) {

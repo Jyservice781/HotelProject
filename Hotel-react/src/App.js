@@ -41,7 +41,7 @@ function App() {
                     {/*<Route path="/user/basket/:userid" element={<BasketByUser />} />*/}
                     {/* 호텔 관련 페이지 */}
                     <Route path="/hotel/showOne/:id" element={<Details />} /> {/* 수정된 컴포넌트 */}
-                    <Route path="/hotel/showList/:pageNo" element={<ShowList />} />
+                    <Route path="/hotel/main/:pageNo" element={<Main />} />
                     <Route path="/hotel/write" element={<Write />} />
                     <Route path="/hotel/update/:id" element={<Update />} />
 
