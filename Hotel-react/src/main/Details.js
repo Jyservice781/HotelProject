@@ -4,6 +4,7 @@ import { Button, Col, Container, Image } from "react-bootstrap";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import {FaStar} from "react-icons/fa";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // 날짜 포맷 함수
@@ -80,6 +81,24 @@ const Details = () => {
         paddingTop: '15px',
         paddingBottom: '15px'
     };
+//---------------------추가----------------------//
+    let [replyData, setReplyData] = useState({totalScore: 0, totalCount: 0})
+    let averageStar = () => {
+        let average = data.totalScore / data.totalCount
+        let ARRAY = [0, 1, 2, 3, 4]
+        return (
+            <span>
+                {ARRAY.map((element) => (
+                    <FaStar
+                        key={element}
+                        size="16"
+                        color={element < average ? "#ffc107" : "#e4e5e9"}
+                    />
+                ))}{' '}
+                {average.toFixed(1)}
+            </span>
+        )
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -106,8 +125,27 @@ const Details = () => {
                 console.error('호텔 정보 가져오기 오류:', e);
             }
         };
+
         fetchData();
     }, [id]);
+
+//---------------------추가----------------------//
+    useEffect(() => {
+        let selectList = async () => {
+            let resp = await axios.get(`http://localhost:8080/reply/selectList/${hotelId}`);
+            if (resp.status === 200) {
+                setReplyData({
+                    totalScore: resp.replyData.totalScore,
+                    totalCount: resp.replyData.totalCount
+                });
+            }
+        };
+        selectList();
+    }, [hotelId]);
+
+ let moveToPage = () => {
+        navigate('/reply/replyList/' + hotelId)
+    }
 
     const goBack = () => {
         navigate('/', { state: { userInfo } });
@@ -185,8 +223,8 @@ const Details = () => {
                     <aside>
                         <div style={{ marginTop: '20px', marginBottom: '20px' }}>
                             <h3>최고의 경험이었습니다!!</h3>
-                            <p>score 5.0</p>
-                            <Button onClick={() => navigate('/reply/selectList')} size="sm">호텔리뷰 더보기</Button>
+                            <p>평점: {averageStar()} </p>
+                            <Button onClick={moveToPage} size="sm">호텔리뷰 더보기</Button>
                         </div>
                     </aside>
                     <article>
