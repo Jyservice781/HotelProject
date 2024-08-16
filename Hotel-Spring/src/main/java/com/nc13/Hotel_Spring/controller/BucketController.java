@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -60,20 +62,21 @@ public class BucketController {
 
     @DeleteMapping("basket/{bucketId}")
     public ResponseEntity<Void> deleteBasketItem(@PathVariable int bucketId) {
+        System.out.println(bucketId+"번 삭제 try");
         boolean isDeleted = bucketService.deleteBucketById(bucketId);
         if (isDeleted) {
+            System.out.println("삭제됨:bukcetID:"+bucketId);
             return ResponseEntity.noContent().build(); // 204 No Content 응답
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404 Not Found 응답
         }
     }
     
-    @PutMapping("book/{id}")
-    public HashMap<String, Object> bookHotel(@PathVariable int id) {
+    @PutMapping("book/{hotelId}")
+    public HashMap<String, Object> bookHotel(@PathVariable int hotelId) {
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
-            BucketDTO bucketDTO = bucketService.selectOne(id);
-            int hotelId = bucketDTO.getHotelId();
+            System.out.println("hotelId - "+hotelId+"예약");
             hotelService.updateBooked(hotelId);
             resultMap.put("result", "success");
         } catch (Exception e) {
@@ -81,5 +84,5 @@ public class BucketController {
             resultMap.put("result", "fail");
         }
         return resultMap;
-}
+    }
 }

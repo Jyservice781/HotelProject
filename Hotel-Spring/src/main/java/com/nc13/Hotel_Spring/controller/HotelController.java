@@ -196,7 +196,7 @@ public class HotelController {
     public ResponseEntity<Void> delete(@PathVariable int id) {
         HOTEL_SERVICE.delete(id);
         return ResponseEntity.ok().build();
-
+    }
     // @DeleteMapping("delete/{hotelId}")
     // public ResponseEntity<Void> deleteBasketItem(@PathVariable int hotelId) {
     //     // 장바구니에서 userId와 productId에 해당하는 항목을 삭제하는 로직
