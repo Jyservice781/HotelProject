@@ -15,6 +15,9 @@ import Update from "./hotel/Update";
 import ShowList from "./hotel/ShowList";
 import Write from "./hotel/Write";
 import BucketList from "./basket/BucketList";
+import MyHotelBySeller from "./seller/MyHotelBySeller";
+import AdminshowUserOne from "./admin/AdminshowUserOne";
+import AdminUserInfo from "./admin/AdminUserInfo";
 
 function App() {
     return (
@@ -34,7 +37,7 @@ function App() {
                     <Route path="/user/basketChecked/:userid" element={<BasketCheckedByUser />} />
                     {/* 호텔 관련 페이지 */}
                     <Route path="/hotel/showOne/:id" element={<Details />} /> {/* 수정된 컴포넌트 */}
-                    <Route path="/hotel/showList/:pageNo" element={<ShowList />} />
+                    <Route path="/hotel/main/:pageNo" element={<Main />} />
                     <Route path="/hotel/write" element={<Write />} />
                     <Route path="/hotel/update/:id" element={<Update />} />
 
