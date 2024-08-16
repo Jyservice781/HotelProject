@@ -22,4 +22,20 @@
         DELETE FROM bucket
         WHERE bucket.id = #{bucketId}
     </delete>
+
+    <insert id="insert" parameterType="BucketDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bucket(customerId, hotelId, hotelName, price)
+        VALUES(#{customerId}, #{hotelId}, #{hotelName}, #{price})
+    </insert>
+
+    <update id="update" parameterType="BucketDTO">
+        UPDATE bucket
+        SET customerId = #{customerId},
+        hotelId = #{hotelId},
+        hotelName = #{hotelName},
+        price = #{price}
+        WHERE id = #{id}
+    </update>
+
+
 </mapper>

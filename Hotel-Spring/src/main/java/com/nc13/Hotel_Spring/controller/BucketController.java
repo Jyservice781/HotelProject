@@ -22,6 +22,7 @@ public class BucketController {
     private BucketService bucketService;
     @Autowired
     private UserService userService;
+
     @GetMapping("{userid}") // UserInfo
     public UserDTO selectUserById(@PathVariable int userid){
         UserDTO user = userService.selectOneByID(userid);
@@ -45,7 +46,7 @@ public class BucketController {
             System.out.println("newBucketDTO: "+b.toString());
         }
         return newList;
-    }//bucketCheckedByUserId
+    }
 
     @GetMapping("basketChecked/{userId}")
     public List<BucketDTO> myBasketChecked(@PathVariable int userId){
@@ -55,11 +56,10 @@ public class BucketController {
             System.out.println("newBucketDTO: "+b.toString());
         }
         return newList;
-    }
+    }//bucketCheckedByUserId
 
     @DeleteMapping("basket/{bucketId}")
     public ResponseEntity<Void> deleteBasketItem(@PathVariable int bucketId) {
-        // 장바구니에서 userId와 productId에 해당하는 항목을 삭제하는 로직
         boolean isDeleted = bucketService.deleteBucketById(bucketId);
         if (isDeleted) {
             return ResponseEntity.noContent().build(); // 204 No Content 응답
@@ -67,4 +67,19 @@ public class BucketController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404 Not Found 응답
         }
     }
+    
+    @PutMapping("book/{id}")
+    public HashMap<String, Object> bookHotel(@PathVariable int id) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        try {
+            BucketDTO bucketDTO = bucketService.selectOne(id);
+            int hotelId = bucketDTO.getHotelId();
+            hotelService.updateBooked(hotelId);
+            resultMap.put("result", "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", "fail");
+        }
+        return resultMap;
+}
 }

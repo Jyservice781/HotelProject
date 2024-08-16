@@ -81,4 +81,11 @@
         WHERE hotel.sellerId = #{sellerId}
     </select>
 
+    <!--추가-->
+    <update id="updateBooked">
+        UPDATE hotel
+        SET booked = TRUE
+        WHERE id = #{id}
+    </update>
+
 </mapper>

@@ -14,6 +14,7 @@ import Logout from "./user/Logout";
 import Update from "./hotel/Update";
 import ShowList from "./hotel/ShowList";
 import Write from "./hotel/Write";
+import BucketList from "./basket/BucketList";
 
 function App() {
     return (
@@ -45,7 +46,17 @@ function App() {
                    
                     <Route path={"/details"} element={<Details/>}/>
 
+
                    
+                   {/* <Route path="/user/basket/bucketList" element={<BucketList/>}/> */}
+
+
+
+
+                   {/*  <Route path={"/test"} element={<Test/>}/>
+                  <Route path={"/reply/selectList/"} element={<ReplyList/>}/>
+                   <Route path={"/reply/write"} element={<Write/>}/>
+                   <Route path={"/reply/update/:id"} element={<Update/>}/>*/}
                    
                     {/* 기타 페이지 */}
                     {/* <Route path="/test" element={<Test />} /> */}
@@ -54,6 +65,7 @@ function App() {
                     {/* <Route path="/reply/update/:id" element={<Update />} /> */}
                 </Routes>
             </ScrollToTop>   
+                   
         </BrowserRouter>
     );
 }
