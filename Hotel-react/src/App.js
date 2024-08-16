@@ -2,6 +2,7 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Main from "./main/Main";
 import Details from "./main/Details";
+
 import Login from "./user/Login";
 import Register from "./user/Register";
 import ScrollToTop from "./ScrollToTop";
@@ -11,7 +12,9 @@ import AdminshowUserOne from "./admin/AdminshowUserOne";
 import AdminShowUserList from "./admin/AdminShowUserList";
 import Auth from "./user/Auth";
 import Logout from "./user/Logout";
-
+import ReplyList from "./reply/ReplyList";
+import ReplyUpdate from "./reply/ReplyUpdate";
+import ReplyWrite from "./reply/ReplyWrite";
 
 function App() {
     return (
@@ -30,10 +33,9 @@ function App() {
                    <Route path="/user/basket/:userid" element={<BasketByUser />} />
                    <Route path="/user/mypage/:userid" element={<MyBasket/>} />
 
-                   {/*
-                  <Route path={"/reply/selectList/"} element={<ReplyList/>}/>
-                   <Route path={"/reply/write"} element={<Write/>}/>
-                   <Route path={"/reply/update/:id"} element={<Update/>}/>*/}
+                   <Route path={"/reply/write/:hotelId"} element={<ReplyWrite/>}/>
+                   <Route path={"/reply/update/:id"} element={<ReplyUpdate/>}/>
+                   <Route path={"/reply/replyList/:hotelId"} element={<ReplyList/>}/>
                </Routes>
            </ScrollToTop>
         </BrowserRouter>
