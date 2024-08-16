@@ -1,16 +1,22 @@
 package com.nc13.Hotel_Spring.Model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ReplyDTO {
     private int id;
     private int customerId;
     private int hotelId;
-    private String hotelname;
-    private Double price;
+    private String title;
+    private String content;
+    private Date entryDate;
+    private Date modifyDate;
+    private int score;
+
+    private String username;
+    private int roomType;
+    private Date startEntry;
+    private String name;
 }
