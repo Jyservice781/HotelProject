@@ -3,15 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.BucketMapper">
-<<<<<<< HEAD
-    <select id="selectAll" resultType="bucketDTO">
-        SELECT * FROM bucket
-    </select>
-    <select id="selectOne" parameterType="int" resultType="bucketDTO">
-        SELECT * FROM bucket
-        where bucket.customerId = #{id}
-    </select>
-=======
     <select id="selectOne" parameterType="int" resultType="BucketDTO">
         SELECT * FROM bucket
         WHERE id = #{id}
@@ -50,6 +41,5 @@
         WHERE id = #{id}
     </update>
 
->>>>>>> a2c1b990a9fc0759b5a693e7343f8f5083afdddc
 
 </mapper>

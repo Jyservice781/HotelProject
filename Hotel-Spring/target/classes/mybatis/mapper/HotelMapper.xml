@@ -3,18 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.HotelMapper">
-<<<<<<< HEAD
-    <select id="hotelInBucket" parameterType="int" resultType="hotelDTO">
-        SELECT * FROM hotel
-        WHERE hotel.id in (SELECT hotelId FROM bucket
-        WHERE bucket.customerId = #{userId})
-    </select>
-    <select id="selectOne_Wrong" parameterType="int" resultType="hotelDTO">
-        --         SELECT * FROM hotel
-        --         WHERE hotel.id = #{id}
-    </select>
-=======
->>>>>>> a2c1b990a9fc0759b5a693e7343f8f5083afdddc
     <select id="selectOne" parameterType="int" resultType="HotelDTO">
         SELECT * FROM hotel
         INNER JOIN user
@@ -36,25 +24,6 @@
     </select>
     <insert id="insert" parameterType="HotelDTO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO hotel(name, content,address, sellerId, startEntry,
-<<<<<<< HEAD
-        endEntry,roomNumber,roomMember,price,shortContent,booked)
-        VALUES(#{name}, #{content},#{address},
-        #{sellerId},#{startEntry},#{endEntry},#{roomNumber},#{roomMember},#{price},#{shortContent},0)
-    </insert>
-    <select id="searchHotels" resultType="HotelDTO" parameterType="map">
-        SELECT * FROM hotel
-        INNER JOIN user ON hotel.sellerId = user.id
-        WHERE
-        <choose>
-            <when test="searchType == 'name'">
-                name LIKE CONCAT('%', #{keyword}, '%')
-            </when>
-            <when test="searchType == 'address'">
-                address LIKE CONCAT('%', #{keyword}, '%')
-            </when>
-        </choose>
-        ORDER BY hotel.id ASC
-=======
         endEntry,roomNumber,roomMember,roomType,price,shortContent,booked)
         VALUES(#{name}, #{content},#{address},
         #{sellerId},#{startEntry},#{endEntry},#{roomNumber},#{roomMember},#{roomType},#{price},#{shortContent},0)
@@ -83,7 +52,6 @@
         </if>
         ORDER BY id DESC
         LIMIT #{startRow}, #{size}
->>>>>>> a2c1b990a9fc0759b5a693e7343f8f5083afdddc
     </select>
     <update id="update" parameterType="HotelDTO">
         UPDATE hotel
@@ -94,21 +62,11 @@
         endEntry = #{endEntry},
         roomNumber = #{roomNumber},
         roomMember = #{roomMember},
-<<<<<<< HEAD
-=======
         roomType = #{roomType},
->>>>>>> a2c1b990a9fc0759b5a693e7343f8f5083afdddc
         price = #{price},
         shortContent = #{shortContent}
         WHERE id = #{id}
     </update>
-<<<<<<< HEAD
-
-    <delete id="delete" parameterType="int">
-        DELETE FROM hotel
-        WHERE id = #{id}
-    </delete>
-=======
     <delete id="deleteOne" parameterType="int">
         DELETE FROM hotel
         WHERE hotel.id = #{hotelId}
@@ -129,6 +87,5 @@
         SET booked = TRUE
         WHERE id = #{id}
     </update>
->>>>>>> a2c1b990a9fc0759b5a693e7343f8f5083afdddc
 
 </mapper>

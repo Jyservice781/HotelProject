@@ -7,9 +7,9 @@
         <setting name="mapUnderscoreToCamelCase" value="true" />
     </settings>
     <typeAliases>
-        <typeAlias type="com.nc13.Hotel_Spring.Model" alias="userDTO"></typeAlias>
-        <typeAlias type="com.nc13.Hotel_Spring.ModelTO" alias="bucketDTO"></typeAlias>
-        <typeAlias type="com.nc13.Hotel_Spring.ModelO" alias="hotelDTO"></typeAlias>
-        <typeAlias type="com.nc13.Hotel_Spring.ModelO" alias="replyDTO"></typeAlias>
+        <typeAlias type="com.nc13.Hotel_Spring.Model.UserDTO" alias="userDTO"></typeAlias>
+        <typeAlias type="com.nc13.Hotel_Spring.Model.BucketDTO" alias="bucketDTO"></typeAlias>
+        <typeAlias type="com.nc13.Hotel_Spring.Model.HotelDTO" alias="hotelDTO"></typeAlias>
+        <typeAlias type="com.nc13.Hotel_Spring.Model.ReplyDTO" alias="replyDTO"></typeAlias>
     </typeAliases>
 </configuration>

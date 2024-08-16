@@ -8,8 +8,6 @@ let PopularHotel = ({max}) => {
         navigate('/details/');
     }
 
-
-
     return (
         <div style={{marginTop: '40px', cursor: 'pointer'}}>
             {Array.from({length: max}, (_, index) => (

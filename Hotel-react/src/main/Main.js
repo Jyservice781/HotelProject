@@ -136,7 +136,7 @@ let Main = () => {
     };
 
     return (
-        <refContext.Provider value={{ popularRef, hotelRef }}>
+        <>
             <Header userInfo={userInfo} />
             <Nav />
             <Container fluid style={{ width: '80%' }}>

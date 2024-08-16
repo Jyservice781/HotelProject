@@ -171,6 +171,10 @@ const Details = () => {
         }
     };
 
+    const navigateBasket = () => {
+        navigate('/user/basket/' + id);
+    }
+
     const onDelete = async () => {
         const response = await axios.get(`http://localhost:8080/hotel/delete/${id}`, {
             withCredentials: true
@@ -219,7 +223,6 @@ const Details = () => {
                                 <li className={'p-2'}>주소: {data.address}</li>
                                 <li className={'p-2'}>가격: {data.price}</li>
                                 <li className={'p-2'}>
-                                    <Button>버튼1</Button>
                                     <Button>장바구니</Button>
                                     <Button>예약하기</Button>
                                 </li>
@@ -247,7 +250,7 @@ const Details = () => {
                                 <Col xs={12} md={6} lg={4} key={index} className="mb-2">
                                     <Image
                                         src={`http://localhost:8080/hotel/uploads/${data.id}/${data.roomNumber}/${filename}`}
-                                        alt={`호텔 이미지 ${filename}`}
+                                        alt={`호텔 이미지`}
                                         fluid
                                     />
                                 </Col>
