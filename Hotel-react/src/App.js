@@ -53,23 +53,9 @@ function App() {
                    
                     <Route path={"/details"} element={<Details/>}/>
 
-
-                   
-
-
-
-
-
-                   {/*  <Route path={"/test"} element={<Test/>}/>
-                  <Route path={"/reply/selectList/"} element={<ReplyList/>}/>
-                   <Route path={"/reply/write"} element={<Write/>}/>
-                   <Route path={"/reply/update/:id"} element={<Update/>}/>*/}
-                   
-                    {/* 기타 페이지 */}
-                    {/* <Route path="/test" element={<Test />} /> */}
-                    {/* <Route path="/reply/selectList/" element={<ReplyList />} /> */}
-                    {/* <Route path="/reply/write" element={<Write />} /> */}
-                    {/* <Route path="/reply/update/:id" element={<Update />} /> */}
+                <Route path={"/reply/write/:hotelId"} element={<ReplyWrite/>}/>
+                   <Route path={"/reply/update/:id"} element={<ReplyUpdate/>}/>
+                   <Route path={"/reply/replyList/:hotelId"} element={<ReplyList/>}/>
                 </Routes>
             </ScrollToTop>   
                    
