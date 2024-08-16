@@ -14,7 +14,7 @@ import java.util.List;
 public class HotelService {
     private final SqlSession SESSION;
     private final String NAMESPACE = "mapper.HotelMapper";
-    private final int PAGE_SIZE = 20;
+    private final int PAGE_SIZE = 15;
 
     @Autowired
     public HotelService(SqlSession session) {
@@ -87,6 +87,7 @@ public class HotelService {
     public boolean deleteHotelById(int hotelId) {
         int result = SESSION.delete(NAMESPACE + ".deleteOne",hotelId);
         return result > 0; //삭제 성공 시 1 반환
+        }
     //추가
     public void updateBooked(int id) {
         SESSION.update(NAMESPACE+".updateBooked",id);

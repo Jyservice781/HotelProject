@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.BucketMapper">
+    <select id="selectOne" parameterType="int" resultType="BucketDTO">
+        SELECT * FROM bucket
+        WHERE id = #{id}
+    </select>
     <select id="selectAll" resultType="bucketDTO">
         SELECT B.id,B.customerId,H.* FROM bucket as B
         INNER JOIN hotel as H

@@ -32,9 +32,13 @@ function App() {
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/user/mypage/:userid" element={<UserInfo />} />
-                    <Route path="/user/basket/:userid" element={<BasketByUser />} />
+                    {/*<Route path="/user/basket/:userid" element={<BasketByUser />} />*/}
                     <Route path="/user/myhotel/:sellerid" element={<MyHotelBySeller />}/>
                     <Route path="/user/basketChecked/:userid" element={<BasketCheckedByUser />} />
+                    {/*헌재 - 장바구니*/}
+                    <Route path="/user/basket/:userid" element={<BucketList/>}/>
+                    {/*지혜 - 장바구니*/}
+                    {/*<Route path="/user/basket/:userid" element={<BasketByUser />} />*/}
                     {/* 호텔 관련 페이지 */}
                     <Route path="/hotel/showOne/:id" element={<Details />} /> {/* 수정된 컴포넌트 */}
                     <Route path="/hotel/main/:pageNo" element={<Main />} />
@@ -51,7 +55,7 @@ function App() {
 
 
                    
-                   {/* <Route path="/user/basket/bucketList" element={<BucketList/>}/> */}
+
 
 
 

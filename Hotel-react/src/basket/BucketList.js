@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Table, Spinner, Alert, Button } from 'react-bootstrap';
 
-let BucketList = () => {
+let BucketList = (props) => {
+    const { userid: paramUserId } = useParams();
+    const userid = props.userid || paramUserId;
+    const navigate = useNavigate();
+
     let [buckets, setBuckets] = useState([]);
     let [loading, setLoading] = useState(true);
     let [error, setError] = useState(null);
@@ -10,7 +15,7 @@ let BucketList = () => {
     useEffect(() => {
         let fetchBuckets = async () => {
             try {
-                let response = await axios.get('http://localhost:8080/hotels/bucketList');
+                let response = await axios.get(`http://localhost:8080/user/basket/${userid}`);//주소 수정 1
                 setBuckets(response.data); // 서버에서 가져온 데이터로 buckets 상태 업데이트
             } catch (error) {
                 setError('Failed to fetch data. Please try again later.');
@@ -20,12 +25,12 @@ let BucketList = () => {
         };
 
         fetchBuckets(); // 컴포넌트가 마운트될 때 데이터를 가져옴
-    }, []);
+    }, [userid]);
 
-    let deleteBucket = async (id) => {
+    let deleteBucket = async (bucketId) => {
         try {
-            await axios.delete(`http://localhost:8080/hotels/delete/${id}`);
-            setBuckets(buckets.filter(bucket => bucket.id !== id));
+            await axios.delete(`http://localhost:8080/user/basket/${bucketId}`);//주소 수정 2
+            setBuckets(buckets.filter(bucket => bucket.id !== bucketId));
         } catch (error) {
             setError('Failed to delete item. Please try again later.');
         }
@@ -33,12 +38,16 @@ let BucketList = () => {
 
     console.log(buckets)
 
-    let bookHotel = async (id) => {
+    let bookHotel = async (hotelId) => {
         try {
-            await axios.put(`http://localhost:8080/hotels/book/${id}`);
-            setBuckets(buckets.map(bucket =>
-                bucket.id === id ? { ...bucket, booked: true } : bucket
-            ));
+            await axios.put(`http://localhost:8080/user/book/${hotelId}`);
+            setBuckets(prevBuckets =>
+                prevBuckets.map(bucket =>
+
+                bucket.id === hotelId ? { ...bucket, booked: true } : bucket
+            )
+            );
+            navigate(0);
         } catch (error) {
             setError('Failed to book hotel. Please try again later.');
         }
@@ -70,7 +79,7 @@ let BucketList = () => {
                         buckets.map(bucket => (
                             <tr key={bucket.id}>
                                 <td>{bucket.id}</td>
-                                <td>{bucket.customerId}</td>
+                                <td>{bucket.customerID}</td>
                                 <td>{bucket.hotelId}</td>
                                 <td>{bucket.hotelName}</td>
                                 <td>${bucket.price.toFixed(2)}</td>
@@ -79,13 +88,13 @@ let BucketList = () => {
                                         variant="danger"
                                         onClick={() => deleteBucket(bucket.id)}
                                     >
-                                        Delete
+                                        삭제
                                     </Button>
 
                                     {!bucket.booked && (
                                         <Button
                                             variant="primary"
-                                            onClick={() => bookHotel(bucket.id)}
+                                            onClick={() => bookHotel(bucket.hotelId)}
                                             className="ms-2"
                                         >
                                             예약
