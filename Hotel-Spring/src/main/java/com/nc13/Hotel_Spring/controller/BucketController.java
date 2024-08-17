@@ -85,4 +85,30 @@ public class BucketController {
         }
         return resultMap;
     }
+    @PostMapping("indetails/addOnlyBasket") //호텔 상세페이지 - 장바구니(급하게)
+    public ResponseEntity<String> addToCart(@RequestBody BucketDTO bucketDTO) {
+        int hotelToBasket = bucketDTO.getHotelId();
+        int customerToBasket = bucketDTO.getCustomerID();
+        System.out.println("상세페이지 장바구니 TEST-hotelId: "+hotelToBasket+"고객 Id: "+customerToBasket);
+        BucketDTO newBucketData = new BucketDTO();
+        try {
+            HotelDTO hotelToPut = hotelService.selectOne(hotelToBasket);
+            System.out.println("선택한 hotel 정보:"+hotelToPut.toString());
+
+            newBucketData.setCustomerID(customerToBasket);
+            newBucketData.setPayment(false); // 결제 X
+            newBucketData.setHotelId(hotelToPut.getId());
+            newBucketData.setHotelName(hotelToPut.getName());
+            newBucketData.setStartEntry(hotelToPut.getStartEntry());
+            newBucketData.setEndEntry(hotelToPut.getEndEntry());
+            newBucketData.setPrice(hotelToPut.getPrice());
+            newBucketData.setBooked(false); // 예약 X
+            bucketService.insert(newBucketData);
+            return new ResponseEntity<>("장바구니에 추가되었습니다.", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 예외 처리
+            return new ResponseEntity<>("장바구니 추가에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

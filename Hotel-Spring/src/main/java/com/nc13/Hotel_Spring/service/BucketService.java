@@ -41,6 +41,7 @@ public class BucketService {
     }
 
     public void insert(BucketDTO bucketDTO) {
+        System.out.println("장바구니 넣을 data:"+bucketDTO.toString());
         SESSION.insert(NAMESPACE + ".insert", bucketDTO);
     }
 
