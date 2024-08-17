@@ -13,7 +13,6 @@ let Header = ({ userInfo }) => {
         padding: '0px',
         margin: '0px',
         marginBottom: '50px'
-
     }
 
 
@@ -48,10 +47,10 @@ let Header = ({ userInfo }) => {
                             <li className={'m-lg-3'}><Link to={'/logout'}>로그아웃</Link></li>
                         </>
                     ) : (
-                        <>
-                        <li className={'m-lg-3'}><Link to={'/login'}>로그인</Link></li>
-                            <li className={'m-lg-3'}><Link to={'/register'}>회원가입</Link></li>
-                        </>
+                        <li>
+                            <span className={'m-lg-3'}><Link to={'/login'}>로그인</Link></span>
+                            <span className={'m-lg-3'}><Link to={'/register'}>회원가입</Link></span>
+                        </li>
                     )}
                 </ul>
             </Stack>

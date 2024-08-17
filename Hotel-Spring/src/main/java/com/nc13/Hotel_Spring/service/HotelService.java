@@ -1,7 +1,5 @@
 package com.nc13.Hotel_Spring.service;
 
-
-
 import com.nc13.Hotel_Spring.Model.HotelDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +85,7 @@ public class HotelService {
     public boolean deleteHotelById(int hotelId) {
         int result = SESSION.delete(NAMESPACE + ".deleteOne",hotelId);
         return result > 0; //삭제 성공 시 1 반환
-        }
+    }
     //추가
     public void updateBooked(int id) {
         SESSION.update(NAMESPACE+".updateBooked",id);

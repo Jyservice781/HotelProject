@@ -12,7 +12,6 @@ import AdminShowUserList from "./admin/AdminShowUserList";
 import Auth from "./user/Auth";
 import Logout from "./user/Logout";
 import Update from "./hotel/Update";
-import ShowList from "./hotel/ShowList";
 import Write from "./hotel/Write";
 import BucketList from "./basket/BucketList";
 import MyHotelBySeller from "./seller/MyHotelBySeller";
@@ -47,7 +46,6 @@ function App() {
                     <Route path="/hotel/main/:pageNo" element={<Main />} />
                     <Route path="/hotel/write" element={<Write />} />
                     <Route path="/hotel/update/:id" element={<Update />} />
-
                     {/* 관리자 관련 페이지 */}
                     <Route path="/admin/users" element={<AdminShowUserList />} />
                     <Route path="/admin/user/:id" element={<AdminshowUserOne />} />
@@ -56,12 +54,11 @@ function App() {
                    
                     <Route path={"/details"} element={<Details/>}/>
 
-                <Route path={"/reply/write/:hotelId"} element={<ReplyWrite/>}/>
-                   <Route path={"/reply/update/:id"} element={<ReplyUpdate/>}/>
-                   <Route path={"/reply/replyList/:hotelId"} element={<ReplyList/>}/>
+                    <Route path={"/reply/write/:hotelId"} element={<ReplyWrite/>}/>
+                    <Route path={"/reply/update/:id"} element={<ReplyUpdate/>}/>
+                    <Route path={"/reply/replyList/:hotelId"} element={<ReplyList/>}/>
                 </Routes>
-            </ScrollToTop>   
-                   
+            </ScrollToTop>
         </BrowserRouter>
     );
 }

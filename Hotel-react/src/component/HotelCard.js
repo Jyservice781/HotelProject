@@ -1,4 +1,3 @@
-
 import { Button, Card } from "react-bootstrap";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -16,7 +15,6 @@ const HotelCard = ({ hotel, userInfo }) => {
                 <Card.Body>
                     <Card.Title>{hotel.name}</Card.Title>
                     <Card.Text>
-
                         <p>설명:</p> {hotel.shortContent}<br/>
                         <p>평점:</p> {/*{reply.score}*/}
                     </Card.Text>

@@ -1,4 +1,4 @@
-import {Button, Container, FormControl, Table} from "react-bootstrap";
+import {Button, Container, FormControl} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {FaStar} from "react-icons/fa";
 import axios from "axios";

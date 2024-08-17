@@ -12,7 +12,6 @@ import Nav from "../component/Nav";
 import SearchForm from "../component/SearchForm";
 import './Main.css'; // Import the CSS file
 
-let refContext = createContext(null);
 
 let Main = () => {
     const location = useLocation();
@@ -137,7 +136,7 @@ let Main = () => {
     };
 
     return (
-        <refContext.Provider value={{ popularRef, hotelRef }}>
+        <>
             <Header userInfo={userInfo} />
             <Nav />
             <Container fluid style={{ width: '80%' }}>
@@ -185,8 +184,8 @@ let Main = () => {
                 <Banner />
                 <PopularHotel max={10} id={'popular'} ref={popularRef} />
             </Container>
-            <Footer />
-        </refContext.Provider>
+            <Footer/>
+        </>
     );
 };
 

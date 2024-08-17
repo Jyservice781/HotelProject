@@ -55,7 +55,7 @@ let BucketList = (props) => {
 
     return (
         <Container className="mt-4">
-            <h1 className="mb-4">Bucket List</h1>
+            <h4 className="mb-4"> 장바구니 </h4>
             {loading ? (
                 <div className="d-flex justify-content-center">
                     <Spinner animation="border" />
@@ -63,7 +63,7 @@ let BucketList = (props) => {
             ) : error ? (
                 <Alert variant="danger">{error}</Alert>
             ) : (
-                <Table striped bordered hover responsive variant="dark">
+                <Table striped bordered hover responsive variant="light">
                     <thead>
                     <tr>
                         <th>ID</th>
