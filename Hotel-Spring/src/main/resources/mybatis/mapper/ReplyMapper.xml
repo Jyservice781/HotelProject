@@ -8,8 +8,9 @@
         VALUES (#{customerId}, #{hotelId}, #{title}, #{content}, NOW(), NOW(), #{score})
     </insert>
 
+<!--    // !!!! 은서 : nickname으로 변경-->
     <select id="selectList" parameterType="map" resultType="ReplyDTO">
-        SELECT reply.*, hotel.*, user.username, hotel.name
+        SELECT reply.*, hotel.*, user.nickname, hotel.name
         FROM reply
         INNER JOIN user
         ON customer_id = user.id

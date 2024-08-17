@@ -27,6 +27,7 @@ public class ReplyController {
                                             @RequestParam(defaultValue = "latest") String sort) {
         HashMap<String, Object> result = new HashMap<>();
 
+        // !!!!!! 은서 : hotelId, userId 삭제 !!!!!
         result.put("replyList", REPLY_SERVICE.selectList(hotelId, page, size, sort));
         result.put("totalCount", REPLY_SERVICE.getTotalCount(hotelId));
         result.put("totalScore", REPLY_SERVICE.getTotalScore(hotelId));
@@ -43,8 +44,6 @@ public class ReplyController {
     @PostMapping("write")
     public ResponseEntity<Map<String, Object>> write(@RequestBody ReplyDTO replyDTO) {
         Map<String, Object> resultMap = new HashMap<>();
-        replyDTO.setHotelId(1);
-        replyDTO.setCustomerId(1);
 
         REPLY_SERVICE.insert(replyDTO);
 
@@ -58,9 +57,6 @@ public class ReplyController {
     @PostMapping("update")
     public Map<String, Object> update(@RequestBody ReplyDTO replyDTO) {
         Map<String, Object> resultMap = new HashMap<>();
-
-        replyDTO.setHotelId(1);
-        replyDTO.setCustomerId(1);
 
         boolean updateSuccess = REPLY_SERVICE.update(replyDTO);
 
