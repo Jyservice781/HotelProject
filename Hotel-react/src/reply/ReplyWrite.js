@@ -4,19 +4,23 @@ import {Button, Container} from "react-bootstrap";
 import {FaStar} from "react-icons/fa";
 import axios from "axios";
 
+// !!!!!! 은서 : location 위치, customerId 변경
 let ReplyWrite = () => {
     let {hotelId} = useParams()
+    let location = useLocation()
+    let userInfo = location.state?.userInfo || {id: null}
+    let navigate = useNavigate()
+
     let [inputs, setInputs] = useState({
         id: '',
         hotelId: hotelId,
-        customerId: '',
+        customerId: userInfo.id,
         title: '',
         score: '',
         content: ''
     })
-    let location = useLocation()
-    let userInfo = location.state?.userInfo || {id: null}
-    let navigate = useNavigate()
+    console.log('customerId: '+ userInfo.id)
+    console.log("hotelID: "+ hotelId)
 
     let [message, setMessage] = useState('')
 
@@ -24,8 +28,6 @@ let ReplyWrite = () => {
     let [score, setScore] = useState([false, false, false, false, false])
 
     let moveToNext = () => {
-        let hotelId = inputs.hotelId
-        console.log("hotelID: ", hotelId)
         navigate('/reply/replyList/' + hotelId, {state: {userInfo: userInfo}})
     }
 
@@ -70,7 +72,7 @@ let ReplyWrite = () => {
                 moveToNext()
             }
         } catch (error) {
-            console.error("Error: ", error)
+            console.error("onSubmit Error: ", error)
         }
     }
     let noneBullet = {
@@ -105,10 +107,11 @@ let ReplyWrite = () => {
                     <textarea name={'content'} value={inputs.content} className={'form-control'}
                               onChange={onChange}/>
                     </li>
-                    <Button type={'submit'} style={{margin:'15px 0'}}>등록하기</Button>
+                    <Button type={'submit'} style={{margin:'15px 0'}} className='me-2'>등록하기</Button>
+                    <Button variant='secondary' onClick={()=> navigate(-1)}>뒤로가기</Button>
                 </ul>
             </form>
         </Container>
-)
+    )
 }
 export default ReplyWrite

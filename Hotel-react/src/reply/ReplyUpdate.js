@@ -1,5 +1,5 @@
 import {Button, Container, FormControl} from "react-bootstrap";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {FaStar} from "react-icons/fa";
 import axios from "axios";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
@@ -109,7 +109,8 @@ let ReplyUpdate = () => {
                     <textarea name={'content'} className={'form-control'} value={inputs.content}
                               onChange={onChange}></textarea>
                     </li>
-                    <Button type={'submit'} style={{margin: '15px 0'}}>수정</Button>
+                    <Button type={'submit'} style={{margin: '15px 0'}} className='me-2'>수정</Button>
+                    <Button variant='secondary' onClick={()=> navigate(-1)}>뒤로가기</Button>
                 </ul>
             </form>
         </Container>

@@ -1,10 +1,12 @@
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {FaStar} from "react-icons/fa";
 import React from "react";
+import {useLocation} from "react-router-dom";
 
 let UserList = ({data, onUpdate, onDelete}) => {
     let ARRAY = [0, 1, 2, 3, 4]
-    let userInfo = {id: 1}
+    const location = useLocation()
+    let userInfo = location.state?.userInfo || {id: null}
 
     let modifyDate = (dateString) => {
         let date = new Date(dateString)
@@ -51,7 +53,7 @@ let UserList = ({data, onUpdate, onDelete}) => {
                     <ul style={noneBullet}>
                         <li style={{listStyleType:'none'}}>
                             <img src={data.profileImage} alt={"User Image"} style={{width: '50px', height: "auto"}}/>
-                            <span> {data.username}</span>
+                            <span> {data.nickname}</span>
                         </li>
                         <li>
                             <img src={process.env.PUBLIC_URL + '/homeIcon.png'} alt={"Home icon"} style={iconStyle}/>
@@ -82,12 +84,12 @@ let UserList = ({data, onUpdate, onDelete}) => {
                                 {data.score}.0
                             </div>
                             <div style={{width:'47%', display:'inline-block'}}>
-                            {parseInt(data.customerId) === parseInt(userInfo.id) &&
-                                <span>
+                                {parseInt(data.customerId) === parseInt(userInfo.id) &&
+                                    <span>
                                     <Button onClick={() => onUpdate(data.id)} className="me-2">수정</Button>
                                     <Button onClick={() => onDelete(data.id)}>삭제</Button>
                                 </span>
-                            }
+                                }
                             </div>
                         </li>
                         <textarea className="my-1"

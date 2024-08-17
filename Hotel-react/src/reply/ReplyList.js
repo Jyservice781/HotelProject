@@ -1,7 +1,7 @@
 import {Button, Container} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {FaStar} from "react-icons/fa";
 import PaginationComponent from "../component/PaginationComponent";
 import SortComponent from "../component/SortComponent";
@@ -16,8 +16,10 @@ let ReplyList = () => {
     let navigate = useNavigate();
     let params = useParams()
 
-    let userInfo = {id: 1}
-    let hotelId = parseInt(params.hotelId) || 1
+    // !!! 은서 : userInfo, hotelId 수정
+    let location = useLocation()
+    let userInfo = location.state?.userInfo || {id: null}
+    let hotelId = parseInt(params.hotelId)
 
     let average = data.totalScore / data.totalCount
 
@@ -36,9 +38,9 @@ let ReplyList = () => {
             </span>
         )
     }
-
+    // !!!!!! 은서 : 프로필 이미지 파일명 변경
     let profileImage = () => {
-        let images = ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg']
+        let images = ['profile.jpg']
         let randomIndex = Math.floor(Math.random() * images.length)
         return `/${images[randomIndex]}`
     }
@@ -67,7 +69,7 @@ let ReplyList = () => {
     }, [hotelId, page, sortOption])
 
     let moveToWrite = () => {
-        navigate(`/reply/write/` + hotelId)
+        navigate(`/reply/write/` + hotelId, {state: {userInfo: userInfo}})
     }
     let onUpdate = (id) => {
         navigate('/reply/update/' + id, {state: {userInfo: userInfo}})
@@ -123,7 +125,8 @@ let ReplyList = () => {
                 ))}
             </ul>
             <div className='d-flex justify-content-end'>
-                <Button type={'button'} onClick={moveToWrite}>리뷰작성</Button>
+                <Button type={'button'} onClick={moveToWrite} className='me-2'>리뷰작성</Button>
+                <Button variant='secondary' onClick={()=> navigate(-1)}>뒤로가기</Button>
             </div>
             <PaginationComponent page={page} totalPages={totalPages} setPage={setPage}/>
         </Container>

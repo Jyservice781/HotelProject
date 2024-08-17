@@ -1,10 +1,10 @@
 import Header from "../component/Header";
 import Footer from "../component/Footer";
-import { Button, Col, Container, Image } from "react-bootstrap";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import {Button, Col, Container, Image} from "react-bootstrap";
+import {useNavigate, useLocation, useParams} from "react-router-dom";
+import {useState, useEffect, useRef} from "react";
 import axios from "axios";
-import { FaStar } from "react-icons/fa";
+import {FaStar} from "react-icons/fa";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // 날짜 포맷 함수
@@ -50,30 +50,15 @@ const getRoomTypeText = (roomType) => {
             return '알 수 없음';
     }
 };
-// 장바구니에 추가하는 함수
-const addToCart = async (userId, hotelId) => {
-    try {
-        const response = await axios.post(
-            `http://localhost:8080/user/indetails/addOnlyBasket`,
-            { customerID: userId, hotelId: hotelId },
-            { withCredentials: true }
-        );
-        if (response.status === 200) {
-            alert('장바구니에 추가되었습니다.');
-        }
-    } catch (error) {
-        console.error('장바구니 추가 실패:', error);
-        alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
-    }
-};
+
 const Details = () => {
     const [data, setData] = useState({});
     const [images, setImages] = useState([]);
-    const [replyData, setReplyData] = useState({ totalScore: 0, totalCount: 0 });
+    const [replyData, setReplyData] = useState({totalScore: 0, totalCount: 0});
     const params = useParams();
     const id = parseInt(params.id);
     const location = useLocation();
-    const { userInfo } = location.state || {};
+    const {userInfo} = location.state || {};
     const navigate = useNavigate();
 
     // 이미지 섹션과 개요 섹션을 참조하기 위한 refs
@@ -163,17 +148,17 @@ const Details = () => {
         selectList();
     }, [id]);
 
-    // 페이지 이동 함수
+    // 페이지 이동 함수  !!!!!!!!은서 : state값 추가
     const moveToPage = () => {
-        navigate('/reply/replyList/' + id);
+        navigate('/reply/replyList/' + id, {state: {userInfo}});
     };
 
     const goBack = () => {
-        navigate('/', { state: { userInfo } });
+        navigate('/', {state: {userInfo}});
     };
 
     const onUpdate = () => {
-        navigate('/hotel/update/' + id, { state: { userInfo } });
+        navigate('/hotel/update/' + id, {state: {userInfo}});
     };
 
     const onLogout = async () => {
@@ -196,7 +181,7 @@ const Details = () => {
         });
 
         if (response.status === 200) {
-            navigate('/', { state: { userInfo } });
+            navigate('/', {state: {userInfo}});
         }
     };
 
@@ -206,20 +191,20 @@ const Details = () => {
     // 상세보기 버튼 클릭 시 이미지 섹션으로 스크롤 이동
     const scrollToImages = () => {
         if (imagesRef.current) {
-            imagesRef.current.scrollIntoView({ behavior: 'smooth' });
+            imagesRef.current.scrollIntoView({behavior: 'smooth'});
         }
     };
 
     // 개요 버튼 클릭 시 개요 섹션으로 스크롤 이동
     const scrollToOverview = () => {
         if (overviewRef.current) {
-            overviewRef.current.scrollIntoView({ behavior: 'smooth' });
+            overviewRef.current.scrollIntoView({behavior: 'smooth'});
         }
     };
 
     return (
         <>
-            <Header userInfo={userInfo} />
+            <Header userInfo={userInfo}/>
             <Container className="mt-3">
                 <section>
                     <div id="hotelProfile" className="d-flex align-items-center mb-3">
@@ -227,7 +212,7 @@ const Details = () => {
                             <img
                                 src={firstImage}
                                 alt="호텔 이미지"
-                                style={{ width: '280px', height: 'auto' }}
+                                style={{width: '280px', height: 'auto'}}
                             />
                         </div>
                         {data && (
@@ -238,13 +223,14 @@ const Details = () => {
                                 <li className={'p-2'}>주소: {data.address}</li>
                                 <li className={'p-2'}>가격: {data.price}</li>
                                 <li className={'p-2'}>
-                                    <Button onClick={() => addToCart(userInfo.id, data.id)}>장바구니에 추가</Button>
+                                    <Button>장바구니</Button>
+                                    <Button>예약하기</Button>
                                 </li>
                             </ul>
                         )}
                     </div>
                     <aside>
-                        <div style={{marginTop: '20px', marginBottom: '20px' }}>
+                        <div style={{marginTop: '20px', marginBottom: '20px'}}>
                             <h3>최고의 경험이었습니다!!</h3>
                             <p>평점: {averageStar()} </p>
                             <Button onClick={moveToPage} size="sm">호텔리뷰 더보기</Button>
@@ -295,7 +281,7 @@ const Details = () => {
                     </div>
                 </section>
             </Container>
-            <Footer />
+            <Footer/>
         </>
     );
 };
