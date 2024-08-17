@@ -50,7 +50,22 @@ const getRoomTypeText = (roomType) => {
             return '알 수 없음';
     }
 };
-
+// 장바구니에 추가하는 함수
+const addToCart = async (userId, hotelId) => {
+    try {
+        const response = await axios.post(
+            `http://localhost:8080/user/indetails/addOnlyBasket`,
+            { customerID: userId, hotelId: hotelId },
+            { withCredentials: true }
+        );
+        if (response.status === 200) {
+            alert('장바구니에 추가되었습니다.');
+        }
+    } catch (error) {
+        console.error('장바구니 추가 실패:', error);
+        alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
+    }
+};
 const Details = () => {
     const [data, setData] = useState({});
     const [images, setImages] = useState([]);
@@ -223,14 +238,13 @@ const Details = () => {
                                 <li className={'p-2'}>주소: {data.address}</li>
                                 <li className={'p-2'}>가격: {data.price}</li>
                                 <li className={'p-2'}>
-                                    <Button>장바구니</Button>
-                                    <Button>예약하기</Button>
+                                    <Button onClick={() => addToCart(userInfo.id, data.id)}>장바구니에 추가</Button>
                                 </li>
                             </ul>
                         )}
                     </div>
                     <aside>
-                        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+                        <div style={{marginTop: '20px', marginBottom: '20px' }}>
                             <h3>최고의 경험이었습니다!!</h3>
                             <p>평점: {averageStar()} </p>
                             <Button onClick={moveToPage} size="sm">호텔리뷰 더보기</Button>
