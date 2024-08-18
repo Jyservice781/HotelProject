@@ -85,7 +85,7 @@ const Details = () => {
     const profileListStyle = {
         listStyleType: 'none',
         width: '100%',
-        height: '260px',
+        height: 'auto',
         borderTop: '1px solid #999',
         borderBottom: '1px solid #999'
     };

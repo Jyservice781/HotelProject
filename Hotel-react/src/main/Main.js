@@ -105,7 +105,6 @@ let Main = () => {
             startDate === initialStartDate &&
             endDate === initialEndDate
         ) {
-
             handleResetSearch();
         } else {
             // 초기값과 다르다면 검색 실행

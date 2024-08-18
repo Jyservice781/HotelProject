@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 const AdminShowUserList = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [showSellers, setShowSellers] = useState(true); // 상태를 추가하여 판매자/일반 사용자 토글
+    const [showSellers, setShowSellers] = useState(true);
+    let navigate = useNavigate()// 상태를 추가하여 판매자/일반 사용자 토글
+
+    let onNavigate = () => {
+        navigate("/");
+    }
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -76,7 +82,7 @@ const AdminShowUserList = () => {
                     style={{
                         padding: '10px 20px',
                         marginRight: '10px',
-                        backgroundColor: showSellers ? '#3498db' : '#ddd',
+                        backgroundColor: showSellers ? '#439798' : '#ddd',
                         color: showSellers ? '#fff' : '#000',
                         border: 'none',
                         borderRadius: '5px',
@@ -89,7 +95,7 @@ const AdminShowUserList = () => {
                     onClick={() => setShowSellers(false)}
                     style={{
                         padding: '10px 20px',
-                        backgroundColor: !showSellers ? '#3498db' : '#ddd',
+                        backgroundColor: !showSellers ? '#439798' : '#ddd',
                         color: !showSellers ? '#fff' : '#000',
                         border: 'none',
                         borderRadius: '5px',
@@ -101,38 +107,65 @@ const AdminShowUserList = () => {
             </div>
 
             {showSellers && sellers.length > 0 && (
-                <div style={{ marginBottom: '40px' }}>
-                    <h2 style={{ borderBottom: '2px solid #ddd', paddingBottom: '10px' }}>판매자 관리</h2>
-                    <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
+                <div style={{ }}>
+                    <div style={{marginBottom: '40px', width: '100%', borderBottom: '2px solid #ddd'}} className={'d-flex justify-content-between align-items-center'}>
+                        <span style={{font:'20px bold arial'}}>판매자 관리</span>
+                        <span>
+                        <Button onClick={onNavigate} style={{
+                            padding: '5px 10px',
+                            margin: '20px auto',
+                            backgroundColor: '#fff',
+                            borderRadius: '5px',
+                            border: '1px solid #439798',
+                            color: '#439798'
+                        }}>뒤로가기</Button>
+                    </span>
+                    </div>
+                    <ul style={{listStyleType: 'none', paddingLeft: 0}}>
                         {sellers.map((user) => (
-                            <li key={user.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ddd', borderRadius: '8px' }}>
-                                <h3 style={{ marginBottom: '10px' }}>사용자 : {user.username}</h3>
-                                <p style={{ marginBottom: '8px' }}>닉네임 : {user.nickname}</p>
-                                <p style={{ marginBottom: '8px' }}>등급 :
+                            <li key={user.id} style={{
+                                marginBottom: '20px',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '8px'
+                            }}>
+                                <h3 style={{marginBottom: '10px'}}>사용자 : {user.username}</h3>
+                                <p style={{marginBottom: '8px'}}>닉네임 : {user.nickname}</p>
+                                <p style={{marginBottom: '8px'}}>등급 :
                                     <select
                                         value={user.role}
                                         onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                                        style={{ marginLeft: '10px' }}
+                                        style={{marginLeft: '10px'}}
                                     >
                                         <option value="role_seller">판매자</option>
                                         <option value="role_customer">일반 사용자</option>
                                     </select>
                                 </p>
                                 <Link
-                                    to={`/admin/userpage/${user.id}`}
-                                    style={{ marginRight: '10px', textDecoration: 'none', color: '#3498db' }}
-                                >
-                                    판매자 정보 보기
-                                </Link>
-                                <Link
                                     to={`/user/myhotel/${user.id}`}
-                                    style={{ marginRight: '10px', textDecoration: 'none', color: '#3498db' }}
+                                    style={{ padding: '5px 10px',
+                                        margin: '10px 20px 0 0',
+                                        backgroundColor: '#fff',
+                                        borderRadius: '5px',
+                                        border: '1px solid #439798',
+                                        color: '#439798',
+                                        textDecoration:'none'
+
+                                    }}
                                 >
                                     판매중인 호텔 보기
                                 </Link>
                                 <button
                                     onClick={() => handleDelete(user.id)}
-                                    style={{ marginRight: '10px', padding: '5px 10px', border: 'none', borderRadius: '4px', backgroundColor: '#e74c3c', color: '#fff', cursor: 'pointer' }}
+                                    style={{
+                                        marginRight: '10px',
+                                        padding: '5px 10px',
+                                        border: 'none',
+                                        borderRadius: '4px',
+                                        backgroundColor: '#e74c3c',
+                                        color: '#fff',
+                                        cursor: 'pointer'
+                                    }}
                                 >
                                     삭제
                                 </button>
@@ -144,37 +177,61 @@ const AdminShowUserList = () => {
 
             {!showSellers && guests.length > 0 && (
                 <div>
-                    <h2 style={{ borderBottom: '2px solid #ddd', paddingBottom: '10px' }}>일반 사용자 관리</h2>
-                    <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
+                    <div style={{marginBottom: '40px', width: '100%', borderBottom: '2px solid #ddd'}} className={'d-flex justify-content-between align-items-center'}>
+                        <span style={{font: '20px bold arial'}}>일반 사용자 관리</span>
+                        <span>
+                        <Button onClick={onNavigate} style={{
+                            padding: '5px 10px',
+                            margin: '20px auto',
+                            backgroundColor: '#fff',
+                            borderRadius: '5px',
+                            border: '1px solid #439798',
+                            color: '#439798'
+                        }}>뒤로가기</Button>
+                    </span>
+                    </div>
+                    <ul style={{listStyleType: 'none', paddingLeft: 0}}>
                         {guests.map((user) => (
-                            <li key={user.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ddd', borderRadius: '8px' }}>
-                                <h3 style={{ marginBottom: '10px' }}>사용자 : {user.username}</h3>
-                                <p style={{ marginBottom: '8px' }}>닉네임 : {user.nickname}</p>
-                                <p style={{ marginBottom: '8px' }}>등급 :
+                            <li key={user.id} style={{
+                                marginBottom: '20px',
+                                padding: '10px',
+                                border: '1px solid #ddd',
+                                borderRadius: '8px'
+                            }}>
+                                <h3 style={{marginBottom: '10px'}}>사용자 : {user.username}</h3>
+                                <p style={{marginBottom: '8px'}}>닉네임 : {user.nickname}</p>
+                                <p style={{marginBottom: '8px'}}>등급 :
                                     <select
                                         value={user.role}
                                         onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                                        style={{ marginLeft: '10px' }}
+                                        style={{marginLeft: '10px'}}
                                     >
                                         <option value="role_customer">일반 사용자</option>
                                         <option value="role_seller">판매자</option>
                                     </select>
                                 </p>
                                 <Link
-                                    to={`/admin/userpage/${user.id}`}
-                                    style={{ marginRight: '10px', textDecoration: 'none', color: '#3498db' }}
-                                >
-                                    고객 정보 보기
-                                </Link>
-                                <Link
                                     to={`/user/basketChecked/${user.id}`}
-                                    style={{ marginRight: '10px', textDecoration: 'none', color: '#3498db' }}
+                                    style={{padding: '5px 10px',
+                                        margin: '10px 20px 0 0',
+                                        backgroundColor: '#fff',
+                                        borderRadius: '5px',
+                                        border: '1px solid #439798',
+                                        color: '#439798',
+                                        textDecoration:'none'}}
                                 >
                                     구매 내역 보기
                                 </Link>
                                 <button
                                     onClick={() => handleDelete(user.id)}
-                                    style={{ padding: '5px 10px', border: 'none', borderRadius: '4px', backgroundColor: '#e74c3c', color: '#fff', cursor: 'pointer' }}
+                                    style={{
+                                        padding: '5px 10px',
+                                        border: 'none',
+                                        borderRadius: '4px',
+                                        backgroundColor: '#e74c3c',
+                                        color: '#fff',
+                                        cursor: 'pointer'
+                                    }}
                                 >
                                     삭제
                                 </button>
