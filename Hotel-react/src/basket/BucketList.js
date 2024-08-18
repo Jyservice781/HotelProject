@@ -6,15 +6,21 @@ import { Container, Table, Spinner, Alert, Button } from 'react-bootstrap';
 let BucketList = (props) => {
     const { userid: paramUserId } = useParams();
     const userid = props.userid || paramUserId;
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
     let [buckets, setBuckets] = useState([]);
     let [loading, setLoading] = useState(true);
     let [error, setError] = useState(null);
-
+    let handelGoBack=()=>{
+        window.history.back();
+    };
     useEffect(() => {
         let fetchBuckets = async () => {
             try {
+                let userResponse = await axios.get(`http://localhost:8080/user/${userid}`);
+                setUser(userResponse.data); // 사용자 정보 상태 업데이트
+
                 let response = await axios.get(`http://localhost:8080/user/basket/${userid}`);//주소 수정 1
                 setBuckets(response.data); // 서버에서 가져온 데이터로 buckets 상태 업데이트
             } catch (error) {
@@ -31,6 +37,7 @@ let BucketList = (props) => {
         try {
             await axios.delete(`http://localhost:8080/user/basket/${bucketId}`);//주소 수정 2
             setBuckets(buckets.filter(bucket => bucket.id !== bucketId));
+            alert('삭제가 완료되었습니다.');
         } catch (error) {
             setError('Failed to delete item. Please try again later.');
         }
@@ -43,7 +50,7 @@ let BucketList = (props) => {
         try {
             const response = await axios.post(
                 `http://localhost:8080/user/book`,
-                { id: bucketId, hotelId: hotelId },
+                { id: bucketId, hotelId: hotelId},
                 { withCredentials: true }
             );
             if (response.status === 200) {
@@ -62,7 +69,7 @@ let BucketList = (props) => {
 
     return (
         <Container className="mt-4">
-            <h4 className="mb-4"> 장바구니 </h4>
+            <h4 className="mb-4"> {user ? `${user.username}의 장바구니` : '장바구니'} </h4>
             {loading ? (
                 <div className="d-flex justify-content-center">
                     <Spinner animation="border" />
@@ -73,21 +80,15 @@ let BucketList = (props) => {
                 <Table striped bordered hover responsive variant="light">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Customer ID</th>
-                        <th>Hotel ID</th>
-                        <th>Hotel Name</th>
-                        <th>Price</th>
-                        <th>Actions</th>
+                        <th>호텔 이름</th>
+                        <th>가격 </th>
+                        <th> </th>
                     </tr>
                     </thead>
                     <tbody>
                     {buckets.length > 0 ? (
                         buckets.map(bucket => (
                             <tr key={bucket.id}>
-                                <td>{bucket.id}</td>
-                                <td>{bucket.customerID}</td>
-                                <td>{bucket.hotelId}</td>
                                 <td>{bucket.hotelName}</td>
                                 <td>${bucket.price.toFixed(2)}</td>
                                 <td>
@@ -101,7 +102,7 @@ let BucketList = (props) => {
                                     {!bucket.booked && (
                                         <Button
                                             variant="primary"
-                                            onClick={() => bookHotel(bucket.id,bucket.hotelId)}
+                                            onClick={() => bookHotel(bucket.id, bucket.hotelId)}
                                             className="ms-2"
                                         >
                                             예약
@@ -118,7 +119,23 @@ let BucketList = (props) => {
                     </tbody>
                 </Table>
             )}
+            <Button
+                onClick={handelGoBack}
+                style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    right: '20px',
+                    padding: '10px 20px',
+                    backgroundColor: '#007bff',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                }}
+            >
+                뒤로가기</Button>
         </Container>
+
     );
 };
 

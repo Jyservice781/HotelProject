@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
+import {Button} from "react-bootstrap";
 
 const BasketCheckedByUser = (props) => {
     const { userid: paramUserId } = useParams();
     const userid = props.userid || paramUserId;
+    const handelGoBack=()=>{
+        window.history.back();
 
+    }
     const [reservations, setReservations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -52,7 +56,6 @@ const BasketCheckedByUser = (props) => {
     return (
         <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>예약 내역</h1>
-
             {reservations.length === 0 ? (
                 <p style={{ textAlign: 'center', fontSize: '18px', color: '#666' }}>예약 내역이 없습니다.</p>
             ) : (
@@ -93,6 +96,22 @@ const BasketCheckedByUser = (props) => {
                     ))}
                 </ul>
             )}
+            <Button
+                onClick={handelGoBack}
+                style={{
+                    position: 'fixed',
+                    bottom: '20px',
+                    right: '20px',
+                    padding: '10px 20px',
+                    backgroundColor: '#007bff',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                }}
+            >
+                뒤로가기
+            </Button>
         </div>
     );
 };
