@@ -50,5 +50,9 @@
         SET payment = 0
         WHERE id = #{bucketId}
     </update>
-
+    <select id="checkDuplicate" parameterType="hashMap" resultType="int" >
+        SELECT COUNT(*)
+        FROM bucket
+        WHERE customerId=#{customerId} AND hotelId = #{hotelId}
+    </select>
 </mapper>

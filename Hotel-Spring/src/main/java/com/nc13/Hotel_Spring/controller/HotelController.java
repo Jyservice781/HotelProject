@@ -192,10 +192,13 @@ public class HotelController {
         return resultMap;
     }
 
-    @GetMapping("delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
-        HOTEL_SERVICE.delete(id);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("delete/{hotelId}")
+    public ResponseEntity<String> delete(@PathVariable int hotelId) {
+        if(HOTEL_SERVICE.deleteHotelById(hotelId)){
+            return new ResponseEntity<>("호텔이 삭제되었습니다.", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("호텔삭제에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     // @DeleteMapping("delete/{hotelId}")
     // public ResponseEntity<Void> deleteBasketItem(@PathVariable int hotelId) {

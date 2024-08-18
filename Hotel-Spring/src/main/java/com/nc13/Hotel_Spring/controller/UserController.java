@@ -34,7 +34,7 @@ public class UserController {
 
     @PostMapping("/user/auth")
     public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String password) {
-        System.out.println("Raw Password: " + password);
+//        System.out.println("Raw Password: " + password);
         Authentication authentication = authenticationManager.authenticate(// 사용자 인증
                 new UsernamePasswordAuthenticationToken(username, password)
         );
@@ -58,7 +58,7 @@ public class UserController {
 
     @RequestMapping("/user/authFail")
     public ResponseEntity<Map<String, Object>> authFail() {
-        System.out.println("Auth has failed");
+//        System.out.println("Auth has failed");
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result","fail");
 
@@ -67,15 +67,15 @@ public class UserController {
 
     @RequestMapping("/user/logOutSuccess")
     public ResponseEntity<Void> logOutSuccess(Authentication authentication) {
-        System.out.println(authentication);
-        System.out.println("log out success");
+//        System.out.println(authentication);
+//        System.out.println("log out success");
 
         return ResponseEntity.ok().build();
     }
     @RequestMapping("/user/register")
     public ResponseEntity<Void> signUpSuccess(String username,String password,String nickname,String role){
         if(userService.selectByUsername(username)!=null){
-            System.out.println("이미 가입된 회원입니다.");
+//            System.out.println("이미 가입된 회원입니다.");
             return ResponseEntity.status(HttpStatus.CONFLICT).build(); //ERROR CODE 409 return
         }else{
             userDetailsService.signup(username,password,nickname,role);

@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Service
@@ -58,6 +59,15 @@ public class BucketService {
 
     public void delete(int id) {
         SESSION.delete(NAMESPACE + ".delete", id);
+    }
+    public boolean checkDupicate(int hotelId,int customerId){
+        Map<String,Integer> checkInfo = new HashMap<>();
+        checkInfo.put("hotelId",hotelId);
+        checkInfo.put("customerId",customerId);
+        System.out.println("map-호텔ID:"+checkInfo.get("hotelId"));
+        System.out.println("map-고객ID:"+checkInfo.get("customerId"));
+        int count = SESSION.selectOne(NAMESPACE + ".checkDuplicate",checkInfo);
+        return count >= 1; //count 2 이상인지에 대한 boolean (중복이면 true)
     }
 
 }
