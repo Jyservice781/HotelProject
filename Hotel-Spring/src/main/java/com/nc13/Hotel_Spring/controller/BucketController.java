@@ -106,7 +106,7 @@ public class BucketController {
         int customerToBasket = bucketDTO.getCustomerID();
         if(bucketService.checkDupicate(hotelToBasket,customerToBasket)){
             System.out.println("장바구니에 이미 담김");
-            return new ResponseEntity<>("장바구니에 이미 담겼습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("장바구니에 이미 담겼습니다.", HttpStatus.CONFLICT);
         }else{
 
             BucketDTO newBucketData = new BucketDTO();
