@@ -184,7 +184,7 @@ let Main = () => {
                     </div>
                 </Container>
                 <Banner />
-                <PopularHotel max={10} id={'popular'} ref={popularRef} />
+                <PopularHotel max={8} id={'popular'} ref={popularRef} />
             </Container>
             <Footer />
         </>

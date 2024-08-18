@@ -1,6 +1,6 @@
 import React, { useEffect, useState, forwardRef } from 'react';
 import axios from 'axios';
-import { Card } from 'react-bootstrap';
+import {Card, Container} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -55,7 +55,7 @@ const PopularHotel = forwardRef(({ max }, ref) => {
     }, [max]);
 
     return (
-        <div style={{ marginTop: '40px', cursor: 'pointer' }}>
+        <Container fluid style={{ marginTop: '40px', cursor: 'pointer' }}>
             {hotels.length > 0 ? (
                 hotels.map(hotel => {
 
@@ -74,17 +74,17 @@ const PopularHotel = forwardRef(({ max }, ref) => {
                             style={{ display: 'inline-block', textDecoration: 'none' }}
                             onClick={() => navigate(`/hotel/showOne/${hotel.id}`)}
                         >
-                            <Card style={{ width: '300px', height: '180px', margin: '10px 5px 10px' }}>
+                            <Card style={{ width: '300px', height: 'auto', margin: '10px 5px 10px' }}>
                                 <Card.Img
                                     variant="top"
                                     src={thumbnailUrl}
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                                     alt={`Image of ${hotel.name}`}
                                 />
                                 <Card.Body>
-                                    <Card.Text>
-                                        <p>{hotel.shortContent}</p>
-                                        <p>평점: {hotel.averageRating.toFixed(1)}</p>
+                                    <Card.Text className={'d-flex justify-content-between'}>
+                                        <span style={{width:'70%'}}>{hotel.shortContent}</span>
+                                        <span style={{width: '25%'}}>평점: {hotel.averageRating.toFixed(1)}</span>
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
@@ -94,7 +94,7 @@ const PopularHotel = forwardRef(({ max }, ref) => {
             ) : (
                 <div className="text-center">인기 호텔이 없습니다.</div>
             )}
-        </div>
+        </Container>
     );
 });
 

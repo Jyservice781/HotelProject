@@ -4,6 +4,19 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 
 const HotelCard = ({hotel, userInfo}) => {
+
+    const btnStyle = {
+        padding: '8px 5px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        width: '100%'
+    }
+
+
+
     // 이미지 URL 설정: 호텔 이미지가 있을 경우 랜덤 이미지 선택, 없으면 기본 이미지 사용
     const thumbnailUrl = hotel.images && hotel.images.length > 0
         ? `http://localhost:8080/hotel/uploads/${hotel.id}/${hotel.roomNumber}/${hotel.images[Math.floor(Math.random() * hotel.images.length)]}`
@@ -36,12 +49,12 @@ const HotelCard = ({hotel, userInfo}) => {
                           style={{width: 'inherit', height: '180px', objectFit: 'cover'}}/>
                 <Card.Body>
                     <Card.Title>{hotel.name}</Card.Title>
-                    <Card.Text>
+                    <Card.Text style={{textAlign: "right"}}>
                         <p>{hotel.shortContent}</p>
                         <p>평점: {average.toFixed(1)}</p>
                     </Card.Text>
                     <Link to={`/hotel/showOne/${hotel.id}`} state={{userInfo: userInfo}}>
-                        <Button variant="primary">
+                        <Button variant="primary" style={btnStyle}>
                             자세히 보기
                         </Button>
                     </Link>

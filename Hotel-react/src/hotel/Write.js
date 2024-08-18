@@ -17,8 +17,8 @@ const Write = () => {
         startEntry: '',
         endEntry: '',
         roomNumber: '',
-        roomMember: '',
-        roomType: '',
+        roomMember: '1',
+        roomType: '1',
         price: '',
         shortContent: '',
         sellerId: userInfo.id
@@ -147,6 +147,17 @@ const Write = () => {
         }
     }, [error]);
 
+
+    const btnStyle = {
+        padding: '10px 15px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
     return (
         <>
             <Container className={"mt-3"}>
@@ -166,17 +177,41 @@ const Write = () => {
                                     type={'text'}
                                     value={inputs.name}
                                     name={'name'}
-                                    onChange={onChange} />
+                                    onChange={onChange}/>
                             </td>
                         </tr>
                         <tr>
-                            <td>설명</td>
+                            <td>가격</td>
+                            <td>
+                                <FormControl
+                                    type={'number'}
+                                    value={inputs.price}
+                                    name={'price'}
+                                    onChange={onChange}/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                요약 설명
+                                <p style={{fontSize: '13px'}}>썸네일에 보여지게 됩니다!</p>
+                            </td>
+                            <td>
+                                <FormControl
+                                    type={'text'}
+                                    value={inputs.shortContent}
+                                    name={'shortContent'}
+                                    onChange={onChange}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>상세설명</td>
                             <td>
                                 <textarea
                                     name={'content'}
                                     value={inputs.content}
                                     className={"form-control"}
-                                    onChange={onChange} />
+                                    onChange={onChange}/>
                             </td>
                         </tr>
                         <tr>
@@ -186,7 +221,7 @@ const Write = () => {
                                     type={'text'}
                                     value={inputs.address}
                                     name={'address'}
-                                    onChange={onChange} />
+                                    onChange={onChange}/>
                             </td>
                         </tr>
                         <tr>
@@ -196,7 +231,7 @@ const Write = () => {
                                     type={'date'}
                                     value={inputs.startEntry}
                                     name={'startEntry'}
-                                    onChange={onChange} />
+                                    onChange={onChange}/>
                             </td>
                         </tr>
                         <tr>
@@ -206,17 +241,17 @@ const Write = () => {
                                     type={'date'}
                                     value={inputs.endEntry}
                                     name={'endEntry'}
-                                    onChange={onChange} />
+                                    onChange={onChange}/>
                             </td>
                         </tr>
                         <tr>
-                            <td>방 번호</td>
+                            <td>방 호수</td>
                             <td>
                                 <FormControl
                                     type={'number'}
                                     value={inputs.roomNumber}
                                     name={'roomNumber'}
-                                    onChange={onChange} />
+                                    onChange={onChange}/>
                             </td>
                         </tr>
                         <tr>
@@ -251,26 +286,7 @@ const Write = () => {
                                 </FormControl>
                             </td>
                         </tr>
-                        <tr>
-                            <td>가격</td>
-                            <td>
-                                <FormControl
-                                    type={'number'}
-                                    value={inputs.price}
-                                    name={'price'}
-                                    onChange={onChange} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>썸네일 설명</td>
-                            <td>
-                                <FormControl
-                                    type={'text'}
-                                    value={inputs.shortContent}
-                                    name={'shortContent'}
-                                    onChange={onChange} />
-                            </td>
-                        </tr>
+
                         <tr>
                             <td>파일 업로드</td>
                             <td>
@@ -278,7 +294,7 @@ const Write = () => {
                                     type="file"
                                     name="file"
                                     multiple
-                                    onChange={onFileChange} />
+                                    onChange={onFileChange}/>
                             </td>
                         </tr>
                         {imageUrls.length > 0 && (
@@ -290,7 +306,7 @@ const Write = () => {
                                                 key={index}
                                                 src={url}
                                                 thumbnail
-                                                style={{ marginRight: '10px', marginBottom: '10px' }}
+                                                style={{marginRight: '10px', marginBottom: '10px'}}
                                             />
                                         ))}
                                     </div>
@@ -303,12 +319,14 @@ const Write = () => {
                                     <Button
                                         type={'submit'}
                                         className="me-2"
+                                        style={btnStyle}
                                     >
                                         작성하기
                                     </Button>
                                     <Button
                                         variant="secondary"
                                         onClick={() => navigate(-1)}
+                                        style={btnStyle}
                                     >
                                         뒤로가기
                                     </Button>

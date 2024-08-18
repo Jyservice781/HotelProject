@@ -17,6 +17,7 @@ let ReplyList = () => {
     let navigate = useNavigate();
     let params = useParams()
 
+
     let location = useLocation()
     let userInfo = location.state?.userInfo || {id: null}
     let hotelId = parseInt(params.hotelId)
@@ -110,30 +111,50 @@ let ReplyList = () => {
         )
     }
 
+    const btnStyle = {
+        padding: '6px 12px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
+    let btnBackStyle = {
+        padding: '6px 12px',
+        backgroundColor: '#fff',
+        color: '#439798',
+        border: '1px solid #439798',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
     return (
         <>
-            <Header userInfo={userInfo}/>
-            <Container fluid="md" className={'w-75'}>
-                <div style={{fontWeight: 'bold', fontSize: '24px'}}>
-                    [호텔명 : {data.replyList.length > 0 ? data.replyList[0].name : "호텔 이름 없음"}]
-                </div>
-                <div style={{fontWeight: 'bold'}}>
-                    별점 : {averageStar()}
-                </div>
-                <div className='d-flex justify-content-end'>
-                    <SortComponent sortOption={sortOption} setSortOption={setSortOption}/>
-                </div>
-                <ul>
-                    {data.replyList.map(r => (
-                        <ListItem reply={r} key={r.id}/>
-                    ))}
-                </ul>
-                <div className='d-flex justify-content-end'>
-                    <Button type={'button'} onClick={moveToWrite} className='me-2'>리뷰작성</Button>
-                    <Button type={'button'} onClick={moveToDetails}>뒤로가기</Button>
-                </div>
-                <PaginationComponent page={page} totalPages={totalPages} setPage={setPage}/>
-            </Container>
+        <Header userInfo={userInfo}/>
+        <Container fluid="md" className={'w-75'}>
+            <div style={{fontWeight: 'bold'}}>
+                [호텔명 : {data.replyList.length > 0 ? data.replyList[0].name : "호텔 이름 없음"}]
+            </div>
+            <div style={{fontWeight: 'bold'}}>
+                [평균 별점 : {averageStar()}]
+            </div>
+            <div className='d-flex justify-content-end'>
+                <SortComponent sortOption={sortOption} setSortOption={setSortOption}/>
+            </div>
+            <ul style={{listStyle: 'none'}}>
+                {data.replyList.map(r => (
+                    <ListItem reply={r} key={r.id}/>
+                ))}
+            </ul>
+            <div className='d-flex justify-content-end'>
+                <Button type={'button'} onClick={moveToWrite} className='me-2' style={btnStyle}>리뷰작성</Button>
+                <Button variant='secondary' onClick={()=> navigate(-1)}  style={btnBackStyle}>뒤로가기</Button>
+            </div>
+            <PaginationComponent page={page} totalPages={totalPages} setPage={setPage}/>
+        </Container>
         </>
     )
 }

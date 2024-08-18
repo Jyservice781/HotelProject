@@ -5,6 +5,7 @@ const SortComponent = ({sortOption, setSortOption}) => {
     const sortSelect = (eventKey) => {
         setSortOption(eventKey)
     }
+
     return(
         <DropdownButton id="sort-options" title="정렬 기준" onSelect={sortSelect}>
             <Dropdown.Item eventKey="latest">날짜</Dropdown.Item>

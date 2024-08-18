@@ -60,8 +60,7 @@ let Register = () => {
 
     let registerStyle = {
         width: '40%',
-        height: '300px'
-
+        height: '50%'
     }
     let wrapStyle = {
         position: 'absolute',
@@ -70,11 +69,32 @@ let Register = () => {
         transform: 'translate(-50%, -50%)',
         width:'50%',
         height: '40%',
-        backgroundColor: '#439798',
+        background: '#ffffff',
+        boxShadow:  '15px 15px 45px #bdbdbd, -15px -15px 45px #ffffff',
+        margin: '0px',
         padding:'20px 30px 20px 30px',
         borderRadius: '40px',
     }
 
+    const btnStyle = {
+        padding: '6px 12px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
+    let btnBackStyle = {
+        padding: '6px 12px',
+        backgroundColor: '#fff',
+        color: '#439798',
+        border: '1px solid #439798',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
 
     let goBack = () => {
         navigate(-1)
@@ -83,7 +103,7 @@ let Register = () => {
     return (
         <div style={wrapStyle}>
             <Container style={registerStyle} className={"justify-content-md-center"}>
-                <Form className={"align-items-center mt-5"}>
+                <Form className={"align-items-center mt-2"}>
                     <Col>
                         <Form.Control
                             type="text"
@@ -93,7 +113,7 @@ let Register = () => {
                             onChange={onChange}
                         />
                     </Col>
-                    <Col className={'mt-5 mb-5'}>
+                    <Col className={'mt-2 mb-2'}>
                         <Form.Control
                             type="password"
                             placeholder="PASSWORD"
@@ -102,7 +122,7 @@ let Register = () => {
                             onChange={onChange}
                         />
                     </Col>
-                    <Col className={'mt-4'}>
+                    <Col>
                         <Form.Control
                             type="text"
                             placeholder="Nickname"
@@ -111,7 +131,7 @@ let Register = () => {
                             onChange={onChange}
                         />
                     </Col>
-                    <Col className={'mt-4'}>
+                    <Col className={'mt-2'}>
                         <Form.Check
                             type="checkbox"
                             label="판매자 계정으로 등록"
@@ -119,8 +139,8 @@ let Register = () => {
                             onChange={onCheckboxChange}
                         />
                     </Col>
-                    <Button onClick={onSubmit} className={'m-lg-3'}>회원가입</Button>
-                    <Button onClick={goBack}>뒤로가기</Button>
+                    <Button onClick={onSubmit} className={'m-lg-3'} style={btnStyle}>회원가입</Button>
+                    <Button onClick={goBack} style={btnBackStyle}>뒤로가기</Button>
                 </Form>
             </Container>
         </div>
