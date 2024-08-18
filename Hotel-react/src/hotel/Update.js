@@ -198,11 +198,21 @@ const Update = () => {
         }
     }, [error]);
 
+    const btnStyle = {
+        padding: '10px 15px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
     return (
-        <Container className="mt-3">
+        <Container className={"mt-3"}>
             <form onSubmit={onSubmit}>
                 {error && <div className="alert alert-danger">{error}</div>}
-                <Table striped bordered hover>
+                <Table striped hover bordered>
                     <thead>
                     <tr>
                         <td colSpan={2} className="text-center">{id}번 글 수정하기</td>
@@ -221,58 +231,77 @@ const Update = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>설명</td>
+                        <td>가격</td>
                         <td>
-                            <textarea
-                                name="content"
-                                className="form-control"
-                                value={inputs.content}
+                            <FormControl
+                                type="number"
+                                name="price"
+                                value={inputs.price}
                                 onChange={onChange}
                             />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            요약 설명
+                            <p style={{fontSize: '13px'}}>썸네일에 보여지게 됩니다!</p>
+                        </td>
+                        <td>
+                            <FormControl
+                                type={'text'}
+                                value={inputs.shortContent}
+                                name={'shortContent'}
+                                onChange={onChange}/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>상세설명</td>
+                        <td>
+                                <textarea
+                                    name={'content'}
+                                    value={inputs.content}
+                                    className={"form-control"}
+                                    onChange={onChange}/>
                         </td>
                     </tr>
                     <tr>
                         <td>주소</td>
                         <td>
                             <FormControl
-                                type="text"
-                                name="address"
+                                type={'text'}
                                 value={inputs.address}
-                                onChange={onChange}
-                            />
+                                name={'address'}
+                                onChange={onChange}/>
                         </td>
                     </tr>
                     <tr>
                         <td>시작 날짜</td>
                         <td>
                             <FormControl
-                                type="date"
-                                name="startEntry"
+                                type={'date'}
                                 value={inputs.startEntry}
-                                onChange={onChange}
-                            />
+                                name={'startEntry'}
+                                onChange={onChange}/>
                         </td>
                     </tr>
                     <tr>
                         <td>종료 날짜</td>
                         <td>
                             <FormControl
-                                type="date"
-                                name="endEntry"
+                                type={'date'}
                                 value={inputs.endEntry}
-                                onChange={onChange}
-                            />
+                                name={'endEntry'}
+                                onChange={onChange}/>
                         </td>
                     </tr>
                     <tr>
-                        <td>방 번호</td>
+                        <td>방 호수</td>
                         <td>
                             <FormControl
-                                type="number"
-                                name="roomNumber"
+                                type={'number'}
                                 value={inputs.roomNumber}
-                                onChange={onChange}
-                            />
+                                name={'roomNumber'}
+                                onChange={onChange}/>
                         </td>
                     </tr>
                     <tr>
@@ -280,10 +309,9 @@ const Update = () => {
                         <td>
                             <FormControl
                                 as="select"
-                                name="roomType"
                                 value={inputs.roomType}
-                                onChange={onChange}
-                            >
+                                name={'roomType'}
+                                onChange={onChange}>
                                 {roomTypes.map((option) => (
                                     <option key={option.value} value={option.value}>
                                         {option.label}
@@ -297,10 +325,9 @@ const Update = () => {
                         <td>
                             <FormControl
                                 as="select"
-                                name="roomMember"
                                 value={inputs.roomMember}
-                                onChange={onChange}
-                            >
+                                name={'roomMember'}
+                                onChange={onChange}>
                                 {roomMembers.map((option) => (
                                     <option key={option.value} value={option.value}>
                                         {option.label}
@@ -310,36 +337,13 @@ const Update = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>가격</td>
-                        <td>
-                            <FormControl
-                                type="number"
-                                name="price"
-                                value={inputs.price}
-                                onChange={onChange}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>썸네일 설명</td>
-                        <td>
-                            <FormControl
-                                type="text"
-                                name="shortContent"
-                                value={inputs.shortContent}
-                                onChange={onChange}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
                         <td>파일 업로드</td>
                         <td>
                             <input
                                 type="file"
                                 name="file"
                                 multiple
-                                onChange={onFileChange}
-                            />
+                                onChange={onFileChange}/>
                         </td>
                     </tr>
                     {imageUrls.length > 0 && (
@@ -351,7 +355,7 @@ const Update = () => {
                                             key={index}
                                             src={url}
                                             thumbnail
-                                            style={{ marginRight: '10px', marginBottom: '10px' }}
+                                            style={{marginRight: '10px', marginBottom: '10px'}}
                                         />
                                     ))}
                                 </div>
@@ -359,14 +363,19 @@ const Update = () => {
                         </tr>
                     )}
                     <tr>
-                        <td colSpan={2} className="text-center">
+                        <td colSpan={2} className={'text-center'}>
                             <div className="d-flex justify-content-center">
-                                <Button type="submit" className="me-2">
-                                    수정하기
+                                <Button
+                                    type={'submit'}
+                                    className="me-2"
+                                    style={btnStyle}
+                                >
+                                    작성하기
                                 </Button>
                                 <Button
                                     variant="secondary"
                                     onClick={() => navigate(-1)}
+                                    style={btnStyle}
                                 >
                                     뒤로가기
                                 </Button>
