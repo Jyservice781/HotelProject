@@ -45,10 +45,11 @@ public class BucketController {
         System.out.println("MyBucket");
         List<BucketDTO> newList = bucketService.bucketByUserId(userId);
         for(BucketDTO b : newList){
-            System.out.println("newBucketDTO: "+b.toString());
+            System.out.println("(장바구니 확인) newBucketDTO: "+b.toString());
         }
         return newList;
     }
+
 
     @GetMapping("basketChecked/{userId}")
     public List<BucketDTO> myBasketChecked(@PathVariable int userId){
@@ -71,30 +72,43 @@ public class BucketController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // 404 Not Found 응답
         }
     }
-    
-    @PutMapping("book/{hotelId}")
-    public HashMap<String, Object> bookHotel(@PathVariable int hotelId) {
-        HashMap<String, Object> resultMap = new HashMap<>();
+    @PostMapping("cancelReservation/{basketId}") //지혜 - 예약취소(hotel.booked = 0, payment = 0)
+    public ResponseEntity<String> cancelReservation(@PathVariable int basketId) {
         try {
-            System.out.println("hotelId - "+hotelId+"예약");
-            hotelService.updateBooked(hotelId);
-            resultMap.put("result", "success");
+            System.out.println("basketId - "+basketId+"번 장바구니 boolean 변경");
+            BucketDTO basketTOCancel = bucketService.selectOne(basketId);
+            hotelService.cancelBooked(basketTOCancel.getHotelId());
+            bucketService.cancelPayment(basketId);
+            System.out.println("삭제할 basket("+basketId+"번)의 hotelid:"+basketTOCancel.getHotelId());
+            return new ResponseEntity<>("예약 취소되었습니다.", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            resultMap.put("result", "fail");
+            return new ResponseEntity<>("예약취소에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
-        return resultMap;
+
+    }
+    @PostMapping("book") //헌재 - 결제
+    public ResponseEntity<String> bookHotel(@RequestBody BucketDTO bucketDTO) {
+        int hotelId = bucketDTO.getHotelId();
+        int basketId = bucketDTO.getId();
+        System.out.println("예약할 hotelId,basketId:"+hotelId+"/"+basketId);
+        try {
+            bucketService.updatePayment(basketId);
+            hotelService.updateBooked(hotelId);
+            return new ResponseEntity<>("예약되었습니다.", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("예약에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @PostMapping("indetails/addOnlyBasket") //호텔 상세페이지 - 장바구니(급하게)
     public ResponseEntity<String> addToCart(@RequestBody BucketDTO bucketDTO) {
         int hotelToBasket = bucketDTO.getHotelId();
         int customerToBasket = bucketDTO.getCustomerID();
-        System.out.println("상세페이지 장바구니 TEST-hotelId: "+hotelToBasket+"고객 Id: "+customerToBasket);
         BucketDTO newBucketData = new BucketDTO();
         try {
             HotelDTO hotelToPut = hotelService.selectOne(hotelToBasket);
-            System.out.println("선택한 hotel 정보:"+hotelToPut.toString());
-
             newBucketData.setCustomerID(customerToBasket);
             newBucketData.setPayment(false); // 결제 X
             newBucketData.setHotelId(hotelToPut.getId());
@@ -111,4 +125,5 @@ public class BucketController {
             return new ResponseEntity<>("장바구니 추가에 실패했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

@@ -21,6 +21,7 @@
     </select>
     <select id="selectAll" resultType="hotelDTO">
         SELECT * FROM hotel
+        WHERE booked=0
     </select>
     <insert id="insert" parameterType="HotelDTO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO hotel(name, content,address, sellerId, startEntry,
@@ -84,8 +85,13 @@
     <!--추가-->
     <update id="updateBooked">
         UPDATE hotel
-        SET booked = TRUE
-        WHERE id = #{id}
+        SET booked = 1
+        WHERE id = #{hotelId}
+    </update>
+    <update id="cancelBooked">
+        UPDATE hotel
+        SET booked = 0
+        WHERE id = #{hotelId}
     </update>
 
 </mapper>

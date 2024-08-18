@@ -13,14 +13,14 @@
         ON B.hotelId = H.id
     </select>
     <select id="bucketByUserId" parameterType="int" resultType="bucketDTO">
-        SELECT B.id,B.customerId,H.id as hotelId,H.name as hotelName,H.startEntry, H.endEntry,H.price,H.booked FROM bucket as B
+        SELECT B.id,B.customerId as customerID,H.id as hotelId,H.name as hotelName,H.startEntry, H.endEntry,H.price,H.booked FROM bucket as B
         INNER JOIN hotel as H ON H.id=B.hotelId and H.booked = 0
-        where B.customerId = #{id}
+        where B.customerId = #{userId}
     </select>
     <select id="bucketCheckedByUserId" parameterType="int" resultType="bucketDTO">
-        SELECT B.id,B.customerId,B.payment,H.id as hotelId,H.name as hotelName,H.startEntry, H.endEntry,H.price,H.booked FROM bucket as B
+        SELECT B.id,B.customerId as customerID,B.payment,H.id as hotelId,H.name as hotelName,H.startEntry, H.endEntry,H.price,H.booked FROM bucket as B
         INNER JOIN hotel as H ON H.id=B.hotelId
-        where B.customerId = #{id} and B.payment = 1
+        where B.customerId = #{userId} and B.payment = 1
     </select>
     <delete id="deleteOne" parameterType="int">
         DELETE FROM bucket
@@ -28,8 +28,8 @@
     </delete>
 
     <insert id="insert" parameterType="BucketDTO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO bucket(customerId, hotelId, hotelName, price)
-        VALUES(#{customerId}, #{hotelId}, #{hotelName}, #{price})
+        INSERT INTO bucket(customerId, hotelId, hotelName, price, payment)
+        VALUES(#{customerID}, #{hotelId}, #{hotelName}, #{price}, #{payment})
     </insert>
 
     <update id="update" parameterType="BucketDTO">
@@ -40,6 +40,15 @@
         price = #{price}
         WHERE id = #{id}
     </update>
-
+    <update id="updatePayment">
+        UPDATE bucket
+        SET payment = 1
+        WHERE id = #{bucketId}
+    </update>
+    <update id="cancelPayment">
+        UPDATE bucket
+        SET payment = 0
+        WHERE id = #{bucketId}
+    </update>
 
 </mapper>
