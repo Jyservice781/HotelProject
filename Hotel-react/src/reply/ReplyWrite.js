@@ -3,8 +3,8 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Button, Container} from "react-bootstrap";
 import {FaStar} from "react-icons/fa";
 import axios from "axios";
+import Header from "../component/Header";
 
-// !!!!!! 은서 : location 위치, customerId 변경
 let ReplyWrite = () => {
     let {hotelId} = useParams()
     let location = useLocation()
@@ -19,8 +19,6 @@ let ReplyWrite = () => {
         score: '',
         content: ''
     })
-    console.log('customerId: '+ userInfo.id)
-    console.log("hotelID: "+ hotelId)
 
     let [message, setMessage] = useState('')
 
@@ -82,6 +80,8 @@ let ReplyWrite = () => {
     }
 
     return (
+        <>
+        <Header userInfo={userInfo}/>
         <Container classname={"mt-3"}>
             <form onSubmit={onSubmit}>
                 <ul style={{margin:'5px 0'}}>
@@ -108,10 +108,11 @@ let ReplyWrite = () => {
                               onChange={onChange}/>
                     </li>
                     <Button type={'submit'} style={{margin:'15px 0'}} className='me-2'>등록하기</Button>
-                    <Button variant='secondary' onClick={()=> navigate(-1)}>뒤로가기</Button>
+                    <Button type={'button'} onClick={moveToNext}>뒤로가기</Button>
                 </ul>
             </form>
         </Container>
+        </>
     )
 }
 export default ReplyWrite

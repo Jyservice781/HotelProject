@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {FaStar} from "react-icons/fa";
 import axios from "axios";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import Header from "../component/Header";
 
 let ReplyUpdate = () => {
     let [inputs, setInputs] = useState({
@@ -31,7 +32,6 @@ let ReplyUpdate = () => {
             let response = await axios.post('http://localhost:8080/reply/update', inputs, {
                 withCredentials: true
             })
-            console.log("Response data: ", response.data)
             if (response.status === 200) {
                 moveToNext()
             }
@@ -87,6 +87,8 @@ let ReplyUpdate = () => {
     }
 
     return (
+        <>
+        <Header userInfo={userInfo}/>
         <Container className={"mt-3"}>
             <form onSubmit={onSubmit}>
                 <ul>
@@ -110,10 +112,11 @@ let ReplyUpdate = () => {
                               onChange={onChange}></textarea>
                     </li>
                     <Button type={'submit'} style={{margin: '15px 0'}} className='me-2'>수정</Button>
-                    <Button variant='secondary' onClick={()=> navigate(-1)}>뒤로가기</Button>
+                    <Button type={'button'} onClick={moveToNext}>뒤로가기</Button>
                 </ul>
             </form>
         </Container>
+        </>
     )
 }
 

@@ -73,7 +73,7 @@ let UserList = ({data, onUpdate, onDelete}) => {
                 <Col sm={5}>
                     <ul style={noneBullet}>
                         <li style={{width: '100%'}}>
-                            <div style={{width: '53%', display:'inline-block'}}>
+                            <div style={{width: '53%', display: 'inline-block'}}>
                                 {ARRAY.map((element) => (
                                     <FaStar
                                         key={element}
@@ -83,7 +83,7 @@ let UserList = ({data, onUpdate, onDelete}) => {
                                 ))}{' '}
                                 {data.score}.0
                             </div>
-                            <div style={{width:'47%', display:'inline-block'}}>
+                            <div style={{width: '47%', display: 'inline-block'}}>
                                 {parseInt(data.customerId) === parseInt(userInfo.id) &&
                                     <span>
                                     <Button onClick={() => onUpdate(data.id)} className="me-2">수정</Button>
@@ -93,7 +93,9 @@ let UserList = ({data, onUpdate, onDelete}) => {
                             </div>
                         </li>
                         <textarea className="my-1"
-                                  style={{width: '100%', height: '130px', rowGap: '3'}}>{data.content}</textarea>
+                                  style={{width: '100%', height: '130px', rowGap: '3'}}
+                                  disabled={true}>{data.content}</textarea>
+
                     </ul>
                 </Col>
             </Row>
