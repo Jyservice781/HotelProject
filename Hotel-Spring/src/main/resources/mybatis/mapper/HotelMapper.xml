@@ -33,27 +33,28 @@
         SELECT *
         FROM hotel
         WHERE booked = 0
-        <if test="searchType == 'name'">
+        <if test="searchType == 'name' and keyword != null and keyword != ''">
             AND name LIKE CONCAT('%', #{keyword}, '%')
         </if>
-        <if test="searchType == 'address'">
+        <if test="searchType == 'address' and keyword != null and keyword != ''">
             AND address LIKE CONCAT('%', #{keyword}, '%')
         </if>
         <if test="minPrice != null">
-            AND price &gt; #{minPrice}
+            AND price &gt;= #{minPrice}
         </if>
         <if test="maxPrice != null">
-            AND price &lt; #{maxPrice}
+            AND price &lt;= #{maxPrice}
         </if>
         <if test="startDate != null">
-            AND startEntry &gt; #{startDate}
+            AND startEntry &gt;= #{startDate}
         </if>
         <if test="endDate != null">
-            AND endEntry &lt; #{endDate}
+            AND endEntry &lt;= #{endDate}
         </if>
         ORDER BY id DESC
         LIMIT #{startRow}, #{size}
     </select>
+
     <update id="update" parameterType="HotelDTO">
         UPDATE hotel
         SET name = #{name},

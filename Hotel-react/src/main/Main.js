@@ -91,8 +91,6 @@ let Main = () => {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
 
-
-        const initialSearchType = searchType;
         const initialKeyword = '';
         const initialMinPrice = '';
         const initialMaxPrice = '';
