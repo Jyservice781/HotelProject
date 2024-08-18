@@ -50,22 +50,7 @@ const getRoomTypeText = (roomType) => {
             return '알 수 없음';
     }
 };
-// 장바구니에 추가하는 함수
-const addToCart = async (userId, hotelId) => {
-    try {
-        const response = await axios.post(
-            `http://localhost:8080/user/indetails/addOnlyBasket`,
-            { customerID: userId, hotelId: hotelId },
-            { withCredentials: true }
-        );
-        if (response.status === 200) {
-            alert('장바구니에 추가되었습니다.');
-        }
-    } catch (error) {
-        console.error('장바구니 추가 실패:', error);
-        alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
-    }
-};
+
 
 const Details = () => {
     const [data, setData] = useState({});
@@ -98,6 +83,35 @@ const Details = () => {
         paddingTop: '15px',
         paddingBottom: '15px'
     };
+
+    // 장바구니에 추가하는 함수
+    const addToCart = async (userId, hotelId) => {
+        if (!userId) {
+            alert('로그인이 필요합니다. 로그인 후 다시 시도해 주세요.');
+            navigate('/login'); // 로그인 페이지로 리다이렉트
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                `http://localhost:8080/user/indetails/addOnlyBasket`,
+                { customerID: userId, hotelId: hotelId },
+                { withCredentials: true }
+            );
+            if (response.status === 200) {
+                alert('장바구니에 추가되었습니다.');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                alert('로그인이 필요합니다. 로그인 후 다시 시도해 주세요.');
+                navigate('/login');
+            } else {
+                console.error('장바구니 추가 실패:', error);
+                alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
+            }
+        }
+    };
+    
 
     // 별점 평균 계산 함수
     const averageStar = () => {
@@ -248,7 +262,7 @@ const Details = () => {
                                 <li className={'p-2'}>주소: {data.address}</li>
                                 <li className={'p-2'}>가격: {data.price}</li>
                                 <li className={'p-2'}>
-                                    <Button onClick={() => addToCart(userInfo.id, data.id)}>장바구니에 추가</Button>
+                                    <Button onClick={() => addToCart(userInfo?.id, data.id)}>장바구니에 추가</Button>
                                 </li>
                             </ul>
                         )}
