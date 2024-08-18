@@ -153,7 +153,7 @@ let ReplyList = () => {
                 {userInfo.role === 'role_customer' && (
                     <Button type={'button'} onClick={moveToWrite} className='me-2' style={btnStyle}>리뷰작성</Button>
                 )}
-                <Button variant='secondary' onClick={()=> navigate(-1)}  style={btnBackStyle}>뒤로가기</Button>
+                <Button type={'button'} onClick={moveToDetails} style={btnBackStyle}>뒤로가기</Button>
             </div>
             <PaginationComponent page={page} totalPages={totalPages} setPage={setPage}/>
         </Container>
