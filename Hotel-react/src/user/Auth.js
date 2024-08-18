@@ -38,7 +38,10 @@ let Auth = () => {
                 role: response.data.role,
                 nickname: response.data.nickname
             }
+            window.alert('환영합니다, '+userInfo.nickname+'님.');
             navigate('/', {state:{userInfo:userInfo}})
+        }else{
+            window.alert('존재하지 않는 회원입니다.');
         }
     }
 
