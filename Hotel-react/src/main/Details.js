@@ -153,6 +153,7 @@ const Details = () => {
                 const resp = await axios.get(`http://localhost:8080/reply/selectList/${id}`);
                 if (resp.status === 200) {
                     setReplyData({
+                        replyList: resp.data.replyList || [],
                         totalScore: resp.data.totalScore,
                         totalCount: resp.data.totalCount
                     });
@@ -164,7 +165,15 @@ const Details = () => {
         selectList();
     }, [id]);
 
-    // 페이지 이동 함수  !!!!!!!!은서 : state값 추가
+    // 랜덤 댓글 내용 가져오기
+    const randomReply = () => {
+        if (replyData.replyList && replyData.replyList.length > 0) {
+            const randomIndex = Math.floor(Math.random() * replyData.replyList.length);
+            return replyData.replyList[randomIndex].content;
+        }
+        return "등록된 리뷰가 없습니다.";
+    };
+
     const moveToPage = () => {
         navigate('/reply/replyList/' + id, {state: {userInfo}});
     };
@@ -246,7 +255,7 @@ const Details = () => {
                     </div>
                     <aside>
                         <div style={{marginTop: '20px', marginBottom: '20px'}}>
-                            <h3>최고의 경험이었습니다!!</h3>
+                            <h3>{randomReply()}</h3>
                             <p>평점: {averageStar()} </p>
                             <Button onClick={moveToPage} size="sm">호텔리뷰 더보기</Button>
                         </div>
