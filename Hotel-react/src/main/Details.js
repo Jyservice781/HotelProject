@@ -50,7 +50,22 @@ const getRoomTypeText = (roomType) => {
             return '알 수 없음';
     }
 };
-
+// 장바구니에 추가하는 함수
+const addToCart = async (userId, hotelId) => {
+    try {
+        const response = await axios.post(
+            `http://localhost:8080/user/indetails/addOnlyBasket`,
+            { customerID: userId, hotelId: hotelId },
+            { withCredentials: true }
+        );
+        if (response.status === 200) {
+            alert('장바구니에 추가되었습니다.');
+        }
+    } catch (error) {
+        console.error('장바구니 추가 실패:', error);
+        alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
+    }
+};
 
 const Details = () => {
     const [data, setData] = useState({});
@@ -111,7 +126,7 @@ const Details = () => {
             }
         }
     };
-    
+
 
     // 별점 평균 계산 함수
     const averageStar = () => {
@@ -241,6 +256,30 @@ const Details = () => {
         }
     };
 
+    let textStyle ={
+        font: '1.125rem bold arial'
+    }
+
+    const btnStyle = {
+        padding: '10px 15px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
+    let btnBackStyle ={
+        padding: '5px 10px',
+        backgroundColor: '#fff',
+        color: '#439798',
+        border: '1px solid #439798',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
     return (
         <>
             <Header userInfo={userInfo}/>
@@ -256,11 +295,11 @@ const Details = () => {
                         </div>
                         {data && (
                             <ul style={profileListStyle}>
-                                <li className={'p-2'}>호텔이름: {data.name}</li>
-                                <li className={'p-2'}>{data.shortContent}</li>
-                                <li className={'p-2'}>{modifyDate(data.startEntry)} ~ {modifyDate(data.endEntry)}</li>
-                                <li className={'p-2'}>주소: {data.address}</li>
-                                <li className={'p-2'}>가격: {data.price}</li>
+                                <li className={'p-2'}>호텔: <span style={textStyle}>{data.name}</span></li>
+                                <li className={'p-2'} style={textStyle}>{data.shortContent}</li>
+                                <li className={'p-2'} style={textStyle}>{modifyDate(data.startEntry)} ~ {modifyDate(data.endEntry)}</li>
+                                <li className={'p-2'}>주소: <span style={textStyle}>{data.address}</span></li>
+                                <li className={'p-2'}>가격: <span style={textStyle}>{data.price}</span></li>
                                 <li className={'p-2'}>
                                     <Button onClick={() => addToCart(userInfo?.id, data.id)}>장바구니에 추가</Button>
                                 </li>
@@ -271,21 +310,21 @@ const Details = () => {
                         <div style={{marginTop: '20px', marginBottom: '20px'}}>
                             <h3>{randomReply()}</h3>
                             <p>평점: {averageStar()} </p>
-                            <Button onClick={moveToPage} size="sm">호텔리뷰 더보기</Button>
+                            <Button onClick={moveToPage} size="sm" style={btnStyle}>호텔리뷰 더보기</Button>
                         </div>
                     </aside>
                     <article>
                         <ul style={listStyle}>
                             <li className={'d-flex justify-content-center align-items-center'}>
-                                <Button onClick={scrollToImages}>상세보기</Button>
-                                <Button onClick={scrollToOverview} className={'mx-4'}>개요</Button>
+                                <Button onClick={scrollToImages} style={btnStyle}>상세보기</Button>
+                                <Button onClick={scrollToOverview} className={'mx-4'} style={btnStyle}>개요</Button>
                             </li>
                         </ul>
                     </article>
                     <figure ref={imagesRef}>
-                        <Container className={'d-flex flex-column mb-3 justify-content-center'}>
+                        <Container className={'d-flex flex-column mb-3 justify-content-center align-items-center'}>
                             {images.map((filename, index) => (
-                                <Col xs={12} md={6} lg={4} key={index} className="mb-2">
+                                <Col xs={10} md={8} lg={7} key={index} className="mb-4">
                                     <Image
                                         src={`http://localhost:8080/hotel/uploads/${data.id}/${data.roomNumber}/${filename}`}
                                         alt={`호텔 이미지`}
@@ -297,25 +336,25 @@ const Details = () => {
                     </figure>
                     <article ref={overviewRef}>
                         <ul style={profileListStyle}>
-                            <li className={'p-2'}>{data.roomNumber}</li>
-                            <li className={'p-2'}>{getRoomMemberText(data.roomMember)}</li>
-                            <li className={'p-2'}>{getRoomTypeText(data.roomType)}</li>
-                            <li className={'p-2'}>{data.content}</li>
+                            <li className={'p-2'}>방호실: <span style={textStyle}>{data.roomNumber}</span> 호</li>
+                            <li className={'p-2'}>정인원: <span style={textStyle}>{getRoomMemberText(data.roomMember)}</span></li>
+                            <li className={'p-2'}>방타입: <span style={textStyle}>{getRoomTypeText(data.roomType)}</span></li>
+                            <li className={'p-2'}>추가설명: <span style={textStyle}>{data.content}</span></li>
                         </ul>
                     </article>
                     {isAdmin && (
                         <div className="mb-3">
-                            <Button onClick={onDelete}>삭제하기</Button>
+                            <Button onClick={onDelete} style={btnStyle}>삭제하기</Button>
                         </div>
                     )}
                     {data.sellerId === userInfo?.id && !isAdmin && (
-                        <div className="mb-3">
-                            <Button onClick={onUpdate}>수정하기</Button>
-                            <Button onClick={onDelete} className="ms-2">삭제하기</Button>
+                        <div className="mb-3 d-flex justify-content-end">
+                            <Button onClick={onUpdate} style={btnStyle}>수정하기</Button>
+                            <Button onClick={onDelete} className="ms-2" style={btnBackStyle}>삭제하기</Button>
                         </div>
                     )}
                     <div className="text-center">
-                        <Button onClick={goBack}>뒤로 가기</Button>
+                        <Button onClick={goBack} className={'mb-4'} style={btnBackStyle}>뒤로 가기</Button>
                     </div>
                 </section>
             </Container>
