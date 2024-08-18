@@ -72,6 +72,10 @@
         DELETE FROM hotel
         WHERE hotel.id = #{hotelId}
     </delete>
+    <delete id="delete" parameterType="int">
+        DELETE FROM hotel
+        WHERE hotel.id = #{hotelId}
+    </delete>
     <select id="hotelInBucket" parameterType="int" resultType="hotelDTO">
         SELECT * FROM hotel
         WHERE hotel.id in (SELECT hotelId FROM bucket

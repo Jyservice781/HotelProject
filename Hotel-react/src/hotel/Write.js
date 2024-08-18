@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button, Container, FormControl, Table, Image } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import Nav from "../component/Nav";
 
 const MAX_FILE_SIZE_MB = 10;
 
@@ -150,15 +149,7 @@ const Write = () => {
 
     return (
         <>
-            <Nav />
             <Container className={"mt-3"}>
-                <Button
-                    variant="secondary"
-                    onClick={() => navigate(-1)}
-                    className="mb-3"
-                >
-                    뒤로가기
-                </Button>
                 <form onSubmit={onSubmit}>
                     {error && <div className="alert alert-danger">{error}</div>}
                     <Table striped hover bordered>
