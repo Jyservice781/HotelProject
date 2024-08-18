@@ -37,7 +37,7 @@ const HotelCard = ({hotel, userInfo}) => {
                 <Card.Body>
                     <Card.Title>{hotel.name}</Card.Title>
                     <Card.Text>
-                        <p>설명:</p> {hotel.shortContent}<br/>
+                        <p>{hotel.shortContent}</p>
                         <p>평점: {average.toFixed(1)}</p>
                     </Card.Text>
                     <Link to={`/hotel/showOne/${hotel.id}`} state={{userInfo: userInfo}}>

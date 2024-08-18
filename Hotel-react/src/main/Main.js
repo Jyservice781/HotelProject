@@ -1,5 +1,5 @@
-import { Container, Pagination, Button } from "react-bootstrap";
-import { useEffect, useState, createContext, useRef } from "react";
+import { Container, Pagination } from "react-bootstrap";
+import { useEffect, useState, useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -11,7 +11,6 @@ import PopularHotel from "../component/PopularHotel";
 import Nav from "../component/Nav";
 import SearchForm from "../component/SearchForm";
 import './Main.css'; // Import the CSS file
-
 
 let Main = () => {
     const location = useLocation();
@@ -91,7 +90,9 @@ let Main = () => {
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        const initialSearchType = 'name';
+
+        // 초기 검색 조건 (여기서 searchType은 'name' 또는 'address' 등으로 바뀔 수 있음)
+        const initialSearchType = searchType;
         const initialKeyword = '';
         const initialMinPrice = '';
         const initialMaxPrice = '';
@@ -100,16 +101,16 @@ let Main = () => {
 
         // 현재 검색 조건이 초기값과 같은지 확인
         if (
-            searchType === initialSearchType &&
             keyword === initialKeyword &&
             minPrice === initialMinPrice &&
             maxPrice === initialMaxPrice &&
             startDate === initialStartDate &&
             endDate === initialEndDate
         ) {
-            // 초기값과 같다면 초기화 버튼 기능 수행
+            // 초기값과 같다면 초기화 동작 수행
             handleResetSearch();
         } else {
+            // 초기값과 다르다면 검색 실행
             setSearchQuery({
                 searchType,
                 keyword,
@@ -124,7 +125,7 @@ let Main = () => {
     };
 
     const handleResetSearch = () => {
-        setSearchType('name');
+        setSearchType('name'); // 초기화 시 기본적으로 'name'으로 설정 (필요에 따라 'address'로 변경 가능)
         setKeyword('');
         setMinPrice('');
         setMaxPrice('');
@@ -156,9 +157,7 @@ let Main = () => {
                     handleSearchSubmit={handleSearchSubmit}
                     moveToWrite={moveToWrite}
                 />
-                <Button variant="secondary" onClick={handleResetSearch} className="hidden-button mb-3">
-                    초기화
-                </Button>
+                {/* 초기화 버튼이 필요없어졌으므로 삭제 */}
                 <Container className={"mt-3"}>
                     {data.hotelList.length > 0 ? (
                         <div className="row">
@@ -184,7 +183,7 @@ let Main = () => {
                 <Banner />
                 <PopularHotel max={10} id={'popular'} ref={popularRef} />
             </Container>
-            <Footer/>
+            <Footer />
         </>
     );
 };
