@@ -58,7 +58,7 @@ let Header = ({ userInfo }) => {
                             <li className={'m-lg-3'}><Link to={`/user/myhotel/${userInfo.id}`}  style={btnStyle}>내 호텔 관리</Link></li>
                         )}
                         {userInfo.role === 'role_customer' && (
-                            <ul>
+                            <ul className={'flex ms-auto'} style={ulStyle}>
                                 <li className={'m-lg-3'}>
                                     <button onClick={handleShowModal} style={btnStyle}>
                                         마이페이지
