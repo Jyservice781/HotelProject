@@ -38,18 +38,25 @@ let BucketList = (props) => {
 
     console.log(buckets)
 
-    let bookHotel = async (hotelId) => {
+    const bookHotel = async (bucketId,hotelId) => {
+
         try {
-            await axios.put(`http://localhost:8080/user/book/${hotelId}`);
+            const response = await axios.post(
+                `http://localhost:8080/user/book`,
+                { id: bucketId, hotelId: hotelId },
+                { withCredentials: true }
+            );
+            if (response.status === 200) {
+                alert('예약되었습니다.');
+            }
             setBuckets(prevBuckets =>
                 prevBuckets.map(bucket =>
-
-                bucket.id === hotelId ? { ...bucket, booked: true } : bucket
-            )
+                    bucket.id === hotelId ? { ...bucket, booked: true } : bucket
+                )
             );
             navigate(0);
         } catch (error) {
-            setError('Failed to book hotel. Please try again later.');
+            setError('예약에 실패했습니다. 나중에 다시 시도해 주세요.');
         }
     };
 
@@ -94,7 +101,7 @@ let BucketList = (props) => {
                                     {!bucket.booked && (
                                         <Button
                                             variant="primary"
-                                            onClick={() => bookHotel(bucket.hotelId)}
+                                            onClick={() => bookHotel(bucket.id,bucket.hotelId)}
                                             className="ms-2"
                                         >
                                             예약

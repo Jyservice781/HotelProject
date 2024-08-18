@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import axios from "axios";
 
 const BasketCheckedByUser = (props) => {
     const { userid: paramUserId } = useParams();
@@ -29,11 +30,14 @@ const BasketCheckedByUser = (props) => {
 
     const handleCancel = async (reservationId) => {
         try {
-            const response = await fetch(`http://localhost:8080/user/basket/${reservationId}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) {
-                throw new Error('예약 취소에 실패했습니다.');
+            //reservationId (장바구니id)
+            const response = await axios.post(
+                `http://localhost:8080/user/cancelReservation/${reservationId}`,
+                { reservationId: reservationId },
+                { withCredentials: true }
+            );
+            if (response.status === 200) {
+                alert('예약이 취소되었습니다.');
             }
             // 성공적으로 취소한 후, 해당 예약을 목록에서 제거
             setReservations(reservations.filter(reservation => reservation.id !== reservationId));

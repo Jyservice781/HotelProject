@@ -14,7 +14,7 @@ const BasketByUser = (props) => {
                 method: 'DELETE'
             });
             if (!response.ok) {
-                throw new Error('예약 취소에 실패했습니다.');
+                throw new Error('장바구니 삭제에 실패했습니다.');
             }
             // 성공적으로 취소한 후, 해당 예약을 목록에서 제거
             setBaskets(baskets.filter(reservation => reservation.id !== basketId));
