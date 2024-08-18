@@ -1,4 +1,4 @@
-import { Container, Pagination } from "react-bootstrap";
+import { Container, Pagination, Button } from "react-bootstrap";
 import { useEffect, useState, useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
@@ -10,7 +10,7 @@ import Banner from "../component/Banner";
 import PopularHotel from "../component/PopularHotel";
 import Nav from "../component/Nav";
 import SearchForm from "../component/SearchForm";
-import './Main.css'; // Import the CSS file
+import './Main.css';
 
 let Main = () => {
     const location = useLocation();
@@ -91,7 +91,7 @@ let Main = () => {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
 
-        // 초기 검색 조건 (여기서 searchType은 'name' 또는 'address' 등으로 바뀔 수 있음)
+
         const initialSearchType = searchType;
         const initialKeyword = '';
         const initialMinPrice = '';
@@ -99,7 +99,7 @@ let Main = () => {
         const initialStartDate = '';
         const initialEndDate = '';
 
-        // 현재 검색 조건이 초기값과 같은지 확인
+
         if (
             keyword === initialKeyword &&
             minPrice === initialMinPrice &&
@@ -107,7 +107,7 @@ let Main = () => {
             startDate === initialStartDate &&
             endDate === initialEndDate
         ) {
-            // 초기값과 같다면 초기화 동작 수행
+
             handleResetSearch();
         } else {
             // 초기값과 다르다면 검색 실행
@@ -125,7 +125,7 @@ let Main = () => {
     };
 
     const handleResetSearch = () => {
-        setSearchType('name'); // 초기화 시 기본적으로 'name'으로 설정 (필요에 따라 'address'로 변경 가능)
+        setSearchType('name');
         setKeyword('');
         setMinPrice('');
         setMaxPrice('');
@@ -155,9 +155,12 @@ let Main = () => {
                     handleStartDateChange={handleStartDateChange}
                     handleEndDateChange={handleEndDateChange}
                     handleSearchSubmit={handleSearchSubmit}
-                    moveToWrite={moveToWrite}
                 />
-                {/* 초기화 버튼이 필요없어졌으므로 삭제 */}
+                {userInfo?.role === 'role_seller' && (
+                    <Button variant="primary" onClick={moveToWrite} className="mb-3">
+                        글 작성하기
+                    </Button>
+                )}
                 <Container className={"mt-3"}>
                     {data.hotelList.length > 0 ? (
                         <div className="row">
