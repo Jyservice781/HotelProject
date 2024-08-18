@@ -1,4 +1,4 @@
-import {Container, Table, FormControl, Button} from "react-bootstrap";
+import {Container, Table, FormControl, Button, Form, Col} from "react-bootstrap";
 import React, {useState} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
@@ -62,11 +62,11 @@ let Auth = () => {
 
     let loginStyle = {
         width: '50%',
-        height: '40%'
+        height: '50%'
     }
 
     const btnStyle = {
-        padding: '10px 15px',
+        padding: '6px 12px',
         backgroundColor: '#439798',
         color: 'white',
         border: '1px solid white',
@@ -75,42 +75,47 @@ let Auth = () => {
         textDecoration: 'none',
     }
 
+    let btnBackStyle = {
+        padding: '6px 12px',
+        backgroundColor: '#fff',
+        color: '#439798',
+        border: '1px solid #439798',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
+    let goBack = () => {
+        navigate('/')
+    }
+
+
     return (
        <div style={wrapStyle}>
            <Container style={loginStyle}>
-               <form onSubmit={onSubmit}>
-                   <Table striped hover bordered>
-                       <thead>
-                       <tr>
-                           <td colSpan={2}>로그인</td>
-                       </tr>
-                       </thead>
-                       <tbody>
-                       <tr>
-                           <td style={{fontSize:'15px', margin: '2px'}}>아이디</td>
-                           <td><FormControl type={'text'}
-                                            name={'username'}
-                                            value={inputs.username}
-                                            onChange={onChange}/>
-                           </td>
-                       </tr>
-                       <tr>
-                           <td style={{fontSize:'15px',margin: '2px'}}>비밀번호</td>
-                           <td><FormControl type={'password'}
-                                            name={'password'}
-                                            value={inputs.password}
-                                            onChange={onChange}/>
-                           </td>
-                       </tr>
-                       <tr>
-                           <td colSpan={2}>
-                               <Button type={'submit'} style={btnStyle}>로그인</Button>
-                               <Link to={`/register`} type={'button'} style={btnStyle}>회원가입</Link>
-                           </td>
-                       </tr>
-                       </tbody>
-                   </Table>
-               </form>
+               <Form onSubmit={onSubmit}>
+                       <Col className={'mt-3'}>
+                           <Form.Control
+                               type="text"
+                               placeholder="ID"
+                               name="username"
+                               value={inputs.username}
+                               onChange={onChange}
+                           />
+                       </Col>
+                       <Col className={'mt-3 mb-3'}>
+                           <Form.Control  type={'password'}
+                                          name={'password'}
+                                          placeholder="PASSWORD"
+                                          value={inputs.password}
+                                          onChange={onChange}/>
+                       </Col>
+                   <div className={'mt-3 d-flex'}>
+                       <Button type={'submit'} style={btnStyle}>로그인</Button>
+                       <Link to={`/register`} type={'button'} style={btnStyle}>회원가입</Link>
+                           <Button onClick={goBack} style={btnBackStyle} className={'ms-lg-auto d-flex'}>뒤로가기</Button>
+                   </div>
+               </Form>
            </Container>
        </div>
     )
