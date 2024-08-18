@@ -53,18 +53,14 @@ const Update = () => {
 
                 if (resp.status === 200) {
                     const data = resp.data;
-
-                    // hotelDTO에서 데이터 추출
                     const hotelDTO = data.hotelDTO || {};
 
-                    // 날짜 형식 변환 함수
                     const formatDate = (dateString) => {
                         if (!dateString) return '';
                         const date = new Date(dateString);
-                        return date.toISOString().split('T')[0]; // YYYY-MM-DD 형식
+                        return date.toISOString().split('T')[0];
                     };
 
-                    // inputs 상태 설정
                     setInputs({
                         name: hotelDTO.name || '',
                         content: hotelDTO.content || '',
@@ -91,7 +87,6 @@ const Update = () => {
 
     let onChange = (e) => {
         let { name, value } = e.target;
-        console.log(`Field: ${name}, Value: ${value}`);
         setInputs({
             ...inputs,
             [name]: value
@@ -197,7 +192,6 @@ const Update = () => {
         }
     };
 
-    // 페이지 상단으로 스크롤하기
     useEffect(() => {
         if (error) {
             window.scrollTo(0, 0);
@@ -205,13 +199,13 @@ const Update = () => {
     }, [error]);
 
     return (
-        <Container className={"mt-3"}>
+        <Container className="mt-3">
             <form onSubmit={onSubmit}>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <Table striped bordered hover>
                     <thead>
                     <tr>
-                        <td colSpan={2} className={"text-center"}>{id}번 글 수정하기</td>
+                        <td colSpan={2} className="text-center">{id}번 글 수정하기</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -219,8 +213,8 @@ const Update = () => {
                         <td>호텔 명</td>
                         <td>
                             <FormControl
-                                type={'text'}
-                                name={'name'}
+                                type="text"
+                                name="name"
                                 value={inputs.name}
                                 onChange={onChange}
                             />
@@ -229,20 +223,20 @@ const Update = () => {
                     <tr>
                         <td>설명</td>
                         <td>
-                                <textarea
-                                    name={'content'}
-                                    className={'form-control'}
-                                    value={inputs.content}
-                                    onChange={onChange}
-                                />
+                            <textarea
+                                name="content"
+                                className="form-control"
+                                value={inputs.content}
+                                onChange={onChange}
+                            />
                         </td>
                     </tr>
                     <tr>
                         <td>주소</td>
                         <td>
                             <FormControl
-                                type={'text'}
-                                name={'address'}
+                                type="text"
+                                name="address"
                                 value={inputs.address}
                                 onChange={onChange}
                             />
@@ -252,8 +246,8 @@ const Update = () => {
                         <td>시작 날짜</td>
                         <td>
                             <FormControl
-                                type={'date'}
-                                name={'startEntry'}
+                                type="date"
+                                name="startEntry"
                                 value={inputs.startEntry}
                                 onChange={onChange}
                             />
@@ -263,8 +257,8 @@ const Update = () => {
                         <td>종료 날짜</td>
                         <td>
                             <FormControl
-                                type={'date'}
-                                name={'endEntry'}
+                                type="date"
+                                name="endEntry"
                                 value={inputs.endEntry}
                                 onChange={onChange}
                             />
@@ -274,8 +268,8 @@ const Update = () => {
                         <td>방 번호</td>
                         <td>
                             <FormControl
-                                type={'number'}
-                                name={'roomNumber'}
+                                type="number"
+                                name="roomNumber"
                                 value={inputs.roomNumber}
                                 onChange={onChange}
                             />
@@ -319,8 +313,8 @@ const Update = () => {
                         <td>가격</td>
                         <td>
                             <FormControl
-                                type={'number'}
-                                name={'price'}
+                                type="number"
+                                name="price"
                                 value={inputs.price}
                                 onChange={onChange}
                             />
@@ -330,8 +324,8 @@ const Update = () => {
                         <td>썸네일 설명</td>
                         <td>
                             <FormControl
-                                type={'text'}
-                                name={'shortContent'}
+                                type="text"
+                                name="shortContent"
                                 value={inputs.shortContent}
                                 onChange={onChange}
                             />
@@ -365,10 +359,18 @@ const Update = () => {
                         </tr>
                     )}
                     <tr>
-                        <td colSpan={2} className={'text-center'}>
-                            <Button type={'submit'}>
-                                수정하기
-                            </Button>
+                        <td colSpan={2} className="text-center">
+                            <div className="d-flex justify-content-center">
+                                <Button type="submit" className="me-2">
+                                    수정하기
+                                </Button>
+                                <Button
+                                    variant="secondary"
+                                    onClick={() => navigate(-1)}
+                                >
+                                    뒤로가기
+                                </Button>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

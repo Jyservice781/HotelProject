@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { Button, Container, FormControl, Table, Image } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import Nav from "../component/Nav";
 
 const MAX_FILE_SIZE_MB = 10;
 
 const Write = () => {
     let location = useLocation();
     let userInfo = location.state.userInfo;
+    let navigate = useNavigate();
 
     let [inputs, setInputs] = useState({
         name: '',
@@ -25,8 +27,6 @@ const Write = () => {
     let [files, setFiles] = useState([]);
     let [imageUrls, setImageUrls] = useState([]);
     let [error, setError] = useState(null);
-
-    let navigate = useNavigate();
 
     let roomTypes = [
         { value: 1, label: '스탠다드' },
@@ -98,9 +98,7 @@ const Write = () => {
         setError(null);
 
         try {
-            const hotelDTO = {
-                ...inputs
-            };
+            const hotelDTO = { ...inputs };
 
             let resp = await axios.post('http://localhost:8080/hotel/write', hotelDTO, {
                 headers: {
@@ -144,7 +142,6 @@ const Write = () => {
         }
     };
 
-    // 페이지 상단으로 스크롤하기
     useEffect(() => {
         if (error) {
             window.scrollTo(0, 0);
@@ -152,165 +149,186 @@ const Write = () => {
     }, [error]);
 
     return (
-        <Container className={"mt-3"}>
-            <form onSubmit={onSubmit}>
-                {error && <div className="alert alert-danger">{error}</div>}
-                <Table striped hover bordered>
-                    <thead>
-                    <tr>
-                        <td colSpan={2} className={"text-center"}>글 작성하기</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>호텔 명</td>
-                        <td>
-                            <FormControl
-                                type={'text'}
-                                value={inputs.name}
-                                name={'name'}
-                                onChange={onChange} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>설명</td>
-                        <td>
-                            <textarea
-                                name={'content'}
-                                value={inputs.content}
-                                className={"form-control"}
-                                onChange={onChange} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>주소</td>
-                        <td>
-                            <FormControl
-                                type={'text'}
-                                value={inputs.address}
-                                name={'address'}
-                                onChange={onChange} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>시작 날짜</td>
-                        <td>
-                            <FormControl
-                                type={'date'}
-                                value={inputs.startEntry}
-                                name={'startEntry'}
-                                onChange={onChange} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>종료 날짜</td>
-                        <td>
-                            <FormControl
-                                type={'date'}
-                                value={inputs.endEntry}
-                                name={'endEntry'}
-                                onChange={onChange} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>방 번호</td>
-                        <td>
-                            <FormControl
-                                type={'number'}
-                                value={inputs.roomNumber}
-                                name={'roomNumber'}
-                                onChange={onChange} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>방 타입</td>
-                        <td>
-                            <FormControl
-                                as="select"
-                                value={inputs.roomType}
-                                name={'roomType'}
-                                onChange={onChange}>
-                                {roomTypes.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </FormControl>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>방 인원</td>
-                        <td>
-                            <FormControl
-                                as="select"
-                                value={inputs.roomMember}
-                                name={'roomMember'}
-                                onChange={onChange}>
-                                {roomMembers.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </FormControl>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>가격</td>
-                        <td>
-                            <FormControl
-                                type={'number'}
-                                value={inputs.price}
-                                name={'price'}
-                                onChange={onChange} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>썸네일 설명</td>
-                        <td>
-                            <FormControl
-                                type={'text'}
-                                value={inputs.shortContent}
-                                name={'shortContent'}
-                                onChange={onChange} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>파일 업로드</td>
-                        <td>
-                            <input
-                                type="file"
-                                name="file"
-                                multiple
-                                onChange={onFileChange} />
-                        </td>
-                    </tr>
-                    {imageUrls.length > 0 && (
+        <>
+            <Nav />
+            <Container className={"mt-3"}>
+                <Button
+                    variant="secondary"
+                    onClick={() => navigate(-1)}
+                    className="mb-3"
+                >
+                    뒤로가기
+                </Button>
+                <form onSubmit={onSubmit}>
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    <Table striped hover bordered>
+                        <thead>
                         <tr>
-                            <td colSpan={2}>
-                                <div className="d-flex flex-wrap">
-                                    {imageUrls.map((url, index) => (
-                                        <Image
-                                            key={index}
-                                            src={url}
-                                            thumbnail
-                                            style={{ marginRight: '10px', marginBottom: '10px' }}
-                                        />
+                            <td colSpan={2} className={"text-center"}>글 작성하기</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>호텔 명</td>
+                            <td>
+                                <FormControl
+                                    type={'text'}
+                                    value={inputs.name}
+                                    name={'name'}
+                                    onChange={onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>설명</td>
+                            <td>
+                                <textarea
+                                    name={'content'}
+                                    value={inputs.content}
+                                    className={"form-control"}
+                                    onChange={onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>주소</td>
+                            <td>
+                                <FormControl
+                                    type={'text'}
+                                    value={inputs.address}
+                                    name={'address'}
+                                    onChange={onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>시작 날짜</td>
+                            <td>
+                                <FormControl
+                                    type={'date'}
+                                    value={inputs.startEntry}
+                                    name={'startEntry'}
+                                    onChange={onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>종료 날짜</td>
+                            <td>
+                                <FormControl
+                                    type={'date'}
+                                    value={inputs.endEntry}
+                                    name={'endEntry'}
+                                    onChange={onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>방 번호</td>
+                            <td>
+                                <FormControl
+                                    type={'number'}
+                                    value={inputs.roomNumber}
+                                    name={'roomNumber'}
+                                    onChange={onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>방 타입</td>
+                            <td>
+                                <FormControl
+                                    as="select"
+                                    value={inputs.roomType}
+                                    name={'roomType'}
+                                    onChange={onChange}>
+                                    {roomTypes.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
                                     ))}
+                                </FormControl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>방 인원</td>
+                            <td>
+                                <FormControl
+                                    as="select"
+                                    value={inputs.roomMember}
+                                    name={'roomMember'}
+                                    onChange={onChange}>
+                                    {roomMembers.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </FormControl>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>가격</td>
+                            <td>
+                                <FormControl
+                                    type={'number'}
+                                    value={inputs.price}
+                                    name={'price'}
+                                    onChange={onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>썸네일 설명</td>
+                            <td>
+                                <FormControl
+                                    type={'text'}
+                                    value={inputs.shortContent}
+                                    name={'shortContent'}
+                                    onChange={onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>파일 업로드</td>
+                            <td>
+                                <input
+                                    type="file"
+                                    name="file"
+                                    multiple
+                                    onChange={onFileChange} />
+                            </td>
+                        </tr>
+                        {imageUrls.length > 0 && (
+                            <tr>
+                                <td colSpan={2}>
+                                    <div className="d-flex flex-wrap">
+                                        {imageUrls.map((url, index) => (
+                                            <Image
+                                                key={index}
+                                                src={url}
+                                                thumbnail
+                                                style={{ marginRight: '10px', marginBottom: '10px' }}
+                                            />
+                                        ))}
+                                    </div>
+                                </td>
+                            </tr>
+                        )}
+                        <tr>
+                            <td colSpan={2} className={'text-center'}>
+                                <div className="d-flex justify-content-center">
+                                    <Button
+                                        type={'submit'}
+                                        className="me-2"
+                                    >
+                                        작성하기
+                                    </Button>
+                                    <Button
+                                        variant="secondary"
+                                        onClick={() => navigate(-1)}
+                                    >
+                                        뒤로가기
+                                    </Button>
                                 </div>
                             </td>
                         </tr>
-                    )}
-                    <tr>
-                        <td colSpan={2} className={'text-center'}>
-                            <Button type={'submit'}>
-                                작성하기
-                            </Button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </Table>
-            </form>
-        </Container>
+                        </tbody>
+                    </Table>
+                </form>
+            </Container>
+        </>
     );
 };
 
