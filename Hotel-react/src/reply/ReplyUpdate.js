@@ -86,12 +86,34 @@ let ReplyUpdate = () => {
         margin: 0
     }
 
+    const btnStyle = {
+        padding: '5px 10px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+        marginRight: '10px'
+    }
+
+    let btnBackStyle ={
+        padding: '5px 10px',
+        backgroundColor: '#fff',
+        color: '#439798',
+        border: '1px solid #439798',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
+
     return (
         <>
         <Header userInfo={userInfo}/>
         <Container className={"mt-3"}>
             <form onSubmit={onSubmit}>
-                <ul>
+                <ul style={{listStyle: 'none'}}>
                     <div style={{fontWeight:'bold'}}>[리뷰 수정하기]</div>
                     <li>호텔은 만족하셨나요?</li>
                     <li style={noneBullet}>
@@ -111,8 +133,10 @@ let ReplyUpdate = () => {
                     <textarea name={'content'} className={'form-control'} value={inputs.content}
                               onChange={onChange}></textarea>
                     </li>
-                    <Button type={'submit'} style={{margin: '15px 0'}} className='me-2'>수정</Button>
-                    <Button type={'button'} onClick={moveToNext}>뒤로가기</Button>
+                    <li className={'mt-3'}>
+                        <Button type={'submit'} style={btnStyle}>수정</Button>
+                        <Button type={'button'} onClick={moveToNext} style={btnBackStyle}>뒤로가기</Button>
+                    </li>
                 </ul>
             </form>
         </Container>

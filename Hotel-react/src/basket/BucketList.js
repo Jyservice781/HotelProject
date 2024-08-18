@@ -67,6 +67,17 @@ let BucketList = (props) => {
         }
     };
 
+    const btnStyle = {
+        padding: '6px 12px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
+
     return (
         <Container className="mt-4">
             <h4 className="mb-4"> {user ? `${user.username}의 장바구니` : '장바구니'} </h4>
@@ -94,6 +105,7 @@ let BucketList = (props) => {
                                 <td>
                                     <Button
                                         variant="danger"
+                                        size="sm"
                                         onClick={() => deleteBucket(bucket.id)}
                                     >
                                         삭제
@@ -101,9 +113,9 @@ let BucketList = (props) => {
 
                                     {!bucket.booked && (
                                         <Button
-                                            variant="primary"
                                             onClick={() => bookHotel(bucket.id, bucket.hotelId)}
                                             className="ms-2"
+                                            style={btnStyle}
                                         >
                                             예약
                                         </Button>
@@ -121,17 +133,7 @@ let BucketList = (props) => {
             )}
             <Button
                 onClick={handelGoBack}
-                style={{
-                    position: 'fixed',
-                    bottom: '20px',
-                    right: '20px',
-                    padding: '10px 20px',
-                    backgroundColor: '#007bff',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                }}
+                style={btnStyle}
             >
                 뒤로가기</Button>
         </Container>

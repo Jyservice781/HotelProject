@@ -135,7 +135,7 @@ let ReplyList = () => {
         <>
         <Header userInfo={userInfo}/>
         <Container fluid="md" className={'w-75'}>
-            <div style={{fontWeight: 'bold'}}>
+            <div style={{fontWeight: 'bold'}} className={'mt-5'}>
                 [호텔명 : {data.replyList.length > 0 ? data.replyList[0].name : "호텔 이름 없음"}]
             </div>
             <div style={{fontWeight: 'bold'}}>

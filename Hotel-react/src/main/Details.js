@@ -139,6 +139,7 @@ const Details = () => {
         }
     };
 
+
     // 별점 평균 계산 함수
     const averageStar = () => {
         const average = replyData.totalCount > 0 ? replyData.totalScore / replyData.totalCount : 0; // Zero division protection
@@ -315,7 +316,7 @@ const Details = () => {
                                 {/* userInfo.role이 'role_customer'일 때만 버튼을 렌더링 */}
                                 {userInfo?.role === 'role_customer' && (
                                     <li className={'p-2'}>
-                                        <Button onClick={() => addToCart(userInfo?.id, data.id)}>장바구니에 추가</Button>
+                                        <Button onClick={() => addToCart(userInfo?.id, data.id)} style={btnStyle}>장바구니에 추가</Button>
                                     </li>
                                 )}
                             </ul>

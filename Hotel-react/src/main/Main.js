@@ -136,6 +136,16 @@ let Main = () => {
         moveToPage(1);
     };
 
+    const btnStyle = {
+        padding: '8px 10px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
     return (
         <>
             <Header userInfo={userInfo} />
@@ -157,7 +167,7 @@ let Main = () => {
                     handleSearchSubmit={handleSearchSubmit}
                 />
                 {userInfo?.role === 'role_seller' && (
-                    <Button variant="primary" onClick={moveToWrite} className="mb-3">
+                    <Button onClick={moveToWrite} className="mb-3" style={btnStyle}>
                         글 작성하기
                     </Button>
                 )}

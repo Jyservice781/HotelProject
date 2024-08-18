@@ -75,8 +75,27 @@ let ReplyWrite = () => {
     }
     let noneBullet = {
         listStyleType: 'none',
-        padding: 0,
-        margin: 0
+    }
+
+    const btnStyle = {
+        padding: '5px 10px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+        marginRight: '10px',
+    }
+
+    let btnBackStyle ={
+        padding: '5px 10px',
+        backgroundColor: '#fff',
+        color: '#439798',
+        border: '1px solid #439798',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
     }
 
     return (
@@ -84,7 +103,7 @@ let ReplyWrite = () => {
         <Header userInfo={userInfo}/>
         <Container classname={"mt-3"}>
             <form onSubmit={onSubmit}>
-                <ul style={{margin:'5px 0'}}>
+                <ul style={noneBullet}>
                     <div style={{fontWeight:'bold'}}>[리뷰 작성하기]</div>
                     <li>호텔은 만족하셨나요?</li>
                     <li style={noneBullet}>
@@ -107,8 +126,10 @@ let ReplyWrite = () => {
                     <textarea name={'content'} value={inputs.content} className={'form-control'}
                               onChange={onChange}/>
                     </li>
-                    <Button type={'submit'} style={{margin:'15px 0'}} className='me-2'>등록하기</Button>
-                    <Button type={'button'} onClick={moveToNext}>뒤로가기</Button>
+                   <li className={'mt-3'}>
+                       <Button type={'submit'} style={btnStyle}>등록하기</Button>
+                       <Button type={'button'} onClick={moveToNext} style={btnBackStyle}>뒤로가기</Button>
+                   </li>
                 </ul>
             </form>
         </Container>

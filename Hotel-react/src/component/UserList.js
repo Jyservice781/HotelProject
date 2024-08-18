@@ -46,6 +46,26 @@ let UserList = ({data, onUpdate, onDelete}) => {
         margin: 0
     }
 
+    const btnStyle = {
+        padding: '5px 10px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
+    let btnBackStyle ={
+        padding: '5px 10px',
+        backgroundColor: '#fff',
+        color: '#439798',
+        border: '1px solid #439798',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
     return (
         <Container className="py-3">
             <Row className="mb-6">
@@ -86,8 +106,8 @@ let UserList = ({data, onUpdate, onDelete}) => {
                             <div style={{width: '47%', display: 'inline-block'}}>
                                 {parseInt(data.customerId) === parseInt(userInfo.id) &&
                                     <span>
-                                    <Button onClick={() => onUpdate(data.id)} className="me-2">수정</Button>
-                                    <Button onClick={() => onDelete(data.id)}>삭제</Button>
+                                    <Button onClick={() => onUpdate(data.id)} style={btnStyle}>수정</Button>
+                                    <Button onClick={() => onDelete(data.id)} style={btnBackStyle} className={'m-lg-2'}>삭제</Button>
                                 </span>
                                 }
                             </div>

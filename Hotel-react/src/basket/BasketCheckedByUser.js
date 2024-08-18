@@ -53,6 +53,16 @@ const BasketCheckedByUser = (props) => {
     if (loading) return <p style={{ textAlign: 'center' }}>로딩 중...</p>;
     if (error) return <p style={{ textAlign: 'center', color: 'red' }}>오류: {error}</p>;
 
+    const btnStyle = {
+        padding: '10px 15px',
+        backgroundColor: '#439798',
+        color: 'white',
+        border: '1px solid white',
+        borderRadius: '5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+    }
+
     return (
         <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>예약 내역</h1>
@@ -98,17 +108,7 @@ const BasketCheckedByUser = (props) => {
             )}
             <Button
                 onClick={handelGoBack}
-                style={{
-                    position: 'fixed',
-                    bottom: '20px',
-                    right: '20px',
-                    padding: '10px 20px',
-                    backgroundColor: '#007bff',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                }}
+                style={btnStyle}
             >
                 뒤로가기
             </Button>
