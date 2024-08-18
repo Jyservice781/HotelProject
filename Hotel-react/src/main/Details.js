@@ -109,26 +109,35 @@ const Details = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/user/indetails/addOnlyBasket`,
+                'http://localhost:8080/user/indetails/addOnlyBasket',
                 { customerID: userId, hotelId: hotelId },
                 { withCredentials: true }
             );
+
             if (response.status === 200) {
                 alert('장바구니에 추가되었습니다.');
             }
         } catch (error) {
-            if (error.response && error.response.status === 401) {
-                alert('로그인이 필요합니다. 로그인 후 다시 시도해 주세요.');
-                navigate('/login');
-            } else if(error.response && error.response.status === 400){
-                alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
-            }else{
+            if (error.response) {
+                const { status } = error.response;
+
+                if (status === 409) {
+                    alert('장바구니에 이미 담긴 상품입니다.');
+                } else if (status === 401) {
+                    alert('로그인이 필요합니다. 로그인 후 다시 시도해 주세요.');
+                    navigate('/login');
+                } else if (status === 400) {
+                    alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
+                } else {
+                    console.error('장바구니 추가 실패:', error);
+                    alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
+                }
+            } else {
                 console.error('장바구니 추가 실패:', error);
                 alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
             }
         }
     };
-
 
     // 별점 평균 계산 함수
     const averageStar = () => {
@@ -302,9 +311,11 @@ const Details = () => {
                                 <li className={'p-2'} style={textStyle}>{modifyDate(data.startEntry)} ~ {modifyDate(data.endEntry)}</li>
                                 <li className={'p-2'}>주소: <span style={textStyle}>{data.address}</span></li>
                                 <li className={'p-2'}>가격: <span style={textStyle}>{data.price}</span></li>
-                                {userInfo.role === 'role_customer' && (
+
+                                {/* userInfo.role이 'role_customer'일 때만 버튼을 렌더링 */}
+                                {userInfo?.role === 'role_customer' && (
                                     <li className={'p-2'}>
-                                        <Button onClick={() => addToCart(userInfo.id, data.id)}>장바구니에 추가</Button>
+                                        <Button onClick={() => addToCart(userInfo?.id, data.id)}>장바구니에 추가</Button>
                                     </li>
                                 )}
                             </ul>
