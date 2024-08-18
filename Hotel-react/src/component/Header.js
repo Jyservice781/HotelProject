@@ -1,7 +1,10 @@
+import React, { useState } from 'react';
 import {Link} from "react-router-dom";
 import {Stack} from "react-bootstrap";
+import UserInfo from "../admin/UserInfo";
 
 let Header = ({ userInfo }) => {
+    const [showModal, setShowModal] = useState(false);
     let btnStyle = {
         listStyleType: 'none',
         display: 'flex',
@@ -14,7 +17,13 @@ let Header = ({ userInfo }) => {
         margin: '0px',
         marginBottom: '50px'
     }
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
 
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     return (
         <header className={'container-fluid'} style={headerStyle}>
@@ -27,7 +36,7 @@ let Header = ({ userInfo }) => {
                          }}/>
                 </Link>
                 <ul className={'flex ms-auto'} style={btnStyle}>
-                    <li> welcome, {userInfo ? userInfo.nickname : 'Guest'}. </li>
+                    <li> 환영합니다, {userInfo ? userInfo.nickname : 'Guest'}님. </li>
                     {/*사용자 역할에 따라 링크 표시 */}
                     {userInfo ? (
                         <>
@@ -39,13 +48,25 @@ let Header = ({ userInfo }) => {
                         )}
                         {userInfo.role === 'role_customer' && (
                             <ul>
-                                <li className={'m-lg-3'}><Link to={`/user/mypage/${userInfo.id}`}>마이페이지</Link></li>
+                                <li className={'m-lg-3'}>
+                                    <button onClick={handleShowModal} style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        color: 'blue',
+                                        textDecoration: 'underline',
+                                        cursor: 'pointer'
+                                    }}>
+                                        마이페이지
+                                    </button>
+                                </li>
                                 <li className={'m-lg-3'}><Link to={`/user/basket/${userInfo.id}`}>장바구니</Link></li>
-                                <li className={'m-lg-3'}><Link to={`/user/basketChecked/${userInfo.id}`}>예약내역</Link></li>
+                                <li className={'m-lg-3'}><Link to={`/user/basketChecked/${userInfo.id}`}>예약내역</Link>
+                                </li>
                             </ul>
                         )}
                             <li className={'m-lg-3'}><Link to={'/logout'}>로그아웃</Link></li>
                         </>
+
                     ) : (
                         <li>
                             <span className={'m-lg-3'}><Link to={'/login'}>로그인</Link></span>
@@ -54,6 +75,13 @@ let Header = ({ userInfo }) => {
                     )}
                 </ul>
             </Stack>
+            {userInfo && (
+                <UserInfo
+                    show={showModal}
+                    onHide={handleCloseModal}
+                    userId={userInfo.id}
+                />
+            )}
         </header>
     )
 }
