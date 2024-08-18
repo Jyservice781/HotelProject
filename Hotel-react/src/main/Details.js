@@ -120,7 +120,9 @@ const Details = () => {
             if (error.response && error.response.status === 401) {
                 alert('로그인이 필요합니다. 로그인 후 다시 시도해 주세요.');
                 navigate('/login');
-            } else {
+            } else if(error.response && error.response.status === 400){
+                alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
+            }else{
                 console.error('장바구니 추가 실패:', error);
                 alert('장바구니 추가에 실패했습니다. 나중에 다시 시도해 주세요.');
             }
@@ -300,9 +302,11 @@ const Details = () => {
                                 <li className={'p-2'} style={textStyle}>{modifyDate(data.startEntry)} ~ {modifyDate(data.endEntry)}</li>
                                 <li className={'p-2'}>주소: <span style={textStyle}>{data.address}</span></li>
                                 <li className={'p-2'}>가격: <span style={textStyle}>{data.price}</span></li>
-                                <li className={'p-2'}>
-                                    <Button onClick={() => addToCart(userInfo?.id, data.id)}>장바구니에 추가</Button>
-                                </li>
+                                {userInfo.role === 'role_customer' && (
+                                    <li className={'p-2'}>
+                                        <Button onClick={() => addToCart(userInfo.id, data.id)}>장바구니에 추가</Button>
+                                    </li>
+                                )}
                             </ul>
                         )}
                     </div>
