@@ -192,6 +192,12 @@ public class HotelController {
         return resultMap;
     }
 
+    @GetMapping("delete/{id}")
+    public ResponseEntity<Void> deleteHotel(@PathVariable int id) {
+        HOTEL_SERVICE.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("delete/{hotelId}")
     public ResponseEntity<String> delete(@PathVariable int hotelId) {
         if(HOTEL_SERVICE.deleteHotelById(hotelId)){
