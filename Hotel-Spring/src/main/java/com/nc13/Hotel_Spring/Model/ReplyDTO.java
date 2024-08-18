@@ -15,7 +15,6 @@ public class ReplyDTO {
     private Date modifyDate;
     private int score;
 
-    // !!!!! 은서 : username -> nickname 변경
     private String nickname;
     private int roomType;
     private Date startEntry;
