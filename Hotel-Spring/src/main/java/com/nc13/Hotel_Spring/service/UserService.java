@@ -20,8 +20,8 @@ public class UserService {
     public List<UserDTO> selectAll(){
         return SESSION.selectList(NAMESPACE+".selectAll");
     }
-    public List<UserDTO> selectAllByRole(String role){
-        return SESSION.selectList(NAMESPACE+".selectByRole",role);
+    public UserDTO selectOneByID(int userId){
+        return SESSION.selectOne(NAMESPACE+".selectByUserId",userId);
     }
 
     public int deleteUserById(int userId){
@@ -35,7 +35,10 @@ public class UserService {
         System.out.println("role 수정요청 들어옴 - "+"userId :"+userId+", role(String) :"+role);
         return SESSION.update(NAMESPACE + ".updateUserRole", params);
     }
-    public UserDTO selectByUsername(String username) {
+    public UserDTO selectByUsername(String username) { //회원가입 시 검증
         return SESSION.selectOne(NAMESPACE + ".selectByUsername", username);
+    }
+    public void register(UserDTO userDTO){
+        SESSION.insert(NAMESPACE + ".register",userDTO);
     }
 }

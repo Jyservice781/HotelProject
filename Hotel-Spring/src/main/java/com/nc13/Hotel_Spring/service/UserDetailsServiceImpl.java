@@ -27,4 +27,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("Encoded Password in DB: " + userDTO.getPassword());
         return userDTO;
     }
+
+    public void signup(String username,String password,String nickname,String role){
+        System.out.println("UserDetailServiceImpl- "+username+", "+password+", "+nickname+", "+role);
+        UserDTO newUser = new UserDTO();
+        newUser.setUsername(username);
+        newUser.setPassword(bCryptPasswordEncoder.encode(password));
+        newUser.setNickname(nickname);
+        newUser.setRole(role);
+        System.out.println("userDetailsServiceImpl: "+newUser.toString());
+        USER_SERVICE.register(newUser);
+    }
+
 }

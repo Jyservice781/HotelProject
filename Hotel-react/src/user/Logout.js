@@ -7,11 +7,13 @@ const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        let message = () => window.alert('로그아웃 합니다..');
         const logout = async () => {
+            message()
             try {
                 await axios.post('http://localhost:8080/user/logOutSuccess', {}, { withCredentials: true });
-                // 로그아웃 성공 후 로그인 페이지로 리디렉션
-                navigate('/login');
+                // 로그아웃 성공 후 main 페이지로 리디렉션
+                navigate('/');
             } catch (error) {
                 console.error("Logout error", error);
             }
@@ -20,7 +22,12 @@ const Logout = () => {
         logout();
     }, [navigate]);
 
-    return <div>로그아웃 중...</div>;
+
+
+
+    return (
+        <div>로그아웃 중...</div>
+    );
 };
 
 export default Logout;

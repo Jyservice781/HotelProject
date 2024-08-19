@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,14 +16,15 @@ public class HotelDTO {
     public String address;
     public Date startEntry;
     public Date endEntry;
-    public int roomNumber;
     public boolean booked;
     public double price;
     public int sellerId;
     public String content;
     public String shortContent;
+    public int roomNumber;
+    public int roomType;
     public int roomMember;
     public String nickname;
-    private String imagePath;
+    private List<String> imagePaths;
     private String thumbnail;
 }
